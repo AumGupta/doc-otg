@@ -2,8 +2,6 @@
 
 import 'package:docotg/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class ReportsPAgeDoc extends StatefulWidget {
   const ReportsPAgeDoc({super.key});
@@ -18,12 +16,12 @@ class _ReportsPAgeDocState extends State<ReportsPAgeDoc> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-       backgroundColor: Color(0xFFfafbff),
+       backgroundColor: const Color(0xFFfafbff),
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Color(0xFFfafbff),
+        backgroundColor: const Color(0xFFfafbff),
         actions: [
-        IconButton(onPressed: (){}, icon: Icon(Icons.menu,color: Colors.black,))
+        IconButton(onPressed: (){}, icon: const Icon(Icons.menu,color: Colors.black,))
       ]),
       body: Padding(  
         padding: EdgeInsets.all(width*0.05),
@@ -67,11 +65,11 @@ class _ReportsPAgeDocState extends State<ReportsPAgeDoc> {
                           height: height*0.062,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Color(0xff585be4)
+                            color: const Color(0xff585be4)
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
+                            children: const [
                             Text("Validate  ",style: TextStyle(fontSize: 18,color: Colors.white),),
                             Icon(Icons.arrow_forward_sharp,color: Colors.white,)
                           ]),
@@ -111,11 +109,11 @@ class _ReportsPAgeDocState extends State<ReportsPAgeDoc> {
                           height: height*0.062,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Color(0xff585be4)
+                            color: const Color(0xff585be4)
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
+                            children: const [
                             Text("Validate  ",style: TextStyle(fontSize: 18,color: Colors.white),),
                             Icon(Icons.arrow_forward_sharp,color: Colors.white,)
                           ]),
@@ -144,7 +142,7 @@ class _ReportsPAgeDocState extends State<ReportsPAgeDoc> {
                       
                       Text("COVID-19",style: TextStyle(color: darkgreenColor,fontSize: 17,fontWeight: FontWeight.bold),),
                       Icon(Icons.arrow_forward_sharp,color: darkgreenColor,),
-                      Text("Negetive",style: TextStyle(color: darkgreenColor,fontSize: 17,fontWeight: FontWeight.bold),),
+                      Text("Negative",style: TextStyle(color: darkgreenColor,fontSize: 17,fontWeight: FontWeight.bold),),
                       Icon(Icons.verified,color: darkgreenColor,),
                       
                     ],
@@ -157,7 +155,7 @@ class _ReportsPAgeDocState extends State<ReportsPAgeDoc> {
                           height: height*0.062,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Color(0xffbce6e2)
+                            color: const Color(0xffbce6e2)
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -190,7 +188,7 @@ class _ReportsPAgeDocState extends State<ReportsPAgeDoc> {
                       
                       Text("COVID-19",style: TextStyle(color: darkgreenColor,fontSize: 17,fontWeight: FontWeight.bold),),
                       Icon(Icons.arrow_forward_sharp,color: darkgreenColor,),
-                      Text("Negetive",style: TextStyle(color: darkgreenColor,fontSize: 17,fontWeight: FontWeight.bold),),
+                      Text("Negative",style: TextStyle(color: darkgreenColor,fontSize: 17,fontWeight: FontWeight.bold),),
                       Icon(Icons.verified,color: darkgreenColor,),
                       
                     ],
@@ -203,7 +201,7 @@ class _ReportsPAgeDocState extends State<ReportsPAgeDoc> {
                           height: height*0.062,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Color(0xffbce6e2)
+                            color: const Color(0xffbce6e2)
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -226,7 +224,7 @@ class _ReportsPAgeDocState extends State<ReportsPAgeDoc> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          color: Color(0xfff4c6d1)
+                          color: const Color(0xfff4c6d1)
                                             ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -235,7 +233,7 @@ class _ReportsPAgeDocState extends State<ReportsPAgeDoc> {
                     Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
+                    children: const [
                       
                       Text("COVID-19",style: TextStyle(color: Colors.red,fontSize: 17,fontWeight: FontWeight.bold),),
                       Icon(Icons.arrow_forward_sharp,color: Colors.red,),
@@ -252,11 +250,11 @@ class _ReportsPAgeDocState extends State<ReportsPAgeDoc> {
                           height: height*0.062,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Color(0xffe3b1cb)
+                            color: const Color(0xffe3b1cb)
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
+                            children: const [
                               Icon(Icons.calendar_month,color: Colors.red,),
 
                             Text("   02 July 2022, 09:42 pm ",style: TextStyle(fontSize: 18,color: Colors.red),),

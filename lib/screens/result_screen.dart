@@ -1,7 +1,5 @@
 import 'package:docotg/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 
 import '../model/user.dart';
@@ -21,10 +19,10 @@ class ResultScreen extends StatelessWidget {
         backgroundColor: bgcolor,
         leading: IconButton(onPressed: () {
           Navigator.of(context).pop();
-        },icon:Icon(Icons.arrow_back_ios_outlined,color: Colors.black,)),
+        },icon:const Icon(Icons.arrow_back_ios_outlined,color: Colors.black,)),
         actions: [
 
-        IconButton(onPressed: (){}, icon: Icon(Icons.menu,color: Colors.black,))
+        IconButton(onPressed: (){}, icon: const Icon(Icons.menu,color: Colors.black,))
       ]),
       backgroundColor: bgcolor,
       body: SafeArea(
@@ -40,7 +38,7 @@ class ResultScreen extends StatelessWidget {
               Container(
                 height: height*0.54,
                 width: double.infinity,
-                decoration: BoxDecoration(color: Color(0xFFecf2ff),
+                decoration: BoxDecoration(color: const Color(0xFFecf2ff),
                 border: Border.all(width: 1, color: Colors.transparent),
                           borderRadius: BorderRadius.circular(35),
                           
@@ -62,15 +60,15 @@ class ResultScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Name:",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 22,color: Colors.black),),
+                            const Text("Name:",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 22,color: Colors.black),),
                             SizedBox(height: height*0.025,),
-                            Text("Disease:",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 22,color: Colors.black),),
+                            const Text("Disease:",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 22,color: Colors.black),),
                             SizedBox(height: height*0.025,),
-                            Text("Result:",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 22,color: Colors.black),),
+                            const Text("Result:",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 22,color: Colors.black),),
                             SizedBox(height: height*0.025,),
-                            Text("Date:",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 22,color: Colors.black),),
+                            const Text("Date:",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 22,color: Colors.black),),
                             SizedBox(height: height*0.025,),
-                            Text("Time:",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 22,color: Colors.black),),
+                            const Text("Time:",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 22,color: Colors.black),),
                             SizedBox(height: height*0.025,),
                            
       
@@ -80,16 +78,16 @@ class ResultScreen extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(height: 2,),
-                            Text(user1.fname,style: TextStyle(fontWeight: FontWeight.w500,fontSize: 21,color: Colors.black),),
+                            const SizedBox(height: 2,),
+                            Text(user1.fname,style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 21,color: Colors.black),),
                             SizedBox(height: height*0.025,),
-                            Text("COVID-19",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 21,color: Colors.black),),
+                            const Text("COVID-19",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 21,color: Colors.black),),
                             SizedBox(height: height*0.025,),
-                            Text("Negative",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 21,color: Colors.black),),
+                            const Text("Negative",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 21,color: Colors.black),),
                             SizedBox(height: height*0.025,),
-                            Text("23-Jan-2022",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 21,color: Colors.black),),
+                            const Text("23-Jan-2022",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 21,color: Colors.black),),
                             SizedBox(height: height*0.025,),
-                            Text("09:30 p.m",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 21,color: Colors.black),),
+                            const Text("09:30 p.m",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 21,color: Colors.black),),
                             SizedBox(height: height*0.025,),
                             
       
@@ -116,7 +114,7 @@ class ResultScreen extends StatelessWidget {
                                             ),
                                           child: Center(child: Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                            children: [
+                                            children: const [
                                               Text("Download"),
                                               Icon(Icons.download)
                                             ],
@@ -127,11 +125,11 @@ class ResultScreen extends StatelessWidget {
                                             height: 50,
                                             decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
-                          color: Color(0xff585ce5)
+                          color: const Color(0xff585ce5)
                                             ),
                                           child: Center(child: Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                            children: [
+                                            children: const [
                                               Text("Share"),
                                               Icon(Icons.share)
                                             ],

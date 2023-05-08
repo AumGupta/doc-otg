@@ -1,7 +1,5 @@
 import 'package:docotg/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class ReportPage extends StatefulWidget {
   final snap;
@@ -21,7 +19,7 @@ class _ReportPageState extends State<ReportPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: blueColor,
-        title: Text("Report"),
+        title: const Text("Report"),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -30,7 +28,7 @@ class _ReportPageState extends State<ReportPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("X-Ray Image",style: TextStyle(fontSize: 24,fontWeight: FontWeight.w500),),
+              const Text("X-Ray Image",style: TextStyle(fontSize: 24,fontWeight: FontWeight.w500),),
               SizedBox(height: height*0.02,),
             Container(
               decoration: BoxDecoration(
@@ -44,7 +42,7 @@ class _ReportPageState extends State<ReportPage> {
                   width: double.infinity,
         ),
         SizedBox(height: height*0.02,),
-         Text("Symptoms",style: TextStyle(fontSize: 24,fontWeight: FontWeight.w500),),
+         const Text("Symptoms",style: TextStyle(fontSize: 24,fontWeight: FontWeight.w500),),
               SizedBox(height: height*0.02,),
               Expanded(
                 child: ListView.builder(
@@ -52,7 +50,7 @@ class _ReportPageState extends State<ReportPage> {
                       itemBuilder: (context, index) {
                         return Container(
                           height: 80,
-                          margin: EdgeInsets.all(10),
+                          margin: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                 color: Colors.blue,
                 borderRadius: BorderRadius.circular(10),
@@ -60,7 +58,7 @@ class _ReportPageState extends State<ReportPage> {
                           child: Center(
                 child: Text(
                   items[index],
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                   ),

@@ -10,7 +10,6 @@ pickImage(ImageSource source) async {
   if (_file != null) {
     return await _file.readAsBytes();
   } else {
-    print("NO image selected");
   }
 }
 
@@ -19,7 +18,7 @@ showSnackBar(String content, BuildContext context) {
       SnackBar(
           content: Text(
             content,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.black
             ),

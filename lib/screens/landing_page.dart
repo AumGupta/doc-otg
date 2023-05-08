@@ -21,7 +21,7 @@ class LandingPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
              Image.asset("assets/Logo.png",height: width*0.65,),
-             Text("Doctor On-The-Go",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
+             const Text("Doctor On-The-Go",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
              SizedBox(height: height*0.08,),
              CircleAvatar(
               radius: width*0.092,
@@ -29,7 +29,7 @@ class LandingPage extends StatelessWidget {
                child: CircleAvatar(
                 radius: width*0.09,
                 backgroundColor: Colors.white,
-                child: Icon(Icons.arrow_forward_ios),
+                child: const Icon(Icons.arrow_forward_ios),
                ),
              ),
              SizedBox(height: height*0.18,),

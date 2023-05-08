@@ -1,12 +1,9 @@
-import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:docotg/model/user.dart';
 import 'package:docotg/resources/storage_methods.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 
 
 class AuthMethods {
@@ -47,7 +44,6 @@ class AuthMethods {
       try{
         if(fname.isNotEmpty || email.isNotEmpty&&password.isNotEmpty){
           UserCredential userCredential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-          print(userCredential.user!.uid);
            String photoUrl = await StorageMethods()
             .uploadImageToStorage('profilePics', file, false);
 
@@ -104,7 +100,6 @@ class AuthMethods {
       try{
         if(fname.isNotEmpty || email.isNotEmpty&&password.isNotEmpty){
           UserCredential userCredential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-          print(userCredential.user!.uid);
            String photoUrl = await StorageMethods()
             .uploadImageToStorage('profilePics', file, false);
 

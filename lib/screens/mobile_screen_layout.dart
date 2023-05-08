@@ -1,21 +1,16 @@
-
-
-import 'package:docotg/screens/Diagnose_screen.dart';
+import 'package:docotg/screens/diagnose_screen.dart';
 import 'package:docotg/screens/doctor_homescreen.dart';
 import 'package:docotg/screens/homescreen.dart';
 import 'package:docotg/screens/profile.dart';
 import 'package:docotg/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
-
 import '../provider/user_provider.dart';
 
 class MobileScreenLayout extends StatefulWidget {
-  bool isDoctor;
-   MobileScreenLayout( this.isDoctor, {super.key});
+  final bool isDoctor;
+   const MobileScreenLayout( this.isDoctor, {super.key});
   
 
   @override
@@ -34,7 +29,6 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
       pageController = PageController();
     }
     addData() async {
-      print("updating user from mobilr sceeen");
     UserProvider _userProvider = Provider.of(context, listen: false);
     await _userProvider.refreshUser();
   // wan't working coz user ki value set hi ni ki
@@ -61,16 +55,16 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
   @override
   Widget build(BuildContext context) {
      var homeScreenItems = [
-      widget.isDoctor ?DocHomePage() :HomePage(),
-      DiagnoseScreen(),
-      ProfilePage()
+      widget.isDoctor ?const DocHomePage() :const HomePage(),
+      const DiagnoseScreen(),
+      const ProfilePage()
     ];
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: PageView(
-        children: homeScreenItems,
         controller: pageController,
-        onPageChanged: onPageChanged,),
+        onPageChanged: onPageChanged,
+        children: homeScreenItems,),
        bottomNavigationBar: CupertinoTabBar(
         height: height*0.078,
         backgroundColor: Colors.white,

@@ -1,13 +1,9 @@
-import 'dart:ffi';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:docotg/screens/Result_screen.dart';
+import 'package:docotg/screens/result_screen.dart';
 import 'package:docotg/screens/detailed_User_list.dart';
 import 'package:docotg/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 
 import '../model/user.dart';
@@ -55,7 +51,7 @@ class _HomePageState extends State<HomePage> {
               builder: (BuildContext bc) {
                 return Container(
                   height: height*0.3,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(30),topRight: Radius.circular(30))),
                   child: Center(
@@ -67,36 +63,36 @@ class _HomePageState extends State<HomePage> {
                         Row(
                           children: [
                             SizedBox(width: width*0.1,),
-                            Icon(Icons.settings),
+                            const Icon(Icons.settings),
                             SizedBox(width: width*0.07,),
-                            Text("Settings",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17),)
+                            const Text("Settings",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17),)
                           ],
                         ),
                         SizedBox(height: height*0.02,),
                         Row(
                           children: [
                             SizedBox(width: width*0.1,),
-                            Icon(Icons.info_rounded),
+                            const Icon(Icons.info_rounded),
                             SizedBox(width: width*0.07,),
-                            Text("About us",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17),)
+                            const Text("About us",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17),)
                           ],
                         ),
                         SizedBox(height: height*0.02,),
                         Row(
                           children: [
                             SizedBox(width: width*0.1,),
-                            Icon(Icons.support_agent),
+                            const Icon(Icons.support_agent),
                             SizedBox(width: width*0.07,),
-                            Text("Support",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17),)
+                            const Text("Support",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17),)
                           ],
                         ),
                         SizedBox(height: height*0.025,),
                         Row(
                           children: [
                             SizedBox(width: width*0.1,),
-                            Icon(Icons.share),
+                            const Icon(Icons.share),
                             SizedBox(width: width*0.07,),
-                            Text("Share",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17),)
+                            const Text("Share",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17),)
                           ],
                         )
                       ],
@@ -105,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                   );
               },
             );
-        }, icon: Icon(Icons.menu,color: Colors.black,))
+        }, icon: const Icon(Icons.menu,color: Colors.black,))
       ]),
       body: Padding(padding: EdgeInsets.all(width*0.08),
       child: SingleChildScrollView(
@@ -125,8 +121,8 @@ class _HomePageState extends State<HomePage> {
                             width: width*0.2,
                             height: width*0.2,
                             imageUrl: photourl,
-                            placeholder: (context, url) => CircularProgressIndicator(),
-                            errorWidget: (context, url, error) => Icon(Icons.error),
+                            placeholder: (context, url) => const CircularProgressIndicator(),
+                            errorWidget: (context, url, error) => const Icon(Icons.error),
                           )
 ,
       
@@ -135,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Hello $name!",style: TextStyle(fontSize: 25,fontWeight: FontWeight.w500),),
+                    Text("Hello $name!",style: const TextStyle(fontSize: 25,fontWeight: FontWeight.w500),),
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
@@ -145,9 +141,9 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           children: [
-                            Icon(Icons.location_on,size: 15,),
-                            Text("India"),
-                            SizedBox(width: 5,)
+                            const Icon(Icons.location_on,size: 15,),
+                            const Text("India"),
+                            const SizedBox(width: 5,)
                           ],
                         ),
                         
@@ -164,7 +160,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: height*0.03,),  
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => ResultScreen(),));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ResultScreen(),));
                 },
                 child: Container(
                   width: double.infinity,
@@ -183,24 +179,24 @@ class _HomePageState extends State<HomePage> {
                           children: [
                           Column(
                             children: [
-                              Text("Disease:",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17,color: Colors.white),),
+                              const Text("Disease:",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17,color: Colors.white),),
                               SizedBox(height: height*0.025,),
-                              Text("Result:",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17,color: Colors.white),),
+                              const Text("Result:",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17,color: Colors.white),),
                               SizedBox(height: height*0.025,),
-                              Text("Inputs:",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17,color: Colors.white),),
+                              const Text("Inputs:",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17,color: Colors.white),),
                     
                             ],
                           ),
                         
                           Column(
                             children: [
-                              SizedBox(height: 2,),
-                              Text("COVID-19",style: TextStyle(fontWeight: FontWeight.normal,fontSize: 15,color: Colors.white),),
+                              const SizedBox(height: 2,),
+                              const Text("COVID-19",style: TextStyle(fontWeight: FontWeight.normal,fontSize: 15,color: Colors.white),),
                               SizedBox(height: height*0.025,),
-                              Text("Negative",style: TextStyle(fontWeight: FontWeight.normal,fontSize: 15,color: Colors.white),),
+                              const Text("Negative",style: TextStyle(fontWeight: FontWeight.normal,fontSize: 15,color: Colors.white),),
                               SizedBox(height: height*0.025,),
-                              Text(". Text",style: TextStyle(fontWeight: FontWeight.normal,fontSize: 15,color: Colors.white),),
-                              Text(". Image",style: TextStyle(fontWeight: FontWeight.normal,fontSize: 15,color: Colors.white),),
+                              const Text(". Text",style: TextStyle(fontWeight: FontWeight.normal,fontSize: 15,color: Colors.white),),
+                              const Text(". Image",style: TextStyle(fontWeight: FontWeight.normal,fontSize: 15,color: Colors.white),),
                     
                             ],
                           ),
@@ -215,14 +211,14 @@ class _HomePageState extends State<HomePage> {
                           height: height*0.05,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            color: Color(0xFF696ce8)
+                            color: const Color(0xFF696ce8)
                             ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                            Icon(Icons.calendar_today_outlined,color: Colors.white,),
+                            const Icon(Icons.calendar_today_outlined,color: Colors.white,),
                             SizedBox(width: width*0.02,),
-                            Text("20 Jan 2023, 03:18 pm",style: TextStyle(color: Colors.white),)
+                            const Text("20 Jan 2023, 03:18 pm",style: TextStyle(color: Colors.white),)
                           ]),
                         )
                       ],
@@ -233,7 +229,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: height*0.05,),
               Text("Doctors",style: TextStyle(fontSize: height*0.044,fontWeight: FontWeight.bold),),
               SizedBox(height: height*0.03,),  
-              Container(
+              SizedBox(
                 height: height*0.35,
                 width: double.infinity,
                 child: StreamBuilder(

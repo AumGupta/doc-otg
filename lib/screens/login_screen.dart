@@ -22,7 +22,6 @@ class _LoginPageState extends State<LoginPage> {
   bool _isVisible = false;
   bool _isDoctor =  false;
   void navigateToSignUp() {
-    print("Navigate to Sign Up.");
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => const RegistrationPage()));
   }
@@ -67,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                 width: double.infinity,
                 
-                decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20)),color: secondaryColor,),
+                decoration: BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(20)),color: secondaryColor,),
                 child: Row(
                   children: [
                     GestureDetector(
@@ -80,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                         width: width*0.42,
                         height: 42,
                        
-                        decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),topLeft: Radius.circular(20),topRight: Radius.circular(20),bottomRight: Radius.circular(20)),
+                        decoration: BoxDecoration(borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20),topLeft: Radius.circular(20),topRight: Radius.circular(20),bottomRight: Radius.circular(20)),
                         color: _isDoctor?secondaryColor:blueColor
                         
                         ),
@@ -98,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                         height: 42,
                          decoration: BoxDecoration(
                           color: _isDoctor?lightgreenColor: secondaryColor,
-                          borderRadius: BorderRadius.only(bottomRight: Radius.circular(20),topRight: Radius.circular(20),topLeft: Radius.circular(20),bottomLeft: Radius.circular(20)),),
+                          borderRadius: const BorderRadius.only(bottomRight: Radius.circular(20),topRight: Radius.circular(20),topLeft: Radius.circular(20),bottomLeft: Radius.circular(20)),),
                           child: Center(child: Text("Doctor",style: TextStyle(color:!_isDoctor?Colors.black: darkgreenColor,fontSize: 18),)),
                         
                                          ),
@@ -116,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 child:  TextFormField(
                   controller: _emailController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.symmetric(vertical:15,horizontal: 20),
                     hintText: 'Email',
@@ -138,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                     child:  TextFormField(
                       controller: _passwordController,
                       obscureText: !_isVisible,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.symmetric(vertical:15,horizontal: 20),
                         hintText: 'Password',
@@ -204,13 +203,13 @@ class _LoginPageState extends State<LoginPage> {
                       height: 50,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
-                        color: Color(0xff585ce5)
+                        color: const Color(0xff585ce5)
                       ),
-                      child: _isLoading?Center(child: CircularProgressIndicator(),) :Row(
+                      child: _isLoading?const Center(child: CircularProgressIndicator(),) :Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                        Text("Login  ",style: TextStyle(fontSize: 18,color: Colors.white),),
-                        Icon(Icons.arrow_forward_sharp,color: Colors.white,)
+                        const Text("Login  ",style: TextStyle(fontSize: 18,color: Colors.white),),
+                        const Icon(Icons.arrow_forward_sharp,color: Colors.white,)
                       ]),
                       ),
               ),
@@ -241,8 +240,8 @@ class _LoginPageState extends State<LoginPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                         Icon(Icons.circle_notifications,color: Colors.black,),
-                      Text("  Login with google  ",style: TextStyle(fontSize: 18,color: Colors.black),),
+                         const Icon(Icons.circle_notifications,color: Colors.black,),
+                      const Text("  Login with google  ",style: TextStyle(fontSize: 18,color: Colors.black),),
                      
                     ]),
                     ),

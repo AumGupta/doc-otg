@@ -21,7 +21,6 @@ final reEnteredPasswordController = TextEditingController();
  bool _isVisible = false;
  bool _isDoctor =  false;
   void navigateToLogin() {
-    print("Navigate to Sign Up.");
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => const LoginPage()));
   }
@@ -53,7 +52,7 @@ final reEnteredPasswordController = TextEditingController();
               Container(
                 width: double.infinity,
                 
-                decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20)),color: secondaryColor,),
+                decoration: BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(20)),color: secondaryColor,),
                 child: Row(
                   children: [
                     GestureDetector(
@@ -66,7 +65,7 @@ final reEnteredPasswordController = TextEditingController();
                         width: width*0.42,
                         height: 42,
                        
-                        decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),topLeft: Radius.circular(20),topRight: Radius.circular(20),bottomRight: Radius.circular(20)),
+                        decoration: BoxDecoration(borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20),topLeft: Radius.circular(20),topRight: Radius.circular(20),bottomRight: Radius.circular(20)),
                         color: _isDoctor?secondaryColor:blueColor
                         
                         ),
@@ -84,7 +83,7 @@ final reEnteredPasswordController = TextEditingController();
                         height: 42,
                          decoration: BoxDecoration(
                           color: _isDoctor?lightgreenColor: secondaryColor,
-                          borderRadius: BorderRadius.only(bottomRight: Radius.circular(20),topRight: Radius.circular(20),topLeft: Radius.circular(20),bottomLeft: Radius.circular(20)),),
+                          borderRadius: const BorderRadius.only(bottomRight: Radius.circular(20),topRight: Radius.circular(20),topLeft: Radius.circular(20),bottomLeft: Radius.circular(20)),),
                           child: Center(child: Text("Doctor",style: TextStyle(color:!_isDoctor?Colors.black: darkgreenColor,fontSize: 18),)),
                         
                                          ),
@@ -102,7 +101,7 @@ final reEnteredPasswordController = TextEditingController();
                     ),
                     child:  TextFormField(
                       controller: emailController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.symmetric(vertical:15,horizontal: 20),
                         hintText: 'Email',
@@ -156,7 +155,7 @@ final reEnteredPasswordController = TextEditingController();
                   return 'Passwords do not match';
                       }
                       return null;},
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.symmetric(vertical:15,horizontal: 20),
                             hintText: 'Re enter Password',
@@ -223,13 +222,13 @@ final reEnteredPasswordController = TextEditingController();
                           height: 50,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
-                            color: Color(0xff585ce5)
+                            color: const Color(0xff585ce5)
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                            Text("Sign Up  ",style: TextStyle(fontSize: 18,color: Colors.white),),
-                            Icon(Icons.arrow_forward_sharp,color: Colors.white,)
+                            const Text("Sign Up  ",style: TextStyle(fontSize: 18,color: Colors.white),),
+                            const Icon(Icons.arrow_forward_sharp,color: Colors.white,)
                           ]),
                           ),
                    ),]),

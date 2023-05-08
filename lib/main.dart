@@ -1,15 +1,8 @@
 import 'package:docotg/provider/user_provider.dart';
-import 'package:docotg/screens/Diagnose_screen.dart';
 import 'package:docotg/screens/SpeechScreen.dart';
-import 'package:docotg/screens/doctor_homescreen.dart';
-import 'package:docotg/screens/form.dart';
 import 'package:docotg/screens/homescreen.dart';
-import 'package:docotg/screens/landing_page.dart';
 import 'package:docotg/screens/login_screen.dart';
 import 'package:docotg/screens/mobile_screen_layout.dart';
-import 'package:docotg/screens/registration.dart';
-import 'package:docotg/screens/splashscreen.dart';
-import 'package:docotg/utils/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -51,14 +44,14 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           fontFamily: 'Montserrat'
         ),
-        home: SpeechScreen(),
+        home: const SpeechScreen(),
       ),
     );
   }
 }
 
-class logicBuilder extends StatelessWidget {
-  const logicBuilder({
+class LogicBuilder extends StatelessWidget {
+  const LogicBuilder({
     Key? key,
   }) : super(key: key);
 
@@ -88,7 +81,7 @@ class logicBuilder extends StatelessWidget {
             ),
           );
         }
-        return LoginPage();
+        return const LoginPage();
       },
     );
   }
@@ -120,7 +113,7 @@ return firebaseApp;
 future: _initializeFirebase(),
 builder: (context, snapshot) {
 if (snapshot.connectionState == ConnectionState.done) {
-return HomePage();
+return const HomePage();
 }
 return const Center(
 child: CircularProgressIndicator (),
