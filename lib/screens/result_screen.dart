@@ -16,7 +16,7 @@ class ResultScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: bgcolor,
+        backgroundColor: screenBgColor,
         leading: IconButton(onPressed: () {
           Navigator.of(context).pop();
         },icon:const Icon(Icons.arrow_back_ios_outlined,color: Colors.black,)),
@@ -24,7 +24,7 @@ class ResultScreen extends StatelessWidget {
 
         IconButton(onPressed: (){}, icon: const Icon(Icons.menu,color: Colors.black,))
       ]),
-      backgroundColor: bgcolor,
+      backgroundColor: screenBgColor,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(width*0.08),
@@ -33,7 +33,7 @@ class ResultScreen extends StatelessWidget {
             children: [
               Text("Result",style: TextStyle(fontSize: height*0.044,fontWeight: FontWeight.w500),),
                   SizedBox(height: height*0.015,),
-              Text("Post analysis Report",style: TextStyle(color: secondaryTextcolor,fontSize: 15),), 
+              Text("Post analysis Report",style: TextStyle(color: secondaryTextColor,fontSize: 15),),
               SizedBox(height: height*0.03,),
               Container(
                 height: height*0.54,
@@ -49,8 +49,8 @@ class ResultScreen extends StatelessWidget {
                     children: [
                     CircleAvatar(
                       radius: width*0.14,
-                      backgroundColor: lightgreenColor,
-                      child: Icon(Icons.verified,color: darkgreenColor,size: width*0.14,),),
+                      backgroundColor: lightGreenColor,
+                      child: Icon(Icons.verified,color: greenColor,size: width*0.14,),),
                       SizedBox(height: height*0.025,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,

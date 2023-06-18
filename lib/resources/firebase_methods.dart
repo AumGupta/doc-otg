@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -6,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import '../model/post.dart';
 import '../model/user.dart';
@@ -21,7 +23,7 @@ class FireStoreMethods {
     String uid,
     String name,
     String profImage,
-    
+    String audio,
     BuildContext context,
     String otherSymptom,
   ) async {
@@ -31,6 +33,7 @@ class FireStoreMethods {
     try {
       String photoUrl = await StorageMethods()
           .uploadImageToStorage('posts', file, true,);
+      String audioURL = await uploadAudioFile(audio);
       String postId = const Uuid().v1();
       Post post = Post(
           description: description,
@@ -40,7 +43,8 @@ class FireStoreMethods {
           datePublished: DateTime.now(),
           postUrl: photoUrl,
           profImage: profImage,
-          otherSymptom: otherSymptom??""
+          audio: audioURL,
+          otherSymptom: otherSymptom
           );
       _firestore.collection("posts").doc(postId).set(post.toJson());
       await _firestore.collection("users").doc(user1.uid).collection("posts").doc(postId).set(post.toJson());
@@ -49,6 +53,16 @@ class FireStoreMethods {
       res = e.toString();
     }
     return res;
+  }
+
+  Future<String> uploadAudioFile(String filePath) async {
+    final FirebaseStorage storage = FirebaseStorage.instance;
+    final String fileName = filePath.split('/').last;
+    final Reference ref = storage.ref().child('audios/$fileName');
+    final UploadTask uploadTask = ref.putFile(File(filePath));
+    final TaskSnapshot snapshot = await uploadTask;
+    final String downloadUrl = await snapshot.ref.getDownloadURL();
+    return downloadUrl;
   }
 
   Future<String> updateDoctor(

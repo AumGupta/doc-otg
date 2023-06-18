@@ -32,14 +32,14 @@ class _ReportsPAgeDocState extends State<ReportsPAgeDoc> {
              children: [
               Text("Reports",style: TextStyle(fontSize: height*0.049,fontWeight: FontWeight.bold),),
               SizedBox(height: height*0.02,), 
-              Text("Pending reports",style: TextStyle(color: secondaryTextcolor,fontSize: 16),),
+              Text("Pending reports",style: TextStyle(color: secondaryTextColor,fontSize: 16),),
               SizedBox(height: height*0.05,),
               Container(
                 height: height*0.16,
                 width: double.infinity,
                 decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          color: secondaryColor
+                          color: blueTint
                                             ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -50,10 +50,10 @@ class _ReportsPAgeDocState extends State<ReportsPAgeDoc> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       
-                      Text("COVID-19",style: TextStyle(color: blueColor,fontSize: 17,fontWeight: FontWeight.bold),),
-                      Icon(Icons.arrow_forward_sharp,color: blueColor,),
-                      Text("Pending",style: TextStyle(color: blueColor,fontSize: 17,fontWeight: FontWeight.bold),),
-                      Icon(Icons.timer_sharp,color: blueColor,),
+                      Text("COVID-19",style: TextStyle(color: primaryColor,fontSize: 17,fontWeight: FontWeight.bold),),
+                      Icon(Icons.arrow_forward_sharp,color: primaryColor,),
+                      Text("Pending",style: TextStyle(color: primaryColor,fontSize: 17,fontWeight: FontWeight.bold),),
+                      Icon(Icons.timer_sharp,color: primaryColor,),
                       
                     ],
                 ),
@@ -83,7 +83,7 @@ class _ReportsPAgeDocState extends State<ReportsPAgeDoc> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          color: secondaryColor
+                          color: blueTint
                                             ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -94,10 +94,10 @@ class _ReportsPAgeDocState extends State<ReportsPAgeDoc> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       
-                      Text("COVID-19",style: TextStyle(color: blueColor,fontSize: 17,fontWeight: FontWeight.bold),),
-                      Icon(Icons.arrow_forward_sharp,color: blueColor,),
-                      Text("Pending",style: TextStyle(color: blueColor,fontSize: 17,fontWeight: FontWeight.bold),),
-                      Icon(Icons.timer_sharp,color: blueColor,),
+                      Text("COVID-19",style: TextStyle(color: primaryColor,fontSize: 17,fontWeight: FontWeight.bold),),
+                      Icon(Icons.arrow_forward_sharp,color: primaryColor,),
+                      Text("Pending",style: TextStyle(color: primaryColor,fontSize: 17,fontWeight: FontWeight.bold),),
+                      Icon(Icons.timer_sharp,color: primaryColor,),
                       
                     ],
                 ),
@@ -122,14 +122,14 @@ class _ReportsPAgeDocState extends State<ReportsPAgeDoc> {
                 ),
               ),
               SizedBox(height: height*0.02,),
-              Text("Validated reports",style: TextStyle(color: secondaryTextcolor,fontSize: 16),),
+              Text("Validated reports",style: TextStyle(color: secondaryTextColor,fontSize: 16),),
               SizedBox(height: height*0.03,),
                Container(
                 height: height*0.16,
                 width: double.infinity,
                 decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          color: lightgreenColor
+                          color: lightGreenColor
                                             ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -140,10 +140,10 @@ class _ReportsPAgeDocState extends State<ReportsPAgeDoc> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       
-                      Text("COVID-19",style: TextStyle(color: darkgreenColor,fontSize: 17,fontWeight: FontWeight.bold),),
-                      Icon(Icons.arrow_forward_sharp,color: darkgreenColor,),
-                      Text("Negative",style: TextStyle(color: darkgreenColor,fontSize: 17,fontWeight: FontWeight.bold),),
-                      Icon(Icons.verified,color: darkgreenColor,),
+                      Text("COVID-19",style: TextStyle(color: greenColor,fontSize: 17,fontWeight: FontWeight.bold),),
+                      Icon(Icons.arrow_forward_sharp,color: greenColor,),
+                      Text("Negative",style: TextStyle(color: greenColor,fontSize: 17,fontWeight: FontWeight.bold),),
+                      Icon(Icons.verified,color: greenColor,),
                       
                     ],
                 ),
@@ -160,9 +160,9 @@ class _ReportsPAgeDocState extends State<ReportsPAgeDoc> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.calendar_month,color: darkgreenColor,),
+                              Icon(Icons.calendar_month,color: greenColor,),
 
-                            Text("   02 July 2022, 09:42 pm ",style: TextStyle(fontSize: 18,color: darkgreenColor),),
+                            Text("   02 July 2022, 09:42 pm ",style: TextStyle(fontSize: 18,color: greenColor),),
                             
                           ]),
                           ),
@@ -175,7 +175,7 @@ class _ReportsPAgeDocState extends State<ReportsPAgeDoc> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          color: lightgreenColor
+                          color: lightGreenColor
                                             ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -186,10 +186,10 @@ class _ReportsPAgeDocState extends State<ReportsPAgeDoc> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       
-                      Text("COVID-19",style: TextStyle(color: darkgreenColor,fontSize: 17,fontWeight: FontWeight.bold),),
-                      Icon(Icons.arrow_forward_sharp,color: darkgreenColor,),
-                      Text("Negative",style: TextStyle(color: darkgreenColor,fontSize: 17,fontWeight: FontWeight.bold),),
-                      Icon(Icons.verified,color: darkgreenColor,),
+                      Text("COVID-19",style: TextStyle(color: greenColor,fontSize: 17,fontWeight: FontWeight.bold),),
+                      Icon(Icons.arrow_forward_sharp,color: greenColor,),
+                      Text("Negative",style: TextStyle(color: greenColor,fontSize: 17,fontWeight: FontWeight.bold),),
+                      Icon(Icons.verified,color: greenColor,),
                       
                     ],
                 ),
@@ -206,9 +206,9 @@ class _ReportsPAgeDocState extends State<ReportsPAgeDoc> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.calendar_month,color: darkgreenColor,),
+                              Icon(Icons.calendar_month,color: greenColor,),
 
-                            Text("   24 june 2022, 07:42 pm ",style: TextStyle(fontSize: 18,color: darkgreenColor),),
+                            Text("   24 june 2022, 07:42 pm ",style: TextStyle(fontSize: 18,color: greenColor),),
                             
                           ]),
                           ),

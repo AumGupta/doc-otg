@@ -121,8 +121,8 @@ class _UserDetailedPageState extends State<UserDetailedPage> {
                         
                           child: CircleAvatar(
                             radius: width*0.06,
-                            backgroundColor: lightgreenColor,
-                            child: Icon(Icons.remove,color: darkgreenColor,),
+                            backgroundColor: lightGreenColor,
+                            child: Icon(Icons.remove,color: greenColor,),
                           ),
                         ),
                         const SizedBox(width: 15,),
@@ -140,8 +140,8 @@ class _UserDetailedPageState extends State<UserDetailedPage> {
                          
                            child: CircleAvatar(
                             radius: width*0.06,
-                            backgroundColor: lightgreenColor,
-                            child: Icon(Icons.add,color: darkgreenColor,),
+                            backgroundColor: lightGreenColor,
+                            child: Icon(Icons.add,color: greenColor,),
                                                ),
                          ),
                       ],
@@ -209,14 +209,14 @@ class _UserDetailedPageState extends State<UserDetailedPage> {
                         SizedBox(height: height*0.05,),
                         Center(child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                minimumSize: const Size(200, 40), backgroundColor: lightgreenColor,
+                                minimumSize: const Size(200, 40), backgroundColor: lightGreenColor,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12)),
                               ),
                               onPressed: () async {
                                 SelectDoc();
                               },
-                              child:  Text("Select Doctor",style: TextStyle(color: darkgreenColor,fontSize: 18,fontWeight: FontWeight.bold))))
+                              child:  Text("Select Doctor",style: TextStyle(color: greenColor,fontSize: 18,fontWeight: FontWeight.bold))))
                       
         
         

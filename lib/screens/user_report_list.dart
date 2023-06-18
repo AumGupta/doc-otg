@@ -18,7 +18,7 @@ class _UserReportListPageState extends State<UserReportListPage> {
     var width = MediaQuery.of(context).size.width;
     String uid = widget.snap['uid'];
     return Scaffold(
-      backgroundColor: whiteColor,
+      backgroundColor: screenBgColor,
       body: SafeArea(
         child: Padding(
           padding:  EdgeInsets.all(width*0.07),
@@ -51,15 +51,15 @@ class _UserReportListPageState extends State<UserReportListPage> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          color: lightgreenColor
+                          color: lightGreenColor
                                           ),
                 child: Center(child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.bug_report,color: darkgreenColor,),
+                    Icon(Icons.bug_report,color: greenColor,),
                     SizedBox(width: width*0.01,),
-                    Text("No reports to see",style: TextStyle(color: darkgreenColor),)
+                    Text("No reports to see",style: TextStyle(color: greenColor),)
                   ],
                 )));
                       }

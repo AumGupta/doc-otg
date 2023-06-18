@@ -65,27 +65,40 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         controller: pageController,
         onPageChanged: onPageChanged,
         children: homeScreenItems,),
-       bottomNavigationBar: CupertinoTabBar(
-        height: height*0.078,
-        backgroundColor: Colors.white,
-        items: [
-          BottomNavigationBarItem(
-                icon: Icon(Icons.home, color: _page == 0? blueColor : Colors.grey,),
-              label: '',
-              backgroundColor: Colors.grey,
-            ),
+       bottomNavigationBar: Container(
+         decoration: const BoxDecoration(
+           boxShadow: [BoxShadow(color: Color(0x90585be4), blurRadius: 20),],
+         ),
+         child: CupertinoTabBar(
+          height: height*0.088,
+          backgroundColor: Colors.white,
+          iconSize: 40,
+          items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.shield, color: _page == 1? blueColor : Colors.grey,),
-              label: '',
-              backgroundColor: Colors.grey,
-            ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person, color: _page == 2? blueColor : Colors.grey,),
-              label: '',
-              backgroundColor: Colors.grey,
-            ),
-        ],
-        onTap: navigationTapped,
+                  icon: Icon(Icons.home_filled,
+                    color: _page == 0? primaryColor : Colors.grey,
+                    shadows: [Shadow(color: primaryColor,
+                        blurRadius: _page == 0? 15 : 0)],),
+                label: '',
+                backgroundColor: Colors.grey,
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.shield_rounded, color: _page == 1? primaryColor : Colors.grey,
+                  shadows: [Shadow(color: primaryColor,
+                      blurRadius: _page == 1? 15 : 0)],),
+                label: '',
+                backgroundColor: Colors.grey,
+              ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.person_rounded, color: _page == 2? primaryColor : Colors.grey,
+                  shadows: [Shadow(color: primaryColor,
+                      blurRadius: _page == 2? 15 : 0)],),
+                label: '',
+                backgroundColor: Colors.grey,
+              ),
+          ],
+          onTap: navigationTapped,
+         ),
        ),
        
     );

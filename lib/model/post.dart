@@ -6,12 +6,10 @@ class Post {
   final String name; // Name of the user that made the post
   final String postId; // Unique post ID
   final datePublished; // Date the post was published
-//TODO: Add timeline ID
   final String postUrl; //
   final String profImage; //
   String? otherSymptom;
-
-  // TODO: Add A Challenge ID
+  String? audio;
 
    Post(
       {required this.description,
@@ -21,6 +19,7 @@ class Post {
       required this.datePublished,
       required this.postUrl,
       required this.profImage,
+      required this.audio,
       required this.otherSymptom
       });
 
@@ -30,13 +29,10 @@ class Post {
         'name': name,
         'postId': postId,
         'datePublished': datePublished,
-        //List of UID's of different people that follow the user
         'postUrl': postUrl,
-        //List of the challenges the user has participated in
         'profImage': profImage,
+        'audio': audio,
         'otherSymptom' : otherSymptom
-        //A List of other users' UIDs that this user follows
-
       };
 
   static Post fromSnap(DocumentSnapshot snap) {
@@ -51,6 +47,7 @@ class Post {
         datePublished: snapshot['datePublished'],
         postUrl: snapshot['postUrl'],
         profImage: snapshot['following'],
+        audio: snapshot['audio'],
         otherSymptom: snapshot['otherSymptom']
     );
   }

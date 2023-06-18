@@ -18,7 +18,7 @@ class _ReportPageState extends State<ReportPage> {
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: blueColor,
+        backgroundColor: primaryColor,
         title: const Text("Report"),
         centerTitle: true,
       ),

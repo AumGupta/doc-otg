@@ -146,7 +146,7 @@ class AuthMethods {
     required String email,
     required String password,
   }) async {
-    String result = "Some error occoured";
+    String result = "Some Error Occoured!";
     try {
       if (email.isNotEmpty || password.isNotEmpty) {
         //log in the user
@@ -154,11 +154,14 @@ class AuthMethods {
             email: email, password: password);
         result = "success";
       } else {
-        result = "Please fill up all fields.";
+        result = "Please fill up all fields!";
       }
     } on FirebaseAuthException catch (e) {
-      if (e.code == "invalid-email" || e.code == "wrong-password") {
-        result = "You have entered an invalid email/password";
+      if (e.code == "invalid-email") {
+        result = "You have entered an invalid email";
+      } else if (e.code == "wrong-password") {
+        result =
+        "Please enter correct password";
       } else if (e.code == "user-disabled") {
         result =
             "This account has been disabled. Kindly contact support for more information.";

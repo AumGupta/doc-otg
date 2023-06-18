@@ -62,7 +62,7 @@ class _DocHomePageState extends State<DocHomePage> {
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: lightgreenColor
+                          color: lightGreenColor
                                             ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -83,7 +83,7 @@ class _DocHomePageState extends State<DocHomePage> {
               ],
             ),
              SizedBox(height: height*0.015,),
-             Text("Welcome back to DOC-OTG",style: TextStyle(color: secondaryTextcolor,fontSize: 15),),
+             Text("Welcome back to DOC-OTG",style: TextStyle(color: secondaryTextColor,fontSize: 15),),
               SizedBox(height: height*0.05,),
               Text("Patient Report",style: TextStyle(fontSize: height*0.044,fontWeight: FontWeight.w500),),
               SizedBox(height: height*0.03,),  
@@ -136,7 +136,7 @@ class _DocHomePageState extends State<DocHomePage> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          color: lightgreenColor
+                          color: lightGreenColor
                                             ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -147,10 +147,10 @@ class _DocHomePageState extends State<DocHomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       
-                      Text("COVID-19",style: TextStyle(color: darkgreenColor,fontSize: 17,fontWeight: FontWeight.bold),),
-                      Icon(Icons.arrow_forward_sharp,color: darkgreenColor,),
-                      Text("Negetive",style: TextStyle(color: darkgreenColor,fontSize: 17,fontWeight: FontWeight.bold),),
-                      Icon(Icons.verified,color: darkgreenColor,),
+                      Text("COVID-19",style: TextStyle(color: greenColor,fontSize: 17,fontWeight: FontWeight.bold),),
+                      Icon(Icons.arrow_forward_sharp,color: greenColor,),
+                      Text("Negetive",style: TextStyle(color: greenColor,fontSize: 17,fontWeight: FontWeight.bold),),
+                      Icon(Icons.verified,color: greenColor,),
                       
                     ],
                 ),
@@ -167,9 +167,9 @@ class _DocHomePageState extends State<DocHomePage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.calendar_month,color: darkgreenColor,),
+                              Icon(Icons.calendar_month,color: greenColor,),
 
-                            Text("   24 june 2022, 07:42 pm ",style: TextStyle(fontSize: 18,color: darkgreenColor),),
+                            Text("   24 june 2022, 07:42 pm ",style: TextStyle(fontSize: 18,color: greenColor),),
                             
                           ]),
                           ),
