@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:docotg/screens/reportsPageDoc.dart';
-import 'package:docotg/screens/userReportList.dart';
+import 'package:docotg/screens/reports_page_doc.dart';
+import 'package:docotg/screens/user_report_list.dart';
 import 'package:docotg/utils/colors.dart';
 import 'package:docotg/widgets/user_card.dart';
 import 'package:flutter/material.dart';
@@ -21,12 +21,12 @@ class _DocHomePageState extends State<DocHomePage> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-    backgroundColor: Color(0xFFfafbff),
+    backgroundColor: const Color(0xFFfafbff),
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Color(0xFFfafbff),
+        backgroundColor: const Color(0xFFfafbff),
         actions: [
-        IconButton(onPressed: (){}, icon: Icon(Icons.menu,color: Colors.black,))
+        IconButton(onPressed: (){}, icon: const Icon(Icons.menu,color: Colors.black,))
       ]),
       body: Padding(
         padding: EdgeInsets.all(width*0.08),
@@ -47,8 +47,8 @@ class _DocHomePageState extends State<DocHomePage> {
                     borderRadius: BorderRadius.circular(20),
                     child: CachedNetworkImage(
                               imageUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&w=1000&q=80",
-                              placeholder: (context, url) => CircularProgressIndicator(),
-                              errorWidget: (context, url, error) => Icon(Icons.error),
+                              placeholder: (context, url) => const CircularProgressIndicator(),
+                              errorWidget: (context, url, error) => const Icon(Icons.error),
                             ),
                   )
 ,
@@ -58,7 +58,7 @@ class _DocHomePageState extends State<DocHomePage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Hello Doctor!",style: TextStyle(fontSize: 25,fontWeight: FontWeight.w500),),
+                    const Text("Hello Doctor!",style: TextStyle(fontSize: 25,fontWeight: FontWeight.w500),),
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
@@ -68,9 +68,9 @@ class _DocHomePageState extends State<DocHomePage> {
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           children: [
-                            Icon(Icons.location_on,size: 15,),
-                            Text("India"),
-                            SizedBox(width: 5,)
+                            const Icon(Icons.location_on,size: 15,),
+                            const Text("India"),
+                            const SizedBox(width: 5,)
                           ],
                         ),
 
@@ -87,7 +87,7 @@ class _DocHomePageState extends State<DocHomePage> {
               SizedBox(height: height*0.05,),
               Text("Patient Report",style: TextStyle(fontSize: height*0.044,fontWeight: FontWeight.w500),),
               SizedBox(height: height*0.03,),  
-              Container(
+              SizedBox(
                 height: height*0.35,
                 width: double.infinity,
                 child: StreamBuilder(
@@ -119,14 +119,14 @@ class _DocHomePageState extends State<DocHomePage> {
               Text("Past Reports",style: TextStyle(fontSize: height*0.044,fontWeight: FontWeight.w500),),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ReportsPAgeDoc()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const ReportsPAgeDoc()));
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text("See all"),
-                    SizedBox(width: 2,),
-                    Icon(Icons.arrow_drop_down)
+                    const Text("See all"),
+                    const SizedBox(width: 2,),
+                    const Icon(Icons.arrow_drop_down)
                   ],
                 ),
               ),
@@ -162,7 +162,7 @@ class _DocHomePageState extends State<DocHomePage> {
                           height: height*0.062,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Color(0xffbce6e2)
+                            color: const Color(0xffbce6e2)
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,

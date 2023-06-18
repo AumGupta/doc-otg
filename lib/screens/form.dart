@@ -1,11 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:docotg/screens/homescreen.dart';
 import 'package:docotg/screens/mobile_screen_layout.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../resources/auth_methods.dart';
@@ -129,7 +125,7 @@ class _FormPageState extends State<FormPage> {
                                          width: height*0.15,
                                          decoration: BoxDecoration(
                             color: secondaryColor,
-                            borderRadius: BorderRadius.all(Radius.circular(100))),
+                            borderRadius: const BorderRadius.all(Radius.circular(100))),
                                          child: Icon(
                                            Icons.add_a_photo_outlined,
                                            color: Colors.grey,
@@ -138,7 +134,7 @@ class _FormPageState extends State<FormPage> {
                          ),
                        ),
                   SizedBox(height: height*0.08,),
-                  Text("Name",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
+                  const Text("Name",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
                   SizedBox(height: height*0.02,),
                   Row(
                     children: [
@@ -197,17 +193,17 @@ class _FormPageState extends State<FormPage> {
                           child: Icon(Icons.remove,color: darkgreenColor,),
                         ),
                       ),
-                      SizedBox(width: 15,),
+                      const SizedBox(width: 15,),
                       Container(
                         width: width*0.29,
                         height: height*0.06,
-                        child: Center(child: Text("$age")),
                         decoration: BoxDecoration(
                             border: Border.all(width: 1, color: Colors.grey),
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderRadius: const BorderRadius.all(Radius.circular(10)),
                       ),
+                        child: Center(child: Text("$age")),
                       ),
-                      SizedBox(width: 15,),
+                      const SizedBox(width: 15,),
                        GestureDetector(
                         onTap: increment,
                          child: CircleAvatar(
@@ -219,20 +215,20 @@ class _FormPageState extends State<FormPage> {
                     ],
                   ),
                   SizedBox(height: height*0.02,),
-                  Text("Gender",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
+                  const Text("Gender",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
                   SizedBox(height: height*0.01,),
                    Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
                             border: Border.all(width: 1, color: Colors.grey),
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderRadius: const BorderRadius.all(Radius.circular(10)),
                       ),
                     
                      child: Padding(
                        padding:  EdgeInsets.symmetric(horizontal: width*0.05),
                        child: DropdownButton(
-                        underline: SizedBox(),
-                        hint: Text("Gender"),
+                        underline: const SizedBox(),
+                        hint: const Text("Gender"),
                         
                   // Initial Value
                   value: dropdownvalue,
@@ -259,7 +255,7 @@ class _FormPageState extends State<FormPage> {
                      ),
                    ),
                     SizedBox(height: height*0.02,),
-                  Text("Nationality",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
+                  const Text("Nationality",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
                   SizedBox(height: height*0.01,),
                   TextFormField(
                     controller: _nationalityController,
@@ -281,7 +277,7 @@ class _FormPageState extends State<FormPage> {
                       hintStyle: TextStyle(color: Color(0xFFacb1c8))
                       )),
                        SizedBox(height: height*0.02,),
-                  Text("Phone Number",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
+                  const Text("Phone Number",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
                   SizedBox(height: height*0.01,),
                   TextFormField(
                     controller: _numberController,
@@ -310,7 +306,7 @@ class _FormPageState extends State<FormPage> {
                                           height: 50,
                                           decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
-                        color: Color(0xff585ce5)
+                        color: const Color(0xff585ce5)
                                           ),
                                           child:_isLoading
                                           ? const Center(
@@ -318,7 +314,7 @@ class _FormPageState extends State<FormPage> {
                             color: Colors.greenAccent,
                           ),
                         )
-                                          : Center(child: Text("Submit")),
+                                          : const Center(child: Text("Submit")),
                                           ),
                       )
                     

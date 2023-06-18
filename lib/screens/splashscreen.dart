@@ -1,9 +1,5 @@
-import 'package:docotg/main.dart';
-import 'package:docotg/screens/homescreen.dart';
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/user_provider.dart';
@@ -36,7 +32,7 @@ class _Splash2State extends State<Splash2> {
       logo: Image.asset("assets/Logo.png"),
       showLoader: false,
       logoWidth: width*0.3,
-      title: Text(
+      title: const Text(
         "Doc-OTG",
         style: TextStyle(
           fontSize: 24,
@@ -46,7 +42,7 @@ class _Splash2State extends State<Splash2> {
       backgroundColor: Colors.white,
 
       // navigator: logicBuilder(),
-      navigator: LoginPage(),
+      navigator: const LoginPage(),
       durationInSeconds: 2,
     );
   }

@@ -3,8 +3,6 @@
 import 'package:docotg/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class UserPostCard extends StatefulWidget {
   final snap;
@@ -21,7 +19,7 @@ class _UserPostCardState extends State<UserPostCard> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Container(
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       child: Column(
         children: [
           Container(
@@ -37,8 +35,8 @@ class _UserPostCardState extends State<UserPostCard> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Image.network(widget.snap['photoUrl'],width: width*0.4,height: height*0.23,fit: BoxFit.cover,)),
-                    SizedBox(height: 5,),
-                  Text(widget.snap['fname'].toString(),style: TextStyle(fontWeight: FontWeight.w500),)
+                    const SizedBox(height: 5,),
+                  Text(widget.snap['fname'].toString(),style: const TextStyle(fontWeight: FontWeight.w500),)
                 ]),
               ),
           

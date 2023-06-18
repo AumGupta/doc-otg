@@ -55,7 +55,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 )     ,
                 SizedBox(height: height*0.08,),
-                  Text("Name",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),),
+                  const Text("Name",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),),
                   SizedBox(height: height*0.02,),
                   Row(
                     children: [
@@ -71,9 +71,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         borderSide: BorderSide(
               width: 3, color: Colors.greenAccent),
                       ),
-                      contentPadding: EdgeInsets.symmetric(vertical:15,horizontal: 20),
+                      contentPadding: const EdgeInsets.symmetric(vertical:15,horizontal: 20),
                       hintText: user1.fname.toUpperCase(),
-                      hintStyle: TextStyle(color: Color(0xFFacb1c8))
+                      hintStyle: const TextStyle(color: Color(0xFFacb1c8))
                       ))),
                      const SizedBox(width: 9,),
                       Expanded(child: TextFormField(
@@ -86,9 +86,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                        fillColor: Colors.white,
                         filled: true,
-                      contentPadding: EdgeInsets.symmetric(vertical:15,horizontal: 20),
+                      contentPadding: const EdgeInsets.symmetric(vertical:15,horizontal: 20),
                       hintText: user1.lname.toUpperCase(),
-                      hintStyle: TextStyle(color: Color(0xFFacb1c8))
+                      hintStyle: const TextStyle(color: Color(0xFFacb1c8))
                       )))
                     ],
                   ),
@@ -105,17 +105,17 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: Icon(Icons.remove,color: darkgreenColor,),
                         ),
                       ),
-                      SizedBox(width: 15,),
+                      const SizedBox(width: 15,),
                       Container(
                         width: width*0.29,
                         height: height*0.06,
-                        child: Center(child: Text("${user1.age}")),
                         decoration: BoxDecoration(
                             border: Border.all(width: 1, color: Colors.grey),
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderRadius: const BorderRadius.all(Radius.circular(10)),
                       ),
+                        child: Center(child: Text("${user1.age}")),
                       ),
-                      SizedBox(width: 15,),
+                      const SizedBox(width: 15,),
                        GestureDetector(
                        
                          child: CircleAvatar(
@@ -127,13 +127,13 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                   ),
                    SizedBox(height: height*0.02,),
-                  Text("Gender",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),),
+                  const Text("Gender",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),),
                   SizedBox(height: height*0.01,),
                    Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
                             border: Border.all(width: 0, color: Colors.grey),
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderRadius: const BorderRadius.all(Radius.circular(10)),
                       ),
                       child: TextFormField(
                         readOnly: true,
@@ -147,29 +147,29 @@ class _ProfilePageState extends State<ProfilePage> {
                         borderSide: BorderSide(
               width: 3, color: Colors.greenAccent),
                       ),
-                      contentPadding: EdgeInsets.symmetric(vertical:15,horizontal: 20),
+                      contentPadding: const EdgeInsets.symmetric(vertical:15,horizontal: 20),
                       hintText: user1.gender,
-                      hintStyle: TextStyle(color: Color(0xFFacb1c8))
+                      hintStyle: const TextStyle(color: Color(0xFFacb1c8))
                       ))
                       ),
                         SizedBox(height: height*0.02,),
-                  Text("Nationality",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),),
+                  const Text("Nationality",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),),
                   SizedBox(height: height*0.01,),
                   TextFormField(
                    readOnly: true,
                         decoration:  InputDecoration(
-                       border: OutlineInputBorder(
+                       border: const OutlineInputBorder(
                         borderSide: BorderSide(
               width: 3, color: Colors.greenAccent),
                       ),
                        fillColor: Colors.white,
                         filled: true,
-                      contentPadding: EdgeInsets.symmetric(vertical:15,horizontal: 20),
+                      contentPadding: const EdgeInsets.symmetric(vertical:15,horizontal: 20),
                       hintText: user1.nationality,
-                      hintStyle: TextStyle(color: Color(0xFFacb1c8))
+                      hintStyle: const TextStyle(color: Color(0xFFacb1c8))
                       )),
                        SizedBox(height: height*0.02,),
-                  Text("Phone Number",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),),
+                  const Text("Phone Number",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),),
                   SizedBox(height: height*0.01,),
                   TextFormField(
                    
@@ -181,13 +181,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                        fillColor: Colors.white,
                         filled: true,
-                      contentPadding: EdgeInsets.symmetric(vertical:15,horizontal: 20),
+                      contentPadding: const EdgeInsets.symmetric(vertical:15,horizontal: 20),
                       hintText: user1.number,
-                      hintStyle: TextStyle(color: Color(0xFFacb1c8))
+                      hintStyle: const TextStyle(color: Color(0xFFacb1c8))
                       )),
 
                       SizedBox(height: height*0.05,),
-                      Center(child: SignoutButton())
+                      const Center(child: SignoutButton())
                     
 
 
@@ -208,10 +208,9 @@ class SignoutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                minimumSize: Size(200, 40),
+                                minimumSize: const Size(200, 40), backgroundColor: lightgreenColor,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12)),
-                                primary: lightgreenColor,
                               ),
                               onPressed: () async {
                                 Future<void> logout(

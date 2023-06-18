@@ -50,7 +50,7 @@ dependencies:
   highlight_text: ^1.6.0
   speech_to_text: ^6.1.1
   avatar_glow: ^2.0.2
-  audioplayers: ^3.0.1
+  audioplayers: ^4.0.1
   flutter_sound: ^9.2.13
   permission_handler: ^10.2.0
 
