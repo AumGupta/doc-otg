@@ -30,7 +30,7 @@ final reEnteredPasswordController = TextEditingController();
      var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: bgcolor,
+      backgroundColor: screenBgColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -47,12 +47,12 @@ final reEnteredPasswordController = TextEditingController();
                   Text("New User?",style: TextStyle(fontWeight: FontWeight.bold,fontSize: height*0.045),),
                   Text("Let's Sign Up!",style: TextStyle(fontWeight: FontWeight.bold,fontSize: height*0.045),),
                   SizedBox(height: height*0.015,),
-                  Text("Welcome aboard,Let's get you diagnosed!",style: TextStyle(color: secondaryTextcolor,fontSize: 15),),
+                  Text("Welcome aboard,Let's get you diagnosed!",style: TextStyle(color: secondaryTextColor,fontSize: 15),),
                   SizedBox(height: height*0.045,),
               Container(
                 width: double.infinity,
                 
-                decoration: BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(20)),color: secondaryColor,),
+                decoration: BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(20)),color: blueTint,),
                 child: Row(
                   children: [
                     GestureDetector(
@@ -66,7 +66,7 @@ final reEnteredPasswordController = TextEditingController();
                         height: 42,
                        
                         decoration: BoxDecoration(borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20),topLeft: Radius.circular(20),topRight: Radius.circular(20),bottomRight: Radius.circular(20)),
-                        color: _isDoctor?secondaryColor:blueColor
+                        color: _isDoctor?blueTint:primaryColor
                         
                         ),
                         child: Center(child: Text("Patient",style: TextStyle(color:_isDoctor?Colors.black: Colors.white,fontSize: 18),)),
@@ -82,9 +82,9 @@ final reEnteredPasswordController = TextEditingController();
                         width: width*0.42,
                         height: 42,
                          decoration: BoxDecoration(
-                          color: _isDoctor?lightgreenColor: secondaryColor,
+                          color: _isDoctor?lightGreenColor: blueTint,
                           borderRadius: const BorderRadius.only(bottomRight: Radius.circular(20),topRight: Radius.circular(20),topLeft: Radius.circular(20),bottomLeft: Radius.circular(20)),),
-                          child: Center(child: Text("Doctor",style: TextStyle(color:!_isDoctor?Colors.black: darkgreenColor,fontSize: 18),)),
+                          child: Center(child: Text("Doctor",style: TextStyle(color:!_isDoctor?Colors.black: greenColor,fontSize: 18),)),
                         
                                          ),
                      )
@@ -97,7 +97,7 @@ final reEnteredPasswordController = TextEditingController();
                     height: 50,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
-                      color: secondaryColor,
+                      color: blueTint,
                     ),
                     child:  TextFormField(
                       controller: emailController,
@@ -115,7 +115,7 @@ final reEnteredPasswordController = TextEditingController();
                     height: 50,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
-                      color: secondaryColor,
+                      color: blueTint,
                     ),
                     child:  TextFormField(
                       obscureText: !_isVisible,
@@ -146,7 +146,7 @@ final reEnteredPasswordController = TextEditingController();
                         height: 50,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
-                          color: secondaryColor,
+                          color: blueTint,
                         ),
                         child:  TextFormField(
                           obscureText: !_isVisible,
@@ -171,11 +171,11 @@ final reEnteredPasswordController = TextEditingController();
                         },
                          child: CircleAvatar(
                                            radius: width*0.065,
-                                           backgroundColor: secondaryTextcolor,
+                                           backgroundColor: secondaryTextColor,
                                             child: CircleAvatar(
                                              radius: width*0.09,
-                                             backgroundColor: lightgreenColor,
-                         child: _isVisible? Icon(Icons.visibility,color: darkgreenColor,):Icon(Icons.visibility_off,color: darkgreenColor,),
+                                             backgroundColor: lightGreenColor,
+                         child: _isVisible? Icon(Icons.visibility,color: greenColor,):Icon(Icons.visibility_off,color: greenColor,),
                                             ),
                                           ),
                        ),
@@ -199,7 +199,7 @@ final reEnteredPasswordController = TextEditingController();
                             " Login.",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: blueColor,
+                              color: primaryColor,
                             ),
                           ),
                         ),

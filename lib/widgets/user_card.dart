@@ -23,20 +23,20 @@ class _UserPostCardState extends State<UserPostCard> {
       child: Column(
         children: [
           Container(
-            height: height*0.29,
-            width: width*0.429,
+            height: height*0.25,
+            width: width*0.440,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: secondaryColor
+              borderRadius: BorderRadius.circular(30),
+              color: blueTint
               ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(20),
-                    child: Image.network(widget.snap['photoUrl'],width: width*0.4,height: height*0.23,fit: BoxFit.cover,)),
+                    child: Image.network(widget.snap['photoUrl'],width: width*0.4,height: height*0.20,fit: BoxFit.cover,)),
                     const SizedBox(height: 5,),
-                  Text(widget.snap['fname'].toString(),style: const TextStyle(fontWeight: FontWeight.w500),)
+                  Text(widget.snap['fname'].toString(), style:TextStyle(fontWeight: FontWeight.bold, color: darkPurple),)
                 ]),
               ),
           

@@ -98,7 +98,7 @@ class _FormPageState extends State<FormPage> {
      var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-       backgroundColor: bgcolor,
+       backgroundColor: screenBgColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -112,7 +112,7 @@ class _FormPageState extends State<FormPage> {
                    Text("Let's know you",style: TextStyle(fontWeight: FontWeight.bold,fontSize: height*0.045),),
                       Text("better!",style: TextStyle(fontWeight: FontWeight.bold,fontSize: height*0.045),),
                       SizedBox(height: height*0.015,),
-                      Text("Please share your details",style: TextStyle(color: secondaryTextcolor,fontSize: 15),),
+                      Text("Please share your details",style: TextStyle(color: secondaryTextColor,fontSize: 15),),
                       SizedBox(height: height*0.045,),
                        GestureDetector(
                         onTap: selectImage,
@@ -124,7 +124,7 @@ class _FormPageState extends State<FormPage> {
                                          height: height*0.15,
                                          width: height*0.15,
                                          decoration: BoxDecoration(
-                            color: secondaryColor,
+                            color: blueTint,
                             borderRadius: const BorderRadius.all(Radius.circular(100))),
                                          child: Icon(
                                            Icons.add_a_photo_outlined,
@@ -189,8 +189,8 @@ class _FormPageState extends State<FormPage> {
                         onTap: decrement,
                         child: CircleAvatar(
                           radius: width*0.06,
-                          backgroundColor: lightgreenColor,
-                          child: Icon(Icons.remove,color: darkgreenColor,),
+                          backgroundColor: lightGreenColor,
+                          child: Icon(Icons.remove,color: greenColor,),
                         ),
                       ),
                       const SizedBox(width: 15,),
@@ -208,8 +208,8 @@ class _FormPageState extends State<FormPage> {
                         onTap: increment,
                          child: CircleAvatar(
                           radius: width*0.06,
-                          backgroundColor: lightgreenColor,
-                          child: Icon(Icons.add,color: darkgreenColor,),
+                          backgroundColor: lightGreenColor,
+                          child: Icon(Icons.add,color: greenColor,),
                                              ),
                        ),
                     ],

@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
 
     if (result == "success") {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => MobileScreenLayout(_isDoctor)));
+          builder: (context) =>  MobileScreenLayout(_isDoctor)));
     } else {
       showSnackBar(result, context);
     }
@@ -48,204 +48,213 @@ class _LoginPageState extends State<LoginPage> {
        var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: bgcolor,
+      backgroundColor: screenBgColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
             padding:  EdgeInsets.symmetric(horizontal:width*0.08),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: height*0.1,),
-              Text("Hello,",style: TextStyle(fontWeight: FontWeight.bold,fontSize: height*0.045),),
-              Text("Let's Login In!",style: TextStyle(fontWeight: FontWeight.bold,fontSize: height*0.045),),
-              SizedBox(height: height*0.015,),
-              Text("Welcome aboard,Let's get you diagnosed!",style: TextStyle(color: secondaryTextcolor,fontSize: 15),),
-              SizedBox(height: height*0.045,),
-              Container(
-                width: double.infinity,
-                
-                decoration: BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(20)),color: secondaryColor,),
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _isDoctor = false;
-                        });
-                      },
-                      child: Container(
-                        width: width*0.42,
-                        height: 42,
-                       
-                        decoration: BoxDecoration(borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20),topLeft: Radius.circular(20),topRight: Radius.circular(20),bottomRight: Radius.circular(20)),
-                        color: _isDoctor?secondaryColor:blueColor
-                        
+            child: SafeArea(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: height*0.045,),
+                Text("Hello,",style: TextStyle(fontWeight: FontWeight.bold,fontSize: height*0.042, color: darkPurple),),
+                Text("Let's Sign in!",style: TextStyle(fontWeight: FontWeight.bold,fontSize: height*0.042, color: darkPurple),),
+                SizedBox(height: height*0.015,),
+                Text("Welcome aboard, let's get you diagnosed!",style: TextStyle(color: secondaryTextColor,fontSize: 15),),
+                SizedBox(height: height*0.045,),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(4.0),
+                  decoration: BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(50)),color: blueTint,),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _isDoctor = false;
+                          });
+                        },
+                        child: Container(
+                          width: width*0.40,
+                          height: 48,
+
+                          decoration: BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(50)),
+                          color: _isDoctor?blueTint:primaryColor
+
+                          ),
+                          child: Center(child: Text("Patient",style: TextStyle(color:_isDoctor?secondaryTextColor: Colors.white,fontSize: 16,fontWeight: _isDoctor?FontWeight.normal:FontWeight.bold),)),
+
                         ),
-                        child: Center(child: Text("Patient",style: TextStyle(color:_isDoctor?Colors.black: Colors.white,fontSize: 18),)),
-                        
+                      ),
+                       GestureDetector(
+                        onTap:() =>  setState(() {
+                          _isDoctor = true;
+                        }),
+                         child: Container(
+                          width: width*0.40,
+                          height: 48,
+                           decoration: BoxDecoration(
+                            color: _isDoctor?greenColor: blueTint,
+                            borderRadius:  const BorderRadius.all(Radius.circular(50)),),
+                            child: Center(child: Text("Doctor",style: TextStyle(color:!_isDoctor?secondaryTextColor: Colors.white,fontSize: 16,fontWeight: !_isDoctor?FontWeight.normal:FontWeight.bold),)),
+
+                                           ),
+                       )
+                    ],
+                  ),
+                ),
+                SizedBox(height: height*0.020,),
+                //Email
+                Container(
+                  width: double.infinity,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: blueTint,
+                  ),
+                  child:  TextFormField(
+                    controller: _emailController,
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(vertical:15,horizontal: 20),
+                      hintText: 'Email',
+                      hintStyle: TextStyle(color: Color(0xFFacb1c8))
+                    ),
+                  ),
+                ),
+                 SizedBox(height: height*0.020,),
+                // Password
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: width*0.68,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: blueTint,
+                      ),
+                      child:  TextFormField(
+                        controller: _passwordController,
+                        obscureText: !_isVisible,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical:15,horizontal: 20),
+                          hintText: 'Password',
+                          hintStyle: TextStyle(color: Color(0xFFacb1c8))
+                        ),
                       ),
                     ),
                      GestureDetector(
-                      onTap:() =>  setState(() {
-                        _isDoctor = true;
-                        
-                      }),
-                       child: Container(
-                        width: width*0.42,
-                        height: 42,
-                         decoration: BoxDecoration(
-                          color: _isDoctor?lightgreenColor: secondaryColor,
-                          borderRadius: const BorderRadius.only(bottomRight: Radius.circular(20),topRight: Radius.circular(20),topLeft: Radius.circular(20),bottomLeft: Radius.circular(20)),),
-                          child: Center(child: Text("Doctor",style: TextStyle(color:!_isDoctor?Colors.black: darkgreenColor,fontSize: 18),)),
-                        
-                                         ),
-                     )
+                      onTap: () {
+                        setState(() {
+                          _isVisible = !_isVisible;
+                        });
+                      },
+                       child: CircleAvatar(
+                                   radius: width*0.065,
+                                   backgroundColor: secondaryTextColor,
+                                    child: CircleAvatar(
+                                     radius: width*0.09,
+                                     backgroundColor: lightGreenColor,
+                                     child: _isVisible? Icon(Icons.visibility,color: greenColor,):Icon(Icons.visibility_off,color: greenColor,),
+                                    ),
+                                  ),
+                     ),
                   ],
                 ),
-              ),
-              SizedBox(height: height*0.025,),
-              Container(
-                width: double.infinity,
-                height: 50,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: secondaryColor,
-                ),
-                child:  TextFormField(
-                  controller: _emailController,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(vertical:15,horizontal: 20),
-                    hintText: 'Email',
-                    hintStyle: TextStyle(color: Color(0xFFacb1c8))
-                  ),
-                ),
-              ),
-               SizedBox(height: height*0.035,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: width*0.68,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: secondaryColor,
-                    ),
-                    child:  TextFormField(
-                      controller: _passwordController,
-                      obscureText: !_isVisible,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(vertical:15,horizontal: 20),
-                        hintText: 'Password',
-                        hintStyle: TextStyle(color: Color(0xFFacb1c8))
-                      ),
-                    ),
-                  ),
-                   GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _isVisible = !_isVisible;
-                      });
-                    },
-                     child: CircleAvatar(
-                                 radius: width*0.065,
-                                 backgroundColor: secondaryTextcolor,
-                                  child: CircleAvatar(
-                                   radius: width*0.09,
-                                   backgroundColor: lightgreenColor,
-                                   child: _isVisible? Icon(Icons.visibility,color: darkgreenColor,):Icon(Icons.visibility_off,color: darkgreenColor,),
-                                  ),
-                                ),
-                   ),
-                ],
-              ),
-              SizedBox(height: height*0.01,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text("Forgot Password?",style: TextStyle(color: secondaryTextcolor,fontSize: 15),),
-                ],
-              ),
-              SizedBox(height: height*0.03,),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                SizedBox(height: height*0.020,),
+                // ForgotPassword
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Container(
-                      padding:
-                          const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
-                      child: const Text("Don't have an account?"),
-                    ),
-                    GestureDetector(
-                      onTap: navigateToSignUp,
-                      //print("Signup tapped!");
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child:  Text(
-                          " Sign up.",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: blueColor,
-                          ),
-                        ),
-                      ),
-                    ),
+                    Text("Forgot Password?",style: TextStyle(color: secondaryTextColor,fontSize: 15),),
                   ],
                 ),
                 SizedBox(height: height*0.1,),
-              GestureDetector(
-                onTap: () => logInUser(),
-                child: Container(
+                //Login Button
+                GestureDetector(
+                  onTap: () => logInUser(),
+                  child: Container(
+                        width: double.infinity,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          boxShadow: const [BoxShadow(color:Color(0x90585be4), blurRadius: 20),],
+                          borderRadius: BorderRadius.circular(50),
+                          color: const Color(0xff585ce5)
+                        ),
+                        child: _isLoading?const Center(child: CircularProgressIndicator( color: Colors.white, strokeWidth: 2,),) :Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                          Text("Login  ",style: TextStyle(fontSize: 16,color: Colors.white),),
+                          Icon(Icons.arrow_forward_sharp,color: Colors.white, size: 20.0, weight: 100,)
+                        ]),
+                        ),
+                ),
+                SizedBox(height: height*0.03,),
+                Row(
+                        children: [
+                            Expanded(
+                                child: Divider(
+                                  color: secondaryTextColor,
+                                )
+                            ),       
+        
+                            Text("  or login with  ",style: TextStyle(color: secondaryTextColor),),
+        
+                            Expanded(
+                                child: Divider(color: secondaryTextColor,)
+                            ),
+                        ]
+                    ),
+                SizedBox(height: height*0.03,),
+                Container(
                       width: double.infinity,
                       height: 50,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
-                        color: const Color(0xff585ce5)
+                        border: Border.all(width: 1, color: secondaryTextColor),
+                        color: Colors.white
                       ),
-                      child: _isLoading?const Center(child: CircularProgressIndicator(),) :Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                        const Text("Login  ",style: TextStyle(fontSize: 18,color: Colors.white),),
-                        const Icon(Icons.arrow_forward_sharp,color: Colors.white,)
+                        children: const [
+                          Text("Login with Google ",style: TextStyle(fontSize: 16,color: Colors.black),),
+                           Icon(Icons.arrow_forward_sharp, size: 20.0, weight: 100,),
                       ]),
                       ),
-              ),
-                      SizedBox(height: height*0.05,),
-                    Row(
-                      children: [
-                          Expanded(
-                              child: Divider(
-                                color: secondaryTextcolor,
-                              )
-                          ),       
-        
-                          Text("  or login with  ",style: TextStyle(color: secondaryTextcolor),),        
-        
-                          Expanded(
-                              child: Divider(color: secondaryTextcolor,)
+                SizedBox(height: height*0.03,),
+                  // Register Now
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
+                        child: Text("Don't have an account?", style: TextStyle(color: secondaryTextColor),),
+                      ),
+                      GestureDetector(
+                        onTap: navigateToSignUp,
+                        //print("Signup tapped!");
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child:  Text(
+                            " Register Now.",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: greenColor,
+                            ),
                           ),
-                      ]
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(height: height*0.02,),
-                   Container(
-                    width: double.infinity,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.white
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                         const Icon(Icons.circle_notifications,color: Colors.black,),
-                      const Text("  Login with google  ",style: TextStyle(fontSize: 18,color: Colors.black),),
-                     
-                    ]),
-                    ),
-            ]),
+              ]),
+
+            ),
           ),
         ),
       ),

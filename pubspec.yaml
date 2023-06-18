@@ -41,7 +41,7 @@ dependencies:
   cloud_firestore: ^4.3.1
   firebase_storage: ^11.0.10
   uuid: ^3.0.7
-  file_picker: ^5.2.5
+  file_picker: ^5.3.1
   image_picker: ^0.8.6+1
   provider: ^6.0.5
   cached_network_image: ^3.2.3
@@ -50,9 +50,10 @@ dependencies:
   highlight_text: ^1.6.0
   speech_to_text: ^6.1.1
   avatar_glow: ^2.0.2
-  audioplayers: ^4.0.1
-  flutter_sound: ^9.2.13
   permission_handler: ^10.2.0
+  audioplayers: ^4.1.0
+#  google_fonts: ^4.0.0
+
 
 dev_dependencies:
   flutter_test:
@@ -96,6 +97,11 @@ flutter:
     - family: Montserrat
       fonts:
         - asset: assets/fonts/Montserrat-Regular.ttf
+          weight: 100
+        - asset: assets/fonts/Montserrat-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Montserrat-Medium.ttf
+          weight: 500
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

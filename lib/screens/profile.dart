@@ -27,8 +27,8 @@ class _ProfilePageState extends State<ProfilePage> {
     String photourl = user1.photoUrl;
     var name = user1.fname;
     return Scaffold(
-      appBar: AppBar(elevation: 0,title: Text("Profile Page",style: TextStyle(color: darkgreenColor,fontSize: 18,fontWeight: FontWeight.w500)),centerTitle: true,backgroundColor: lightgreenColor,),
-      backgroundColor: bgcolor,
+      appBar: AppBar(elevation: 0,title: Text("Profile Page",style: TextStyle(color: greenColor,fontSize: 18,fontWeight: FontWeight.w500)),centerTitle: true,backgroundColor: lightGreenColor,),
+      backgroundColor: screenBgColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -101,8 +101,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       
                         child: CircleAvatar(
                           radius: width*0.06,
-                          backgroundColor: lightgreenColor,
-                          child: Icon(Icons.remove,color: darkgreenColor,),
+                          backgroundColor: lightGreenColor,
+                          child: Icon(Icons.remove,color: greenColor,),
                         ),
                       ),
                       const SizedBox(width: 15,),
@@ -120,8 +120,8 @@ class _ProfilePageState extends State<ProfilePage> {
                        
                          child: CircleAvatar(
                           radius: width*0.06,
-                          backgroundColor: lightgreenColor,
-                          child: Icon(Icons.add,color: darkgreenColor,),
+                          backgroundColor: lightGreenColor,
+                          child: Icon(Icons.add,color: greenColor,),
                                              ),
                        ),
                     ],
@@ -208,7 +208,7 @@ class SignoutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                minimumSize: const Size(200, 40), backgroundColor: lightgreenColor,
+                                minimumSize: const Size(200, 40), backgroundColor: lightGreenColor,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12)),
                               ),
@@ -228,6 +228,6 @@ class SignoutButton extends StatelessWidget {
 
                                 logout(context);
                               },
-                              child:  Text("Sign out",style: TextStyle(color: darkgreenColor,fontSize: 18,fontWeight: FontWeight.w500)));
+                              child:  Text("Sign out",style: TextStyle(color: greenColor,fontSize: 18,fontWeight: FontWeight.w500)));
   }
 }
