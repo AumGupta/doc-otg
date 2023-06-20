@@ -112,7 +112,7 @@ class _FormPageState extends State<FormPage> {
                    Text("Let's know you",style: TextStyle(fontWeight: FontWeight.bold,fontSize: height*0.045),),
                       Text("better!",style: TextStyle(fontWeight: FontWeight.bold,fontSize: height*0.045),),
                       SizedBox(height: height*0.015,),
-                      Text("Please share your details",style: TextStyle(color: secondaryTextColor,fontSize: 15),),
+                      Text("Please share your details",style: TextStyle(color: greyColor,fontSize: 15),),
                       SizedBox(height: height*0.045,),
                        GestureDetector(
                         onTap: selectImage,

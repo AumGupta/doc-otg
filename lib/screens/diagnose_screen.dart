@@ -22,6 +22,7 @@ class DiagnoseScreen extends StatefulWidget {
 class _DiagnoseScreenState extends State<DiagnoseScreen> {
   int tag = 1;
   List<String> tags =[];
+  // Name of the options should be same as text model variables with "_" replaced with " "
   List<String> options = [
     "Cough",
     "Fever",
@@ -30,17 +31,20 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
     "Headache",
     "Old Age",
     "Contact",
-    // 'Fatigue',
-    // 'Sore Throat',
-    // 'Fever below 100°',
-    // 'Fever above 100°',
-    // 'Head ache',
-    // 'Loss of smell',
-    // 'Body pain'
   ];
+  Map<String,String> symptoms = {};
+  // Helps in making Tags (list of symptoms ) into a Map of Symptoms (A format needed by Text Analysis model)
+  void mapSymptoms(Map<String,String> symptoms, List<String> tags) {
+    for(var i=0;i<tags.length;i++){
+      var key = tags[i].toLowerCase().replaceAll(" ", "_");
+      var value = symptoms[key];
+      symptoms[key] = "True";
+    }
+  }
+
 
   //Image File
-  Uint8List? _file;
+  Uint8List? _imageFile;
   final TextEditingController _descriptionController = TextEditingController();
   bool isLoading = false;
   //Audio FIle
@@ -48,61 +52,49 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
   AudioPlayer? player;
   bool isPlaying = false;
 
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      player = AudioPlayer();
+  // Image Selection Dialogue Box
+  _selectImage(BuildContext context)async{
+    Size size = MediaQuery.of(context).size;
+    return showDialog(context: context, builder: (context){
+      return SimpleDialog(
+        title: const Text("Select Image",
+          style: TextStyle(fontWeight: FontWeight.bold),),
+        children: [
+          SimpleDialogOption(
+            padding: const EdgeInsets.all(20),
+            child: const Text("Take a photo"),
+            onPressed: () async {
+              Navigator.of(context).pop();
+              Uint8List file = await pickImage(ImageSource.camera);
+              setState(() {
+                _imageFile = file;
+              });
+            },
+          ),
+          SimpleDialogOption(
+            padding: const EdgeInsets.all(20),
+            child: const Text("Choose from photos"),
+            onPressed: () async {
+              Navigator.of(context).pop();
+              Uint8List file = await pickImage(ImageSource.gallery);
+              setState(() {
+                _imageFile = file;
+              });
+            },
+          ),
+          SimpleDialogOption(
+            padding: const EdgeInsets.all(20),
+            child: const Text("Cancel"),
+            onPressed: () async {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
     });
-    player?.onPlayerStateChanged.listen((state) {
-      setState(() {
-        isPlaying = state == PlayerState.playing;
-      });
-    });
-  }
-// Image Selection Dialogue Box
-_selectImage(BuildContext context)async{
-  Size size = MediaQuery.of(context).size;
-  return showDialog(context: context, builder: (context){
-   return SimpleDialog(
-            title: const Text("Select Image",
-                              style: TextStyle(fontWeight: FontWeight.bold),),
-            children: [
-              SimpleDialogOption(
-                padding: const EdgeInsets.all(20),
-                child: const Text("Take a photo"),
-                onPressed: () async {
-                  Navigator.of(context).pop();
-                  Uint8List file = await pickImage(ImageSource.camera);
-                  setState(() {
-                    _file = file;
-                  });
-                },
-              ),
-              SimpleDialogOption(
-                padding: const EdgeInsets.all(20),
-                child: const Text("Choose from photos"),
-                onPressed: () async {
-                  Navigator.of(context).pop();
-                  Uint8List file = await pickImage(ImageSource.gallery);
-                  setState(() {
-                    _file = file;
-                  });
-                },
-              ),
-              SimpleDialogOption(
-                padding: const EdgeInsets.all(20),
-                child: const Text("Cancel"),
-                onPressed: () async {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-  });
 
-}
-_selectVoice(BuildContext context)async{
+  }
+  _selectVoice(BuildContext context)async{
     Size size = MediaQuery.of(context).size;
     return showDialog(context: context, builder: (context){
       return SimpleDialog(
@@ -141,7 +133,19 @@ _selectVoice(BuildContext context)async{
 
   }
 
-void submitInputs(
+  void clearImage() {
+    setState(() {
+      _imageFile = null;
+    });
+  }
+  void clearAudio() {
+    player?.stop();
+    setState(() {
+      _audioFilePath = null;
+    });
+  }
+
+  void submitInputs(
     String uid,
     String name,
     String profImage,
@@ -151,7 +155,7 @@ void submitInputs(
     });
     try {
       String res = await FireStoreMethods().uploadPost(
-          tags, _file!, uid, name, profImage,_audioFilePath!,context,_descriptionController.text.isEmpty?"no other symptom":_descriptionController.text);
+          symptoms, _imageFile!, uid, name, profImage,_audioFilePath!,context,_descriptionController.text.isEmpty?"no other symptom":_descriptionController.text);
       if (res == "success") {
         setState(() {
           isLoading = false;
@@ -165,179 +169,236 @@ void submitInputs(
         });
         showSnackBar(res, context);
       }
+      String res2 = await FireStoreMethods().uploadReport(uid, symptoms);
+      if (res2 == "success") {
+        setState(() {
+          isLoading = false;
+        });
+        showSnackBar('Validated Successfully', context);
+      }
     } catch (err) {
       setState(() {
         isLoading = false;
       });
       showSnackBar(err.toString(), context);
+    } finally {
+      setState(() {
+        tags = [];
+      });
+      player?.dispose();
+      _descriptionController.clear();
     }
   }
 
-  void clearImage() {
+
+  @override
+  void initState() {
+    super.initState();
     setState(() {
-      _file = null;
+      player = AudioPlayer();
+    });
+    player?.onPlayerStateChanged.listen((state) {
+      setState(() {
+        isPlaying = state == PlayerState.playing;
+      });
     });
   }
-  void clearAudio() {
-    setState(() {
-      _audioFilePath = null;
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     final user user1 = Provider.of<UserProvider>(context).getUser;
-    return Scaffold(
-      backgroundColor: screenBgColor,
-      appBar: AppBar(
-         elevation: 0,
-        backgroundColor: blueTint,
-        automaticallyImplyLeading: false,
-        actions: [
-        IconButton(onPressed: (){}, icon: const Icon(Icons.menu,color: Colors.black,))
-      ]),
-      body: Padding(padding: EdgeInsets.all(width*0.08),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Clinical Inputs",style: TextStyle(fontSize: height*0.044,fontWeight: FontWeight.w500),),
-              SizedBox(height: height*0.015,),
-            Text("Please share your ,symptoms for diagnosis!",style: TextStyle(color: secondaryTextColor,fontSize: 15),),
-            SizedBox(height: height*0.03,),
-            const Text("Clinical Text",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w500),),
-            SizedBox(height: height*0.01,),
-            ChipsChoice<String>.multiple(value: tags, onChanged: (val) => setState(() {
-              tags = val;
-            }),
-            choiceItems: C2Choice.listFrom(source: options, value: (i,v) => v, label: (i,v)=> v),
-            choiceActiveStyle: C2ChoiceStyle(color: primaryColor,
-            borderColor: greenColor,
-            borderRadius: const BorderRadius.all(Radius.circular(10))
-            ),
-            choiceStyle:  const C2ChoiceStyle(color: Colors.black,
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      onVerticalDragCancel: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        backgroundColor: screenBgColor,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(width*0.04),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Please share your symptoms for diagnosis!",style: TextStyle(color: greyColor,fontSize: 15),),
+                SizedBox(height: height*0.03,),
+                Text("Symptoms",style: TextStyle(color: darkPurple,fontSize: 15,fontWeight: FontWeight.bold),),
+                SizedBox(height: height*0.01,),
 
-            borderRadius: BorderRadius.all(Radius.circular(10))
-            ),
-            wrapped: true,
-            textDirection: TextDirection.ltr,
-
-            ),
-            Container(
-              width: double.infinity,
-                height: height*0.12,
-                decoration: BoxDecoration(
-                   border: Border.all(width: 1, color: Colors.grey),
-                          borderRadius: BorderRadius.circular(30),
-                          color: Colors.white
-                 ),
-                 child:TextFormField(
-                  controller: _descriptionController,
-                  maxLength: 200,
-                  maxLines: 2,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(vertical: 0,horizontal: 20),
-                    label: Text("Other Symptoms"),
-
+                // Symptoms Selector
+                ChipsChoice<String>.multiple(value: tags, onChanged: (val) => setState(() {
+                  symptoms = {
+                    "cough": "False",
+                    "fever": "False",
+                    "sore_throat": "False",
+                    "shortness_of_breath": "False",
+                    "headache": "False",
+                    "old_age": "False",
+                    "contact": "False"
+                  };
+                  tags = val;
+                  mapSymptoms(symptoms,tags);
+                }),
+                  choiceItems: C2Choice.listFrom(
+                      source: options,
+                      value: (i,v) => v,
+                      label: (i,v)=> v),
+                      choiceActiveStyle: C2ChoiceStyle(color: Colors.white,
+                      backgroundColor: primaryColor,
+                      borderRadius: const BorderRadius.all(Radius.circular(30))
+                      ),
+                  choiceStyle:  C2ChoiceStyle(
+                      color: darkPurple,
+                      backgroundColor: Colors.white,
+                      borderRadius: const BorderRadius.all(Radius.circular(30))
                   ),
-                 )
-            ),
-             SizedBox(height: height*0.03,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text("Image",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.normal),),
-               _file!=null? IconButton(onPressed: (){clearImage();}, icon: const Icon(Icons.cancel)):const SizedBox()
-              ],
-            ),
-            SizedBox(height: height*0.01,),
-            GestureDetector(
-              onTap: ()=>_selectImage(context),
-              child: Container(
-                 width: double.infinity,
-                  height: _file!=null?height * 0.35:height*0.15,
-                  decoration: BoxDecoration(
-                     border: Border.all(width: 1, color: Colors.grey),
-                            borderRadius: BorderRadius.circular(30),
-                            color: blueTint
-                   ),
-                   child: _file!=null? ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
-                     child: Image(
-                                     image: MemoryImage(_file!),
-                                     width: double.infinity,
-                                     height: height * 0.35,
-                                     fit: BoxFit.cover,
-                                   ),
-                   ) :Center(child: Icon(Icons.camera_alt,color: Colors.grey,size: width*0.2,)),
-              ),
-            ),
-             SizedBox(height: height*0.03,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text("Voice",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w500),),
-                _audioFilePath!=null?IconButton(onPressed: (){clearAudio();}, icon: const Icon(Icons.cancel)):const SizedBox()
-              ],
-            ),
-            SizedBox(height: height*0.01,),
-            GestureDetector(
-              onTap: ()=>_selectVoice(context),
-              child: Container(
-                width: double.infinity,
-                height: height*0.15,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(30),
-                    color: blueTint
+                  wrapped: true,
+                  textDirection: TextDirection.ltr,
                 ),
-                child: _audioFilePath!=null? ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: IconButton(
-                    icon: Icon(isPlaying?Icons.pause_circle:Icons.play_circle,color: primaryColor,size: width*0.2,),
-                    onPressed: () async {
-                      isPlaying ? await player?.pause() : await player?.play(DeviceFileSource(_audioFilePath!));
+
+                Container(
+                    width: double.infinity,
+                    height: height*0.15,
+                    decoration: BoxDecoration(
+                       // border: Border.all(width: 1, color: greyColor),
+                      borderRadius: BorderRadius.circular(30),
+                      color: blueTint,
+                    ),
+                    child:TextFormField(
+                      controller: _descriptionController,
+                      maxLength: 200,
+                      maxLines: 3,
+                      textAlignVertical: TextAlignVertical.top,
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.symmetric(vertical: 16,horizontal: 16),
+                        hintText: "Other Symptoms",
+                      ),
+                     )
+                ),
+                SizedBox(height: height*0.03,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Image", style: TextStyle(color: darkPurple,fontSize: 15,fontWeight: FontWeight.bold),),
+                    _imageFile!=null ? IconButton(onPressed: (){clearImage();},
+                        icon: Icon(Icons.cancel, color: greyColor,)) : const SizedBox()
+                  ],
+                ),
+                SizedBox(height: height*0.01,),
+                GestureDetector(
+                  onTap: ()=>_selectImage(context),
+                  child: Container(
+                     width: double.infinity,
+                      height: _imageFile!=null?height * 0.35:height*0.15,
+                      decoration: BoxDecoration(
+                        // border: Border.all(width: 1, color: greyColor),
+                        borderRadius: BorderRadius.circular(30),
+                        color: blueTint,
+                      ),
+                       child: _imageFile!=null? ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                         child: Image(
+                                         image: MemoryImage(_imageFile!),
+                                         width: double.infinity,
+                                         height: height * 0.35,
+                                         fit: BoxFit.cover,
+                                       ),
+                       ) :Center(child: Icon(Icons.add_a_photo_outlined,color: greyColor,size: width*0.15,)),
+                  ),
+                ),
+
+                //Voice Input
+                SizedBox(height: height*0.03,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Voice",style: TextStyle(
+                        color: darkPurple,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold),),
+                    _audioFilePath!=null? IconButton(
+                        onPressed: (){
+                          clearAudio();
+                          },
+                        icon: Icon(Icons.cancel, color: greyColor,)) : const SizedBox()
+                  ],
+                ),
+                SizedBox(height: height*0.01,),
+                GestureDetector(
+                  onTap: () {
+                    // setState(() {
+                    //   player = AudioPlayer();
+                    // });
+                    _selectVoice(context);
                     },
+                  child: Container(
+                    width: double.infinity,
+                    height: height*0.15,
+                    decoration: BoxDecoration(
+                      // border: Border.all(width: 1, color: greyColor),
+                      borderRadius: BorderRadius.circular(30),
+                      color: blueTint,
+                    ),
+                    child: _audioFilePath!=null? ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: IconButton(
+                        icon: Icon(isPlaying?Icons.pause_circle:Icons.play_circle,color: primaryColor,size: width*0.2,),
+                        onPressed: () async {
+                          isPlaying ? await player?.pause() : await player?.play(DeviceFileSource(_audioFilePath!));
+                        },
+                      ),
+
+                    ) :Center(child: Icon(Icons.multitrack_audio_rounded,color: greyColor,size: width*0.15,)),
                   ),
-
-                ) :Center(child: Icon(Icons.mic_rounded,color: Colors.grey,size: width*0.2,)),
-              ),
-            ),
-             SizedBox(height: height*0.03,),
-            const Text("Video",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w500),),
-            SizedBox(height: height*0.01,),
-            Container(
-               width: double.infinity,
-                height: height*0.15,
-                decoration: BoxDecoration(
-                   border: Border.all(width: 1, color: Colors.grey),
-                          borderRadius: BorderRadius.circular(30),
-                          color: blueTint
-                 ),
-                 child: Center(child: Icon(Icons.video_call,color: Colors.grey,size: width*0.2,)),
-            ),
-            SizedBox(height: height*0.03,),
-            GestureDetector(
-              onTap: () async{
-                submitInputs(user1.uid, user1.fname, user1.photoUrl);
-                // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> MobileScreenLayout()));
-
-              },
-              child: Container(
-                width: double.infinity,
-                height: 50,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: primaryColor,
                 ),
-                child: isLoading ? const Center(child: CircularProgressIndicator(),): const Center(child: Text("Submit")),
-              ),
-            )
-          ]),
-      ),
+
+                // Video Input
+                SizedBox(height: height*0.03,),
+                Text("Video",style: TextStyle(color: darkPurple,fontSize: 15,fontWeight: FontWeight.bold),),
+                SizedBox(height: height*0.01,),
+                Container(
+                   width: double.infinity,
+                    height: height*0.15,
+                    decoration: BoxDecoration(
+                      // border: Border.all(width: 1, color: greyColor),
+                      borderRadius: BorderRadius.circular(30),
+                      color: blueTint,
+                    ),
+                     child: Center(child: Icon(Icons.video_call_outlined,color: greyColor,size: width*0.15,)),
+                ),
+                SizedBox(height: height*0.03,),
+
+                // Submit
+                GestureDetector(
+                  onTap: () async{
+                    submitInputs(user1.uid, user1.fname, user1.photoUrl);
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        boxShadow: const [BoxShadow(color:Color(0x90585be4), blurRadius: 20),],
+                        borderRadius: BorderRadius.circular(50),
+                        color: primaryColor,
+                    ),
+                    child: isLoading ? const Center(
+                      child: CircularProgressIndicator( color: Colors.white, strokeWidth: 2,),) : Row (mainAxisAlignment: MainAxisAlignment.center,
+                                                                  children: const [Text("Diagnose ",
+                                                                                          style: TextStyle(
+                                                                                          color: Colors.white,
+                                                                                          fontSize: 15,),
+                                                                                    ),
+                                                                                    Icon(Icons.arrow_forward_sharp, size: 20.0, color: Colors.white, weight: 100,)
+                        ],
+                      ),
+                  ),
+                ),
+                SizedBox(height: height*0.1,),
+              ]),
+          ),
+        ),
       ),
     );
   }
