@@ -32,7 +32,7 @@ class _ReportsPAgeDocState extends State<ReportsPAgeDoc> {
              children: [
               Text("Reports",style: TextStyle(fontSize: height*0.049,fontWeight: FontWeight.bold),),
               SizedBox(height: height*0.02,), 
-              Text("Pending reports",style: TextStyle(color: secondaryTextColor,fontSize: 16),),
+              Text("Pending reports",style: TextStyle(color: greyColor,fontSize: 16),),
               SizedBox(height: height*0.05,),
               Container(
                 height: height*0.16,
@@ -122,7 +122,7 @@ class _ReportsPAgeDocState extends State<ReportsPAgeDoc> {
                 ),
               ),
               SizedBox(height: height*0.02,),
-              Text("Validated reports",style: TextStyle(color: secondaryTextColor,fontSize: 16),),
+              Text("Validated reports",style: TextStyle(color: greyColor,fontSize: 16),),
               SizedBox(height: height*0.03,),
                Container(
                 height: height*0.16,

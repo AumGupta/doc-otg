@@ -62,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                 Text("Hello,",style: TextStyle(fontWeight: FontWeight.bold,fontSize: height*0.042, color: darkPurple),),
                 Text("Let's Sign in!",style: TextStyle(fontWeight: FontWeight.bold,fontSize: height*0.042, color: darkPurple),),
                 SizedBox(height: height*0.015,),
-                Text("Welcome aboard, let's get you diagnosed!",style: TextStyle(color: secondaryTextColor,fontSize: 15),),
+                Text("Welcome aboard, let's get you diagnosed!",style: TextStyle(color: greyColor,fontSize: 15),),
                 SizedBox(height: height*0.045,),
                 Container(
                   width: double.infinity,
@@ -85,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                           color: _isDoctor?blueTint:primaryColor
 
                           ),
-                          child: Center(child: Text("Patient",style: TextStyle(color:_isDoctor?secondaryTextColor: Colors.white,fontSize: 16,fontWeight: _isDoctor?FontWeight.normal:FontWeight.bold),)),
+                          child: Center(child: Text("Patient",style: TextStyle(color:_isDoctor?greyColor: Colors.white,fontSize: 16,fontWeight: _isDoctor?FontWeight.normal:FontWeight.bold),)),
 
                         ),
                       ),
@@ -99,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                            decoration: BoxDecoration(
                             color: _isDoctor?greenColor: blueTint,
                             borderRadius:  const BorderRadius.all(Radius.circular(50)),),
-                            child: Center(child: Text("Doctor",style: TextStyle(color:!_isDoctor?secondaryTextColor: Colors.white,fontSize: 16,fontWeight: !_isDoctor?FontWeight.normal:FontWeight.bold),)),
+                            child: Center(child: Text("Doctor",style: TextStyle(color:!_isDoctor?greyColor: Colors.white,fontSize: 16,fontWeight: !_isDoctor?FontWeight.normal:FontWeight.bold),)),
 
                                            ),
                        )
@@ -156,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
                       },
                        child: CircleAvatar(
                                    radius: width*0.065,
-                                   backgroundColor: secondaryTextColor,
+                                   backgroundColor: greyColor,
                                     child: CircleAvatar(
                                      radius: width*0.09,
                                      backgroundColor: lightGreenColor,
@@ -171,7 +171,7 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text("Forgot Password?",style: TextStyle(color: secondaryTextColor,fontSize: 15),),
+                    Text("Forgot Password?",style: TextStyle(color: greyColor,fontSize: 15),),
                   ],
                 ),
                 SizedBox(height: height*0.1,),
@@ -184,7 +184,7 @@ class _LoginPageState extends State<LoginPage> {
                         decoration: BoxDecoration(
                           boxShadow: const [BoxShadow(color:Color(0x90585be4), blurRadius: 20),],
                           borderRadius: BorderRadius.circular(50),
-                          color: const Color(0xff585ce5)
+                          color: primaryColor,
                         ),
                         child: _isLoading?const Center(child: CircularProgressIndicator( color: Colors.white, strokeWidth: 2,),) :Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -199,14 +199,14 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                             Expanded(
                                 child: Divider(
-                                  color: secondaryTextColor,
+                                  color: greyColor,
                                 )
                             ),       
         
-                            Text("  or login with  ",style: TextStyle(color: secondaryTextColor),),
+                            Text("  or login with  ",style: TextStyle(color: greyColor),),
         
                             Expanded(
-                                child: Divider(color: secondaryTextColor,)
+                                child: Divider(color: greyColor,)
                             ),
                         ]
                     ),
@@ -216,7 +216,7 @@ class _LoginPageState extends State<LoginPage> {
                       height: 50,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
-                        border: Border.all(width: 1, color: secondaryTextColor),
+                        border: Border.all(width: 1, color: greyColor),
                         color: Colors.white
                       ),
                       child: Row(
@@ -234,7 +234,7 @@ class _LoginPageState extends State<LoginPage> {
                       Container(
                         padding:
                         const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
-                        child: Text("Don't have an account?", style: TextStyle(color: secondaryTextColor),),
+                        child: Text("Don't have an account?", style: TextStyle(color: greyColor),),
                       ),
                       GestureDetector(
                         onTap: navigateToSignUp,
