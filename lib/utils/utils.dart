@@ -40,3 +40,11 @@ showSnackBar(String content, BuildContext context) {
       )
     );
 }
+
+List<Color> getReportStatusColors(String status) {
+  return status=='Positive'?[redColor,lightRedColor]:[greenColor,lightGreenColor];
+}
+IconData getReportStatusBadge(String status) {
+  return status=='Positive'?Icons.report_rounded
+      :Icons.verified_rounded;
+}
