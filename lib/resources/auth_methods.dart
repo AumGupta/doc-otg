@@ -53,7 +53,7 @@ class AuthMethods {
            lname: lname,
            email: email,
            nationality: nationality,
-           photoUrl: photoUrl,
+           profImageUrl: photoUrl,
            number: number,
            age: age,
            gender: gender
@@ -109,7 +109,7 @@ class AuthMethods {
            lname: lname,
            email: email,
            nationality: nationality,
-           photoUrl: photoUrl,
+           profImageUrl: photoUrl,
            number: number,
            age: age,
            gender: gender

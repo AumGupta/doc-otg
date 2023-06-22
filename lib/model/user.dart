@@ -9,7 +9,7 @@ class user {
   final String nationality;
   final int age;
   final String number;
-  final String photoUrl;
+  final String profImageUrl;
 
   user({required this.uid,
    required this.fname,
@@ -19,7 +19,7 @@ class user {
      required  this.nationality,
      required   this.age,
       required   this.number,
-       required   this.photoUrl});
+       required   this.profImageUrl});
 
   Map<String,dynamic> toJson() => {
     'fname':fname,
@@ -30,7 +30,7 @@ class user {
     'nationality':nationality,
     'age':age,
     'number':number,
-    'photoUrl':photoUrl
+    'photoUrl':profImageUrl
 
   };
   static user fromSnap(DocumentSnapshot snap) {
@@ -45,6 +45,6 @@ class user {
       nationality:    snapshot['nationality'],
       age:snapshot['age'],
            number: snapshot['number'],
-          photoUrl:   snapshot['photoUrl']);
+          profImageUrl:   snapshot['photoUrl']);
   }
 }

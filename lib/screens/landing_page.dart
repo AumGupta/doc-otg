@@ -25,7 +25,7 @@ class LandingPage extends StatelessWidget {
              SizedBox(height: height*0.08,),
              CircleAvatar(
               radius: width*0.092,
-              backgroundColor: secondaryTextColor,
+              backgroundColor: greyColor,
                child: CircleAvatar(
                 radius: width*0.09,
                 backgroundColor: Colors.white,
@@ -33,8 +33,8 @@ class LandingPage extends StatelessWidget {
                ),
              ),
              SizedBox(height: height*0.18,),
-             Text("Project by the Computer Science",style: TextStyle(color: secondaryTextColor,fontSize: 16),),
-             Text("Department,SGGSCC",style: TextStyle(color: secondaryTextColor,fontSize: 16),),
+             Text("Project by the Computer Science",style: TextStyle(color: greyColor,fontSize: 16),),
+             Text("Department,SGGSCC",style: TextStyle(color: greyColor,fontSize: 16),),
                    
             
           ],

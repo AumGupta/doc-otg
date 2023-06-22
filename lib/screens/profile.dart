@@ -24,10 +24,8 @@ class _ProfilePageState extends State<ProfilePage> {
         Provider.of<UserProvider>(context, listen: false).getUser;
      var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    String photourl = user1.photoUrl;
-    var name = user1.fname;
+    String photourl = user1.profImageUrl;
     return Scaffold(
-      appBar: AppBar(elevation: 0,title: Text("Profile Page",style: TextStyle(color: greenColor,fontSize: 18,fontWeight: FontWeight.w500)),centerTitle: true,backgroundColor: lightGreenColor,),
       backgroundColor: screenBgColor,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -185,11 +183,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       hintText: user1.number,
                       hintStyle: const TextStyle(color: Color(0xFFacb1c8))
                       )),
-
-                      SizedBox(height: height*0.05,),
-                      const Center(child: SignoutButton())
-                    
-
+                SizedBox(height: height*0.05,),
+                Text('uid: ${user1.uid}'),
+                SizedBox(height: height*0.05,),
+                const Center(child: SignoutButton())
 
               ],
             ),
@@ -222,10 +219,6 @@ class SignoutButton extends StatelessWidget {
                                           builder: (context) =>
                                               const LoginPage()));
                                 }
-
-                               
-                            
-
                                 logout(context);
                               },
                               child:  Text("Sign out",style: TextStyle(color: greenColor,fontSize: 18,fontWeight: FontWeight.w500)));

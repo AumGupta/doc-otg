@@ -83,7 +83,7 @@ class _DocHomePageState extends State<DocHomePage> {
               ],
             ),
              SizedBox(height: height*0.015,),
-             Text("Welcome back to DOC-OTG",style: TextStyle(color: secondaryTextColor,fontSize: 15),),
+             Text("Welcome back to DOC-OTG",style: TextStyle(color: greyColor,fontSize: 15),),
               SizedBox(height: height*0.05,),
               Text("Patient Report",style: TextStyle(fontSize: height*0.044,fontWeight: FontWeight.w500),),
               SizedBox(height: height*0.03,),  

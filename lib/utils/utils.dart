@@ -41,61 +41,10 @@ showSnackBar(String content, BuildContext context) {
     );
 }
 
-// showBottomSheet(){
-//   showModalBottomSheet(
-//     backgroundColor: Colors.transparent,
-//     context: context,
-//     builder: (BuildContext bc) {
-//       return Container(
-//         height: height*0.3,
-//         decoration: const BoxDecoration(
-//             color: Colors.white,
-//             borderRadius: BorderRadius.only(topLeft: Radius.circular(30),topRight: Radius.circular(30))),
-//         child: Center(
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//
-//             children: [
-//
-//               Row(
-//                 children: [
-//                   SizedBox(width: width*0.1,),
-//                   const Icon(Icons.settings),
-//                   SizedBox(width: width*0.07,),
-//                   const Text("Settings",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),)
-//                 ],
-//               ),
-//               SizedBox(height: height*0.02,),
-//               Row(
-//                 children: [
-//                   SizedBox(width: width*0.1,),
-//                   const Icon(Icons.info_rounded),
-//                   SizedBox(width: width*0.07,),
-//                   const Text("About us",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),)
-//                 ],
-//               ),
-//               SizedBox(height: height*0.02,),
-//               Row(
-//                 children: [
-//                   SizedBox(width: width*0.1,),
-//                   const Icon(Icons.support_agent),
-//                   SizedBox(width: width*0.07,),
-//                   const Text("Support",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),)
-//                 ],
-//               ),
-//               SizedBox(height: height*0.025,),
-//               Row(
-//                 children: [
-//                   SizedBox(width: width*0.1,),
-//                   const Icon(Icons.share),
-//                   SizedBox(width: width*0.07,),
-//                   const Text("Share",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),)
-//                 ],
-//               )
-//             ],
-//           ),
-//         ),
-//       );
-//     },
-//   );
-// }
+List<Color> getReportStatusColors(String status) {
+  return status=='Positive'?[redColor,lightRedColor]:[greenColor,lightGreenColor];
+}
+IconData getReportStatusIcon(String status) {
+  return status=='Positive'?Icons.report_rounded
+      :Icons.verified_rounded;
+}
