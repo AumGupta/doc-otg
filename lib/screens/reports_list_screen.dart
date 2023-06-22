@@ -1,8 +1,9 @@
-import 'package:docotg/utils/colors.dart';
 import 'package:docotg/utils/texts.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../resources/firebase_methods.dart';
+import '../utils/colors.dart';
 import '../utils/utils.dart';
 
 class ReportsListScreen extends StatefulWidget {
@@ -27,44 +28,77 @@ class _ReportsListScreenState extends State<ReportsListScreen> {
     return Scaffold(
         appBar: AppBar(
           title: textHeader('All Reports'),
+          centerTitle: true,
+          scrolledUnderElevation: 0,
         ),
         body: Container(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+          padding: EdgeInsets.symmetric(horizontal: width * 0.075),
           height: double.maxFinite,
           width: double.maxFinite,
           child: FutureBuilder<List<Map>>(
             future: getReportList,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return LinearProgressIndicator(
-                  color: whiteColorTransparent,
-                );
+                return Shimmer.fromColors(
+                    highlightColor: Colors.white,
+                    baseColor: Colors.grey.shade300,
+                    period: const Duration(milliseconds: 900),
+                    child: ListView.builder(
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          margin: const EdgeInsets.only(bottom: 18),
+                          elevation: 0,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30))),
+                          child: Container(
+                            height: height * 0.152,
+                          ),
+                        );
+                      },
+                    ));
               } else if (snapshot.hasData) {
                 try {
                   reportList = snapshot.data!;
-                  return (ListView.separated(
-                    itemCount: reportList.length - 1,
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(
-                        height: 14,
-                      );
-                    },
+                  if (reportList.isEmpty) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.policy_rounded,
+                          size: width * 0.5,
+                          color: blueTint,
+                        ),
+                        SizedBox(height: height*0.05,),
+                        Text(
+                          "No Reports To Show",
+                          style: TextStyle(
+                              color: darkPurple, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    );
+                  }
+                  return (ListView.builder(
+                    itemCount: reportList.length,
                     itemBuilder: (context, index) {
                       List<Color> colors = getReportStatusColors(
                           reportList[index]['textResult']);
                       return Card(
+                        margin: const EdgeInsets.only(bottom: 18),
                         color: colors[1],
                         elevation: 0,
                         shape: const RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(30))),
                         child: Container(
-                          padding: const EdgeInsets.all(16),
+                          padding:
+                              EdgeInsets.fromLTRB(16, height * 0.03, 16, 16),
                           child: Column(
                             children: [
                               Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     "COVID 19",
@@ -86,19 +120,28 @@ class _ReportsListScreenState extends State<ReportsListScreen> {
                                       color: colors[0],
                                     ),
                                   ),
+                                  Icon(
+                                    getReportStatusIcon(
+                                        reportList[index]['textResult']),
+                                    color: colors[0],
+                                    size: 30,
+                                  ),
                                 ],
+                              ),
+                              SizedBox(
+                                height: height * 0.02,
                               ),
                               Container(
                                 height: height * 0.05,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(14),
-                                    color: whiteColorTransparent),
+                                    color: colors[0].withOpacity(0.1)),
                                 child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Icon(
                                         Icons.calendar_today_outlined,
-                                        color: whiteColorTransparent,
+                                        color: colors[0].withOpacity(0.4),
                                       ),
                                       SizedBox(
                                         width: width * 0.02,
@@ -118,13 +161,11 @@ class _ReportsListScreenState extends State<ReportsListScreen> {
                     },
                   ));
                 } catch (error) {
-                  print(error);
                   return const Center(
                       child: Text(
                           "Oops... Something went wrong! Please try again!"));
                 }
               } else if (snapshot.hasError) {
-                print(snapshot.error);
                 return const Center(
                     child: Text("Oops... Something went wrong!"));
               } else {

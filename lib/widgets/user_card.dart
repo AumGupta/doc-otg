@@ -1,11 +1,12 @@
-
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:docotg/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class UserPostCard extends StatefulWidget {
   final snap;
+
   const UserPostCard({super.key, this.snap});
 
   @override
@@ -13,37 +14,57 @@ class UserPostCard extends StatefulWidget {
 }
 
 class _UserPostCardState extends State<UserPostCard> {
-  
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Container(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.only(right: 6),
       child: Column(
         children: [
-          Container(
-            height: height*0.25,
-            width: width*0.440,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              color: blueTint
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(children: [
-                  ClipRRect(
+          Expanded(
+            child: Container(
+              // height: height * 0.21,
+              // width: width * 0.4,
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25), color: blueTint),
+              child: Column(children: [
+                ClipRRect(
                     borderRadius: BorderRadius.circular(20),
-                    child: Image.network(widget.snap['photoUrl'],width: width*0.4,height: height*0.20,fit: BoxFit.cover,)),
-                    const SizedBox(height: 5,),
-                  Text(widget.snap['fname'].toString(), style:TextStyle(fontWeight: FontWeight.bold, color: darkPurple),)
-                ]),
-              ),
-          
+                    child: CachedNetworkImage(
+                      imageUrl: widget.snap['photoUrl'],
+                      height: height * 0.165,
+                      width: width * 0.35,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) => Shimmer.fromColors(
+                        highlightColor: Colors.white,
+                        baseColor: Colors.grey.shade100,
+                        direction: ShimmerDirection.ttb,
+                        period: const Duration(milliseconds: 700),
+                        child: Container(
+                          color: Colors.white,
+                        ),
+                      ),
+                      errorWidget: (context, url, error) => Icon(
+                        Icons.person_rounded,
+                        color: screenBgColor,
+                        size: 150,
+                      ),
+                    )),
+                const SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  widget.snap['fname'].toString(),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: darkPurple),
+                )
+              ]),
+            ),
           )
         ],
       ),
-
     );
   }
 }

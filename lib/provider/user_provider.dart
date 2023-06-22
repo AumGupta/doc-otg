@@ -7,23 +7,23 @@ import '../model/user.dart';
 class UserProvider extends ChangeNotifier {
   user? _user = user(
       uid: "uid",
-      fname: "fname",
+      fname: "User",
       lname: "lname",
       email: "email",
       gender: "gender",
       nationality: "nationality",
       age: 18,
       number: "number",
-      photoUrl: "https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0"
+      profImageUrl: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
   );
 
   user get getUser => _user!;
 
   final AuthMethods _authMethods = AuthMethods();
   Future<void> refreshUser() async {
-    user user1 = await _authMethods.getUserDetails();
-    _user = user1;
-    //print(_user?.name);
+    // user user1 = await _authMethods.getUserDetails();
+    // _user = user1;
+    _user = await _authMethods.getUserDetails();
     notifyListeners();
   }
 }

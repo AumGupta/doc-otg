@@ -4,7 +4,7 @@ Color darkPurple = const Color(0xFF343965);
 Color blueTint = const Color(0xFFDEE8FD);
 
 Color primaryColor = const Color(0xff585be4);
-Color primaryColorTransparent = const Color(0x90585be4);
+Color primaryColorLight = const Color(0xff8789f1);
 
 Color whiteColorTransparent = const Color(0x26FFFFFF);
 

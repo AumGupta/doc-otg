@@ -24,8 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
         Provider.of<UserProvider>(context, listen: false).getUser;
      var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    String photourl = user1.photoUrl;
-    var name = user1.fname;
+    String photourl = user1.profImageUrl;
     return Scaffold(
       backgroundColor: screenBgColor,
       body: SafeArea(
