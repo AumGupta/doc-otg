@@ -6,7 +6,7 @@ class Post {
   final String name; // Name of the user that made the post
   final String postId; // Unique post ID
   final DateTime datePublished; // Date the post was published
-  final String postUrl; //
+  final String imageUrl; //
   final String profImage; //
   String? otherSymptom;
   String? audio;
@@ -17,7 +17,7 @@ class Post {
       required this.name,
       required this.postId,
       required this.datePublished,
-      required this.postUrl,
+      required this.imageUrl,
       required this.profImage,
       required this.audio,
       required this.otherSymptom
@@ -29,7 +29,7 @@ class Post {
         'name': name,
         'postId': postId,
         'datePublished': datePublished,
-        'postUrl': postUrl,
+        'postUrl': imageUrl,
         'profImage': profImage,
         'audio': audio,
         'otherSymptom' : otherSymptom
@@ -45,7 +45,7 @@ class Post {
         symptoms: snapshot['symptoms'],
         postId: snapshot['postId'],
         datePublished: snapshot['datePublished'],
-        postUrl: snapshot['postUrl'],
+        imageUrl: snapshot['postUrl'],
         profImage: snapshot['following'],
         audio: snapshot['audio'],
         otherSymptom: snapshot['otherSymptom']

@@ -1,12 +1,10 @@
 import 'dart:convert';
-import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:docotg/resources/storage_methods.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
@@ -19,7 +17,6 @@ import '../provider/user_provider.dart';
 
 class FireStoreMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<Map<String, String>> getLatestReport(
     String uid,
@@ -27,8 +24,13 @@ class FireStoreMethods {
     QuerySnapshot snap = await _firestore
         .collection("reports")
         .orderBy("datePublished", descending: true)
+        .where('uid', isEqualTo: uid)
         .limit(1)
         .get();
+    if (snap.size == 0) {
+      return {};
+    }
+    ;
     return Report.fromQuerySnap(snap)[0].toReadableReport();
   }
 
@@ -99,11 +101,11 @@ class FireStoreMethods {
   // Upload Post
   Future<String> uploadPost(
     Map<String, String> symptoms,
-    Uint8List file,
+    Uint8List imageFile,
     String uid,
     String name,
     String profImage,
-    String audio,
+    String audioPath,
     BuildContext context,
     // String textAnalysisResult,
     String otherSymptom,
@@ -111,13 +113,17 @@ class FireStoreMethods {
     String res = "Some Error Occoured";
     final user user1 =
         Provider.of<UserProvider>(context, listen: false).getUser;
+
     try {
-      String photoUrl = await StorageMethods().uploadImageToStorage(
-        'posts',
-        file,
-        true,
-      );
-      String audioURL = await uploadAudioFile(audio);
+      String imageUrl = '';
+      if (imageFile.isNotEmpty) {
+        imageUrl = await StorageMethods().uploadImageToStorage(
+          'posts',
+          imageFile,
+          true,
+        );
+      }
+      String audioURL = audioPath.isNotEmpty?await uploadAudioFile(audioPath):'';
       String postId = const Uuid().v1();
       Post post = Post(
           symptoms: symptoms,
@@ -125,7 +131,7 @@ class FireStoreMethods {
           name: name,
           postId: postId,
           datePublished: DateTime.now(),
-          postUrl: photoUrl,
+          imageUrl: imageUrl,
           profImage: profImage,
           audio: audioURL,
           otherSymptom: otherSymptom);

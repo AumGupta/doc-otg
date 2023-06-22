@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:docotg/model/report.dart';
 import 'package:docotg/resources/firebase_methods.dart';
 import 'package:docotg/screens/reports_list_screen.dart';
 import 'package:docotg/screens/result_screen.dart';
 import 'package:docotg/screens/detailed_User_list.dart';
 import 'package:docotg/utils/colors.dart';
+import 'package:docotg/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 import '../provider/user_provider.dart';
 import '../widgets/user_card.dart';
 
@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
 
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    String photourl = user1.photoUrl;
+    String profPhotoUrl = user1.profImageUrl;
     var name = user1.fname;
     return Scaffold(
       backgroundColor: screenBgColor,
@@ -63,12 +63,20 @@ class _HomePageState extends State<HomePage> {
                         ),
                         child: CachedNetworkImage(
                           fit: BoxFit.cover,
-                          imageUrl: photourl,
-                          placeholder: (context, url) =>
-                              CircularProgressIndicator(color: screenBgColor),
+                          imageUrl: profPhotoUrl,
+                          placeholder: (context, url) => Shimmer.fromColors(
+                            highlightColor: Colors.white,
+                            baseColor: blueTint,
+                            direction: ShimmerDirection.ttb,
+                            period: const Duration(milliseconds: 1000),
+                            child: Container(
+                              color: Colors.white,
+                            ),
+                          ),
                           errorWidget: (context, url, error) => Icon(
-                            Icons.account_circle,
+                            Icons.person_rounded,
                             color: screenBgColor,
+                            size: 50,
                           ),
                         )),
                     // Greeting
@@ -149,238 +157,242 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: height * 0.03,
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ResultScreen(report: report),
-                    ));
-                  },
-
-                  // Latest Report Card
-                  child: Container(
-                      width: double.infinity,
-                      height: height * 0.25,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: primaryColor),
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(width * 0.06,
-                            width * 0.075, width * 0.06, width * 0.05),
-                        child: FutureBuilder<Map<String, String>>(
-                            future: getReport,
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return Column(
+                FutureBuilder<Map<String, String>>(
+                    future: getReport,
+                    builder: (context, snapshot) {
+                      // Loading Shimmer Effect
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Container(
+                          width: double.infinity,
+                          height: height * 0.25,
+                          padding: EdgeInsets.fromLTRB(width * 0.06,
+                              width * 0.075, width * 0.06, width * 0.05),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: primaryColor),
+                          child: Shimmer.fromColors(
+                            highlightColor: whiteColorTransparent,
+                            baseColor: primaryColorLight,
+                            direction: ShimmerDirection.ttb,
+                            period: const Duration(milliseconds: 700),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                    Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            const Text(
-                                              "Disease:",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 16,
-                                                  color: Colors.white),
-                                            ),
-                                            SizedBox(
-                                              height: height * 0.016,
-                                            ),
-                                            const Text(
-                                              "Result:",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 16,
-                                                  color: Colors.white),
-                                            ),
-                                          ],
+                                        Container(
+                                          height: 26,
+                                          width: 215,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              color: primaryColor),
                                         ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            const Text(
-                                              "",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontSize: 16,
-                                                  color: Colors.white),
-                                            ),
-                                            SizedBox(
-                                              height: height * 0.016,
-                                            ),
-                                            const Text(
-                                              "",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontSize: 16,
-                                                  color: Colors.white),
-                                            ),
-                                          ],
+                                        SizedBox(
+                                          height: height * 0.016,
                                         ),
-                                        CircleAvatar(
-                                            radius: 16,
-                                            backgroundColor: Colors.white,
-                                            child: Icon(
-                                              Icons.access_time_filled_rounded,
-                                              color: primaryColor,
-                                            ))
+                                        Container(
+                                          height: 25.5,
+                                          width: 190,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              color: primaryColor),
+                                        ),
                                       ],
                                     ),
-                                    Container(
-                                      height: height * 0.05,
-                                      clipBehavior: Clip.hardEdge,
-                                      decoration: BoxDecoration(
+                                    const CircleAvatar(
+                                      radius: 16,
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  height: height * 0.05,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(14),
+                                      color: primaryColorLight),
+                                ),
+                                Container(
+                                  height: 20,
+                                  width: 250,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: primaryColor),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }
+                      // Loaded Report Card
+                      else if (snapshot.hasData) {
+                        if (snapshot.data!.isEmpty) {
+                          return (Container(
+                            width: double.infinity,
+                            height: height * 0.25,
+                            padding: EdgeInsets.fromLTRB(width * 0.06,
+                                width * 0.075, width * 0.06, width * 0.05),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                color: primaryColor),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(
+                                  Icons.policy_rounded,
+                                  size: 100,
+                                  color: primaryColorLight,
+                                ),
+                                Text(
+                                  "No Latest Report",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ));
+                        }
+                        report = snapshot.data!;
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  ResultScreen(report: report),
+                            ));
+                          },
+                          child: Container(
+                              width: double.infinity,
+                              height: height * 0.25,
+                              padding: EdgeInsets.fromLTRB(width * 0.06,
+                                  width * 0.075, width * 0.06, width * 0.05),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: primaryColor),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            "Disease:",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 16,
+                                                color: Colors.white),
+                                          ),
+                                          SizedBox(
+                                            height: height * 0.016,
+                                          ),
+                                          const Text(
+                                            "Result:",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 16,
+                                                color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
+
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          //Disease
+                                          const Text(
+                                            "COVID-19",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: 16,
+                                                color: Colors.white),
+                                          ),
+                                          SizedBox(
+                                            height: height * 0.016,
+                                          ),
+                                          // result
+                                          Text(
+                                            report['textResult']!,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: 16,
+                                                color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
+
+                                      // Report Icon
+                                      CircleAvatar(
+                                        radius: 16,
+                                        backgroundColor: getReportStatusColors(
+                                            report['textResult']!)[1],
+                                        child: Icon(
+                                          getReportStatusIcon(
+                                              report['textResult']!),
+                                          color: getReportStatusColors(
+                                              report['textResult']!)[0],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+                                  //Date and Time
+                                  Container(
+                                    height: height * 0.05,
+                                    decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(14),
-                                        color: whiteColorTransparent,
-                                      ),
-                                      child: LinearProgressIndicator(
-                                        color: whiteColorTransparent,
-                                        backgroundColor: Colors.transparent,
-                                      ),
-                                    ),
-                                    //ReportID
-                                    const Text(
-                                      " ",
-                                      style: TextStyle(fontSize: 9),
-                                    ),
-                                  ],
-                                );
-                              }
-                              else if (snapshot.hasData) {
-                                report = snapshot.data!;
-                                return Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            const Text(
-                                              "Disease:",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 16,
-                                                  color: Colors.white),
-                                            ),
-                                            SizedBox(
-                                              height: height * 0.016,
-                                            ),
-                                            const Text(
-                                              "Result:",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 16,
-                                                  color: Colors.white),
-                                            ),
-                                          ],
-                                        ),
+                                        color: whiteColorTransparent),
+                                    child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.calendar_today_outlined,
+                                            color: whiteColorTransparent,
+                                          ),
+                                          SizedBox(
+                                            width: width * 0.02,
+                                          ),
+                                          Text(
+                                            "${report['datePublished']!} - ${report['timePublished']!}",
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.white),
+                                          )
+                                        ]),
+                                  ),
 
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            //Disease
-                                            const Text(
-                                              "COVID-19",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontSize: 16,
-                                                  color: Colors.white),
-                                            ),
-                                            SizedBox(
-                                              height: height * 0.016,
-                                            ),
-                                            // result
-                                            Text(
-                                              report['textResult']!,
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontSize: 16,
-                                                  color: Colors.white),
-                                            ),
-                                          ],
-                                        ),
-                                        // Report Badge
-                                        report['textResult'] == 'Positive'
-                                            ? CircleAvatar(
-                                                radius: 16,
-                                                backgroundColor: lightRedColor,
-                                                child: Icon(
-                                                  Icons.report_rounded,
-                                                  color: redColor,
-                                                ),
-                                              )
-                                            : CircleAvatar(
-                                                radius: 16,
-                                                backgroundColor:
-                                                    lightGreenColor,
-                                                child: Icon(
-                                                  Icons.verified_rounded,
-                                                  color: greenColor,
-                                                ),
-                                              ),
-                                      ],
-                                    ),
-
-                                    //Date and Time
-                                    Container(
-                                      height: height * 0.05,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(14),
-                                          color: whiteColorTransparent),
-                                      child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.calendar_today_outlined,
-                                              color: whiteColorTransparent,
-                                            ),
-                                            SizedBox(
-                                              width: width * 0.02,
-                                            ),
-                                            Text(
-                                              "${report['datePublished']!} - ${report['timePublished']!}",
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Colors.white),
-                                            )
-                                          ]),
-                                    ),
-
-                                    //ReportID
-                                    Text(
-                                      "ReportID: ${report["reportId"]}",
-                                      style: const TextStyle(
-                                          fontSize: 9, color: Colors.white),
-                                    ),
-                                  ],
-                                );
-                              }
-                              else {
-                                return const Text('No data');
-                              }
-                            }),
-                      )),
-                ),
+                                  //ReportID
+                                  Text(
+                                    "ReportID: ${report["reportId"]}",
+                                    style: const TextStyle(
+                                        fontSize: 9, color: Colors.white),
+                                  ),
+                                ],
+                              )),
+                        );
+                      } else if (snapshot.hasError) {
+                        print(snapshot.error);
+                        return const Text('Oops...Something went VERY wrong!');
+                      } else {
+                        return const Text('Oops...Something went wrong!');
+                      }
+                    }),
                 SizedBox(
                   height: height * 0.05,
                 ),
@@ -395,7 +407,7 @@ class _HomePageState extends State<HomePage> {
                   height: height * 0.03,
                 ),
                 SizedBox(
-                  height: height * 0.30,
+                  height: height * 0.21,
                   width: double.infinity,
                   child: StreamBuilder(
                     stream: FirebaseFirestore.instance
@@ -408,61 +420,70 @@ class _HomePageState extends State<HomePage> {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
-                      }
-                      return ListView.builder(
+                      } else if (snapshot.hasData) {
+                        return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: snapshot.data!.docs.length,
+                            // Returns the number of documents in the 'posts' collection on Firestore
+                            itemBuilder: (context, index) => GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                UserDetailedPage(
+                                                    snap: snapshot
+                                                        .data!.docs[index]
+                                                        .data())));
+                                  },
+                                  child: UserPostCard(
+                                      snap: snapshot.data!.docs[index]
+                                          .data() // Getting the Post Data from Firebase and Passing it to the "PostCard Widget"
+                                      ),
+                                ));
+                      } else {
+                        return ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: snapshot.data!.docs.length,
-                          // Returns the number of documents in the 'posts' collection on Firestore
-                          itemBuilder: (context, index) => GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => UserDetailedPage(
-                                          snap: snapshot.data!.docs[index]
-                                              .data())));
-                                },
-                                child: UserPostCard(
-                                    snap: snapshot.data!.docs[index]
-                                        .data() // Getting the Post Data from Firebase and Passing it to the "PostCard Widget"
-                                    ),
-                              ));
+                          itemCount: 0,
+                          itemBuilder: (context, index) => Container(
+                            child: Column(
+                              children: [
+                                Container(
+                                  width: width * 0.440,
+                                  height: height * 0.25,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      color: blueTint),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(children: [
+                                      ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child: Container(
+                                            width: width * 0.4,
+                                            height: height * 0.20,
+                                            color: screenBgColor,
+                                          )),
+                                      // const SizedBox(
+                                      //   height: 5,
+                                      // ),
+                                      Text(
+                                        "Doctor Name",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: darkPurple),
+                                      )
+                                    ]),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      }
                     },
                   ),
                 ),
-                Text(
-                  "Past Reports",
-                  style: TextStyle(
-                      fontSize: height * 0.036,
-                      fontWeight: FontWeight.bold,
-                      color: darkPurple),
-                ),
-                SizedBox(
-                  height: height * 0.03,
-                ),
-                Container(
-                  height: height * 0.16,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: lightGreenColor),
-                  child: Center(
-                      child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.file_copy_outlined,
-                        color: greenColor,
-                      ),
-                      SizedBox(
-                        width: width * 0.01,
-                      ),
-                      Text(
-                        "No reports to see",
-                        style: TextStyle(color: greenColor),
-                      )
-                    ],
-                  )),
-                )
               ],
             ),
           ),
