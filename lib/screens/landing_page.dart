@@ -20,7 +20,7 @@ class LandingPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             Image.asset("assets/Logo.png",height: width*0.65,),
+             Image.asset("assets/images/icon-1024x1024.png",height: width*0.65,),
              const Text("Doctor On-The-Go",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
              SizedBox(height: height*0.08,),
              CircleAvatar(

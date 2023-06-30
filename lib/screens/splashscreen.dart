@@ -29,7 +29,7 @@ class _Splash2State extends State<Splash2> {
      var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return EasySplashScreen(
-      logo: Image.asset("assets/Logo.png"),
+      logo: Image.asset("assets/images/icon-1024x1024.png"),
       showLoader: false,
       logoWidth: width*0.3,
       title: const Text(
