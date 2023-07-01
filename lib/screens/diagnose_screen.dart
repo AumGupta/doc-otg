@@ -161,10 +161,10 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
             child: Text(
               'Submitting...',
               style: TextStyle(
-                  color: primaryColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  // fontStyle: FontStyle.italic
+                color: primaryColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                // fontStyle: FontStyle.italic
               ),
             ));
       });
@@ -187,10 +187,10 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
             child: Text(
               'Validating...',
               style: TextStyle(
-                  color: primaryColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  // fontStyle: FontStyle.italic
+                color: primaryColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                // fontStyle: FontStyle.italic
               ),
             ));
       });

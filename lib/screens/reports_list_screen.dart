@@ -41,7 +41,7 @@ class _ReportsListScreenState extends State<ReportsListScreen> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Shimmer.fromColors(
                     highlightColor: Colors.white,
-                    baseColor: Colors.grey.shade300,
+                    baseColor: blueTint,
                     period: const Duration(milliseconds: 900),
                     child: ListView.builder(
                       itemCount: 5,
@@ -53,7 +53,7 @@ class _ReportsListScreenState extends State<ReportsListScreen> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(30))),
                           child: Container(
-                            height: height * 0.152,
+                            height: 129,
                           ),
                         );
                       },

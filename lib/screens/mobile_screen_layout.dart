@@ -85,80 +85,83 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
               onPressed: () {
                 showModalBottomSheet(
                   backgroundColor: Colors.transparent,
+                  isScrollControlled: true,
+                  useSafeArea: true,
                   context: context,
                   builder: (BuildContext bc) {
-                    return Container(
-                      height: height * 0.3,
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                          color: screenBgColor,
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(30),
-                              topRight: Radius.circular(30))),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          // Settings
-                          ListTile(
-                            leading: Icon(
-                              Icons.settings,
-                              color: darkPurple,
-                            ),
-                            title: Text(
-                              "Settings",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17,
+                    return Expanded(
+                      child: Container(
+                        // height: height * 0.5,
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                            color: screenBgColor,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(30),
+                                topRight: Radius.circular(30))),
+                        child: Wrap(
+                          children: [
+                            // Settings
+                            ListTile(
+                              leading: Icon(
+                                Icons.settings,
                                 color: darkPurple,
                               ),
-                            ),
-                          ),
-                          // Support
-                          ListTile(
-                            leading: Icon(
-                              Icons.support_agent,
-                              color: darkPurple,
-                            ),
-                            title: Text(
-                              "Support",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17,
-                                color: darkPurple,
+                              title: Text(
+                                "Settings",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 17,
+                                  color: darkPurple,
+                                ),
                               ),
                             ),
-                          ),
-                          // About Us
-                          ListTile(
-                            leading: Icon(
-                              Icons.info_outline_rounded,
-                              color: darkPurple,
-                            ),
-                            title: Text(
-                              "About Us",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17,
+                            // Support
+                            ListTile(
+                              leading: Icon(
+                                Icons.support_agent,
                                 color: darkPurple,
                               ),
-                            ),
-                          ),
-                          // Share
-                          ListTile(
-                            leading: Icon(
-                              Icons.share,
-                              color: darkPurple,
-                            ),
-                            title: Text(
-                              "Share",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17,
-                                color: darkPurple,
+                              title: Text(
+                                "Support",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 17,
+                                  color: darkPurple,
+                                ),
                               ),
                             ),
-                          )
-                        ],
+                            // About Us
+                            ListTile(
+                              leading: Icon(
+                                Icons.info_outline_rounded,
+                                color: darkPurple,
+                              ),
+                              title: Text(
+                                "About Us",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 17,
+                                  color: darkPurple,
+                                ),
+                              ),
+                            ),
+                            // Share
+                            ListTile(
+                              leading: Icon(
+                                Icons.share,
+                                color: darkPurple,
+                              ),
+                              title: Text(
+                                "Share",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 17,
+                                  color: darkPurple,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     );
                   },

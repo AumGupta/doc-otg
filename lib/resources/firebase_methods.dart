@@ -30,7 +30,6 @@ class FireStoreMethods {
     if (snap.size == 0) {
       return {};
     }
-    ;
     return Report.fromQuerySnap(snap)[0].toReadableReport();
   }
 
