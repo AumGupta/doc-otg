@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
 Color darkPurple = const Color(0xFF343965);
-Color blueTint = const Color(0xFFDEE8FD);
+Color blueTint = const Color(0xFFecf2ff);
+// Color blueTint = const Color(0xFFDEE8FD);
 
 Color primaryColor = const Color(0xff585be4);
 Color primaryColorLight = const Color(0xff8789f1);
 
 Color whiteColorTransparent = const Color(0x26FFFFFF);
 
-Color screenBgColor = const Color(0xFFFAFBFF);
+// Color screenBgColor = const Color(0xFFFAFBFF);
+Color screenBgColor = const Color(0xFFFFFFFF);
 Color greyColor = const Color(0xFFA1A6C0);
 
 Color lightGreenColor = const Color(0xFFcdecea);
