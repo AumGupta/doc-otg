@@ -51,8 +51,9 @@ class FireStoreMethods {
 
   // Upload a Report (Analysed Post)
   Future<String> uploadReport(String uid, Map<String, String> symptoms) async {
-    String res = "Some Error Occoured";
+    String res = "Some Error Occurred";
     String textResult = '';
+    // print('Start: ' + DateTime.now().toString());
     var url = Uri.parse('https://docotg.onrender.com/text');
     try {
       var response = await http.post(
@@ -64,12 +65,14 @@ class FireStoreMethods {
         var data = json.decode(response.body);
         textResult = '$data';
       } else {
-        textResult = 'Error: ${response.statusCode}';
+        return 'Error: ${response.statusCode}';
+        // textResult = 'Error: ${response.statusCode}';
       }
     } catch (e) {
-      textResult = 'Error: $e';
+      return 'Error: $e';
+      // textResult = 'Error: $e';
     }
-
+    // print('$textResult:' + DateTime.now().toString());
     try {
       var latestPost = await _firestore
           .collection("users")
@@ -80,7 +83,7 @@ class FireStoreMethods {
           .get();
       var post = latestPost.docs.first.data();
       String postId = post["postId"];
-
+      // print("got latest post " + DateTime.now().toString());
       String reportId = const Uuid().v1();
       Report report = Report(
         textResult: textResult,
@@ -90,10 +93,12 @@ class FireStoreMethods {
         datePublished: DateTime.now(),
       );
       _firestore.collection("reports").doc(reportId).set(report.toJson());
+      // print("post uploaded " + DateTime.now().toString());
       res = "success";
     } catch (e) {
       res = e.toString();
     }
+    // print("END " + DateTime.now().toString());
     return res;
   }
 

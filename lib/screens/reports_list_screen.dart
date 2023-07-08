@@ -53,7 +53,7 @@ class _ReportsListScreenState extends State<ReportsListScreen> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(30))),
                           child: Container(
-                            height: 129,
+                            height: 127,
                           ),
                         );
                       },
@@ -70,7 +70,9 @@ class _ReportsListScreenState extends State<ReportsListScreen> {
                           size: width * 0.5,
                           color: blueTint,
                         ),
-                        SizedBox(height: height*0.05,),
+                        SizedBox(
+                          height: height * 0.05,
+                        ),
                         Text(
                           "No Reports To Show",
                           style: TextStyle(
@@ -87,13 +89,14 @@ class _ReportsListScreenState extends State<ReportsListScreen> {
                       return Card(
                         margin: const EdgeInsets.only(bottom: 18),
                         color: colors[1],
+                        clipBehavior: Clip.hardEdge,
                         elevation: 0,
                         shape: const RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(30))),
                         child: Container(
                           padding:
-                              EdgeInsets.fromLTRB(16, height * 0.03, 16, 16),
+                              const EdgeInsets.fromLTRB(16, 25, 16, 16),
                           child: Column(
                             children: [
                               Row(
@@ -128,11 +131,11 @@ class _ReportsListScreenState extends State<ReportsListScreen> {
                                   ),
                                 ],
                               ),
-                              SizedBox(
-                                height: height * 0.02,
+                              const SizedBox(
+                                height: 16,
                               ),
                               Container(
-                                height: height * 0.05,
+                                height: 40,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(14),
                                     color: colors[0].withOpacity(0.1)),

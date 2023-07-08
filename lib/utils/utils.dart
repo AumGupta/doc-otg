@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:file_picker/file_picker.dart';
 
-
 pickImage(ImageSource source) async {
   final ImagePicker _imagePicker = ImagePicker();
 
@@ -11,8 +10,7 @@ pickImage(ImageSource source) async {
 
   if (_file != null) {
     return await _file.readAsBytes();
-  } else {
-  }
+  } else {}
 }
 
 pickAudio() async {
@@ -22,29 +20,32 @@ pickAudio() async {
 
   if (result != null) {
     return await result.files.single.path;
-  } else {
-  }
+  } else {}
 }
 
 showSnackBar(String content, BuildContext context) {
-  ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-          content: Text(
-            content,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.black
-            ),
-          ),
-          backgroundColor: blueTint,
-      )
-    );
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Center(
+      child: Text(
+        content,
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: darkPurple,
+        ),
+      ),
+    ),
+    backgroundColor: blueTint,
+    showCloseIcon: true,
+    closeIconColor: darkPurple,
+  ));
 }
 
 List<Color> getReportStatusColors(String status) {
-  return status=='Positive'?[redColor,lightRedColor]:[greenColor,lightGreenColor];
+  return status == 'Positive'
+      ? [redColor, lightRedColor]
+      : [greenColor, lightGreenColor];
 }
+
 IconData getReportStatusIcon(String status) {
-  return status=='Positive'?Icons.report_rounded
-      :Icons.verified_rounded;
+  return status == 'Positive' ? Icons.report_rounded : Icons.verified_rounded;
 }

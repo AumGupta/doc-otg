@@ -150,6 +150,10 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
     String name,
     String profImage,
   ) async {
+    if (symptoms.values.any((element) => true) == false) {
+      showSnackBar("Please enter symptoms to submit", context);
+      return;
+    }
     setState(() {
       isLoading = true;
     });
@@ -207,7 +211,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
         setState(() {
           isLoading = false;
         });
-        showSnackBar(res, context);
+        showSnackBar(res2, context);
       }
     } catch (err) {
       setState(() {
@@ -218,6 +222,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
     } finally {
       setState(() {
         tags = [];
+        symptoms = {};
         submissionStatus = const SizedBox();
         _descriptionController.text = '';
         clearImage();
@@ -306,8 +311,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
               ),
 
               Container(
-                  width: double.infinity,
-                  height: height * 0.15,
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
                   decoration: BoxDecoration(
                     // border: Border.all(width: 1, color: greyColor),
                     borderRadius: BorderRadius.circular(30),
@@ -315,13 +319,13 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                   ),
                   child: TextFormField(
                     controller: _descriptionController,
-                    maxLength: 200,
+                    cursorColor: primaryColor,
+                    maxLength: 240,
                     maxLines: 3,
                     textAlignVertical: TextAlignVertical.top,
                     decoration: const InputDecoration(
                       border: InputBorder.none,
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                      // contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                       hintText: "Other Symptoms",
                     ),
                   )),
