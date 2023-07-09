@@ -537,7 +537,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                               Icons.arrow_forward_sharp,
                               size: 20.0,
                               color: Colors.white,
-                              weight: 100,
+                              // weight: 100,
                             )
                           ],
                         ),

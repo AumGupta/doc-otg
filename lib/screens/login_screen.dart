@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
 
     if (result == "success") {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) =>  MobileScreenLayout(_isDoctor)));
+          builder: (context) =>  MobileScreenLayout( isDoctor: _isDoctor,)));
     } else {
       showSnackBar(result, context);
     }
@@ -190,7 +190,7 @@ class _LoginPageState extends State<LoginPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
                           Text("Login  ",style: TextStyle(fontSize: 16,color: Colors.white),),
-                          Icon(Icons.arrow_forward_sharp,color: Colors.white, size: 20.0, weight: 100,)
+                          Icon(Icons.arrow_forward_sharp,color: Colors.white, size: 20.0,)
                         ]),
                         ),
                 ),
@@ -223,7 +223,7 @@ class _LoginPageState extends State<LoginPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const [
                           Text("Login with Google ",style: TextStyle(fontSize: 16,color: Colors.black),),
-                           Icon(Icons.arrow_forward_sharp, size: 20.0, weight: 100,),
+                           Icon(Icons.arrow_forward_sharp, size: 20.0,),
                       ]),
                       ),
                 SizedBox(height: height*0.03,),

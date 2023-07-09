@@ -27,14 +27,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   addData() async {
-    await Provider.of<UserProvider>(context, listen: false).refreshUser();
+    await Provider.of<UserProvider>(context, listen: false).refreshUser(false);
   }
 
   @override
   Widget build(BuildContext context) {
     final user1 = Provider.of<UserProvider>(context, listen: false).getUser;
     final Future<Map<String, String>> getReport =
-        FireStoreMethods().getLatestReport(user1.uid);
+    FireStoreMethods().getLatestReport(user1.uid);
     Map<String, String> report = {};
 
     var height = MediaQuery.of(context).size.height;
