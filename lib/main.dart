@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: const LogicBuilder(),
+        home: LoginPage(),
       ),
     );
   }
@@ -67,7 +67,9 @@ class LogicBuilder extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData) {
             // This means that whenever the connection is active and our snapshot has any data we are going to return a responsive layout
-            return const MobileScreenLayout(true); // TRUE hai isiliye DOctor Screen AAti hai bar bar
+            return MobileScreenLayout(
+                isDoctor:
+                    true); // TRUE hai isiliye DOctor Screen AAti hai bar bar
           } else if (snapshot.hasError) {
             return Center(
               child: Text(

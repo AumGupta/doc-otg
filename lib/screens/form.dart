@@ -69,7 +69,7 @@ class _FormPageState extends State<FormPage> {
       showSnackBar(result, context);
     } else {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => MobileScreenLayout(widget.isDoctor)));
+          builder: (context) => MobileScreenLayout(isDoctor:widget.isDoctor)));
     }
   }
   

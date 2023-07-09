@@ -9,9 +9,9 @@ import 'package:provider/provider.dart';
 import '../provider/user_provider.dart';
 
 class MobileScreenLayout extends StatefulWidget {
-  final bool isDoctor = false;
+  final bool isDoctor;
 
-  const MobileScreenLayout(isDoctor, {super.key});
+  MobileScreenLayout({Key? key, required this.isDoctor}) : super(key: key);
 
   @override
   State<MobileScreenLayout> createState() => _MobileScreenLayoutState();
@@ -28,7 +28,8 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
   }
 
   addData() async {
-    await Provider.of<UserProvider>(context, listen: false).refreshUser();
+    await Provider.of<UserProvider>(context, listen: false)
+        .refreshUser(widget.isDoctor);
   }
 
   @override
@@ -86,7 +87,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
                 showModalBottomSheet(
                   backgroundColor: Colors.transparent,
                   isScrollControlled: true,
-                  useSafeArea: true,
+                  // useSafeArea: true,
                   context: context,
                   builder: (BuildContext bc) {
                     return Expanded(
