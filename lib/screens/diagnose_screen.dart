@@ -1,9 +1,11 @@
 import 'dart:typed_data';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
+import 'package:chips_choice/chips_choice.dart';
+
+// import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 import 'package:docotg/resources/firebase_methods.dart';
-import 'package:docotg/utils/colors.dart';
+import 'package:docotg/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -20,10 +22,8 @@ class DiagnoseScreen extends StatefulWidget {
 }
 
 class _DiagnoseScreenState extends State<DiagnoseScreen> {
-  int tag = 1;
   List<String> tags = [];
   Widget submissionStatus = const SizedBox();
-
   // Name of the options should be same as text model variables with "_" replaced with " "
   List<String> options = [
     "Cough",
@@ -31,13 +31,14 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
     "Sore Throat",
     "Shortness of Breath",
     "Headache",
-    "Old Age",
+    // "Old Age",
     "Contact",
   ];
   Map<String, String> symptoms = {};
 
   // Helps in making Tags (list of symptoms ) into a Map of Symptoms (A format needed by Text Analysis model)
   void mapSymptoms(Map<String, String> symptoms, List<String> tags) {
+
     for (var i = 0; i < tags.length; i++) {
       var key = tags[i].toLowerCase().replaceAll(" ", "_");
       symptoms[key] = "True";
@@ -184,20 +185,22 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
           _descriptionController.text.isNotEmpty
               ? _descriptionController.text
               : 'NA');
-      setState(() {
-        submissionStatus = Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.all(16),
-            child: Text(
-              'Validating...',
-              style: TextStyle(
-                color: primaryColor,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-                // fontStyle: FontStyle.italic
-              ),
-            ));
-      });
+      if (res == 'success') {
+        setState(() {
+          submissionStatus = Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(16),
+              child: Text(
+                'Validating...',
+                style: TextStyle(
+                  color: primaryColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  // fontStyle: FontStyle.italic
+                ),
+              ));
+        });
+      }
       // Input Analysis
       String res2 = await FireStoreMethods().uploadReport(uid, symptoms);
       if (res2 == "success") {
@@ -282,6 +285,8 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
 
               // Symptoms Selector
               ChipsChoice<String>.multiple(
+                padding: const EdgeInsets.only(bottom: 12),
+                alignment: WrapAlignment.start,
                 value: tags,
                 onChanged: (val) => setState(() {
                   symptoms = {
@@ -290,22 +295,42 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                     "sore_throat": "False",
                     "shortness_of_breath": "False",
                     "headache": "False",
-                    "old_age": "False",
+                    "old_age": user1.age>oldAgeCriterion?"True":"False",
                     "contact": "False"
                   };
                   tags = val;
                   mapSymptoms(symptoms, tags);
                 }),
                 choiceItems: C2Choice.listFrom(
-                    source: options, value: (i, v) => v, label: (i, v) => v),
-                choiceActiveStyle: C2ChoiceStyle(
-                    color: Colors.white,
-                    backgroundColor: primaryColor,
-                    borderRadius: const BorderRadius.all(Radius.circular(30))),
-                choiceStyle: C2ChoiceStyle(
+                  source: options,
+                  value: (i, v) => v,
+                  label: (i, v) => v,
+                ),
+                choiceCheckmark: true,
+                choiceStyle: C2ChipStyle.outlined(
+                  color: darkPurple,
+                  overlayColor: primaryColor,
+                  foregroundStyle: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Montserrat',
                     color: darkPurple,
-                    backgroundColor: Colors.white,
-                    borderRadius: const BorderRadius.all(Radius.circular(30))),
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(30)),
+                  checkmarkColor: Colors.white,
+                  checkmarkStyle: C2ChipCheckmarkStyle.round,
+                  checkmarkWeight: 1.5,
+                  selectedStyle: C2ChipStyle.filled(
+                    overlayColor: Colors.white,
+                    foregroundStyle: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Montserrat',
+                      color: Colors.white,
+                    ),
+                    color: primaryColor,
+                    backgroundOpacity: 1,
+                    borderRadius: const BorderRadius.all(Radius.circular(30)),
+                  ),
+                ),
                 wrapped: true,
                 textDirection: TextDirection.ltr,
               ),

@@ -1,6 +1,6 @@
 import 'package:docotg/screens/form.dart';
 import 'package:docotg/screens/login_screen.dart';
-import 'package:docotg/utils/colors.dart';
+import 'package:docotg/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';

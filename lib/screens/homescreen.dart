@@ -4,7 +4,7 @@ import 'package:docotg/resources/firebase_methods.dart';
 import 'package:docotg/screens/reports_list_screen.dart';
 import 'package:docotg/screens/result_screen.dart';
 import 'package:docotg/screens/detailed_User_list.dart';
-import 'package:docotg/utils/colors.dart';
+import 'package:docotg/utils/constants.dart';
 import 'package:docotg/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +20,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool isLoading = true;
+
   @override
   void initState() {
     super.initState();
@@ -27,11 +29,21 @@ class _HomePageState extends State<HomePage> {
   }
 
   addData() async {
-    await Provider.of<UserProvider>(context, listen: false).refreshUser();
+    await Provider.of<UserProvider>(context, listen: false)
+        .refreshUser()
+        .then((value) {
+      setState(() {
+        isLoading = false;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading){
+      addData();
+      isLoading = false;
+    }
     final user1 = Provider.of<UserProvider>(context, listen: false).getUser;
     final Future<Map<String, String>> getReport =
         FireStoreMethods().getLatestReport(user1.uid);

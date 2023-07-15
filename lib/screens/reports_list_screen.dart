@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../resources/firebase_methods.dart';
-import '../utils/colors.dart';
+import '../utils/constants.dart';
 import '../utils/utils.dart';
 
 class ReportsListScreen extends StatefulWidget {

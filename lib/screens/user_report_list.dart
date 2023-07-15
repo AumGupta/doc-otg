@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:docotg/screens/report_page.dart';
-import 'package:docotg/utils/colors.dart';
+import 'package:docotg/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class UserReportListPage extends StatefulWidget {

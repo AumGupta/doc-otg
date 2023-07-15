@@ -2,7 +2,7 @@ import 'package:docotg/screens/diagnose_screen.dart';
 import 'package:docotg/screens/doctor_homescreen.dart';
 import 'package:docotg/screens/homescreen.dart';
 import 'package:docotg/screens/profile.dart';
-import 'package:docotg/utils/colors.dart';
+import 'package:docotg/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

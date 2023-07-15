@@ -1,6 +1,6 @@
 
 
-import 'package:docotg/utils/colors.dart';
+import 'package:docotg/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class ReportsPAgeDoc extends StatefulWidget {

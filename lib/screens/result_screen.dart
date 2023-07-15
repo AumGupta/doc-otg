@@ -1,4 +1,4 @@
-import 'package:docotg/utils/colors.dart';
+import 'package:docotg/utils/constants.dart';
 import 'package:docotg/utils/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

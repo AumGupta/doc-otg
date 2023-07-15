@@ -1,7 +1,7 @@
 import 'package:docotg/provider/user_provider.dart';
 import 'package:docotg/screens/login_screen.dart';
 import 'package:docotg/screens/mobile_screen_layout.dart';
-import 'package:docotg/utils/colors.dart';
+import 'package:docotg/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

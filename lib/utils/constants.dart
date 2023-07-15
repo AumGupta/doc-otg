@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const int oldAgeCriterion = 60; // Age criteria for person to be considered old and hence prone to Covid 19
+
 Color darkPurple = const Color(0xFF343965);
 Color blueTint = const Color(0xFFecf2ff);
 // Color blueTint = const Color(0xFFDEE8FD);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'colors.dart';
+import 'constants.dart';
 
 Text textHeader(String text, {double size = 24}) => Text(
   text,

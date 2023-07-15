@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:docotg/screens/reports_page_doc.dart';
 import 'package:docotg/screens/user_report_list.dart';
-import 'package:docotg/utils/colors.dart';
+import 'package:docotg/utils/constants.dart';
 import 'package:docotg/widgets/user_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';

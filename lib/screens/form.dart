@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../resources/auth_methods.dart';
-import '../utils/colors.dart';
+import '../utils/constants.dart';
 import '../utils/utils.dart';
 
 class FormPage extends StatefulWidget {
