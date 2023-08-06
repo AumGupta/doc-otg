@@ -1,5 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+
+// import 'dart:js_interop';
+// import 'dart:js_interop';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 
@@ -17,6 +20,40 @@ import '../provider/user_provider.dart';
 
 class FireStoreMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  void updateReport({
+    dynamic reportId,
+    dynamic newResult,
+    dynamic newPrescription,
+  }) {
+    // Updating Result
+    if (newResult != null) {
+      _firestore
+          .collection('reports')
+          .doc(reportId)
+          .update({'finalResult': newResult})
+          .then((value) => print("finalResult updated successfully"))
+          .catchError((error) => print("Failed to update field: $error"));
+    }
+    if (newPrescription != null) {
+      _firestore
+          .collection('reports')
+          .doc(reportId)
+          .update({'prescription': newPrescription})
+          .then((value) => print("prescription updated successfully"))
+          .catchError((error) => print("Failed to update field: $error"));
+    }
+  }
+
+  Future<Map<String, dynamic>> getPost(
+    String postId,
+  ) async {
+    QuerySnapshot snap = await _firestore
+        .collection("posts")
+        .where('postId', isEqualTo: postId)
+        .get();
+    return Map<String, dynamic>.from(snap.docs[0].data() as Map);
+  }
 
   Future<Map<String, String>> getLatestReport(
     String uid,
@@ -53,6 +90,7 @@ class FireStoreMethods {
   Future<String> uploadReport(String uid, Map<String, String> symptoms) async {
     String res = "Some Error Occurred";
     String textResult = '';
+    String imageResult = 'Pending';
     // print('Start: ' + DateTime.now().toString());
     var url = Uri.parse('https://docotg.onrender.com/text');
     try {
@@ -87,10 +125,13 @@ class FireStoreMethods {
       String reportId = const Uuid().v1();
       Report report = Report(
         textResult: textResult,
+        imageResult: imageResult,
         reportId: reportId,
         uid: uid,
         postId: postId,
         datePublished: DateTime.now(),
+        finalResult: 'Pending',
+        prescription: '',
       );
       _firestore.collection("reports").doc(reportId).set(report.toJson());
       // print("post uploaded " + DateTime.now().toString());
@@ -127,7 +168,8 @@ class FireStoreMethods {
           true,
         );
       }
-      String audioURL = audioPath.isNotEmpty?await uploadAudioFile(audioPath):'';
+      String audioURL =
+          audioPath.isNotEmpty ? await uploadAudioFile(audioPath) : '';
       String postId = const Uuid().v1();
       Post post = Post(
           symptoms: symptoms,
@@ -138,7 +180,8 @@ class FireStoreMethods {
           imageUrl: imageUrl,
           profImage: profImage,
           audio: audioURL,
-          otherSymptom: otherSymptom);
+          otherSymptom: otherSymptom,
+          finalResult: 'Pending');
       _firestore.collection("posts").doc(postId).set(post.toJson());
       await _firestore
           .collection("users")

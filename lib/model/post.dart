@@ -1,17 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Post {
-  final Map<String,String> symptoms; // Post Description entered by the user
+  final Map<String, String> symptoms; // Post Description entered by the user
   final String uid; // UID that made the post
   final String name; // Name of the user that made the post
   final String postId; // Unique post ID
   final DateTime datePublished; // Date the post was published
   final String imageUrl; //
-  final String profImage; //
+  final String profImage;
+  String? finalResult;
   String? otherSymptom;
   String? audio;
 
-   Post(
+  Post(
       {required this.symptoms,
       required this.uid,
       required this.name,
@@ -20,8 +21,8 @@ class Post {
       required this.imageUrl,
       required this.profImage,
       required this.audio,
-      required this.otherSymptom
-      });
+      required this.otherSymptom,
+      required this.finalResult});
 
   Map<String, dynamic> toJson() => {
         'symptoms': symptoms,
@@ -32,7 +33,8 @@ class Post {
         'postUrl': imageUrl,
         'profImage': profImage,
         'audio': audio,
-        'otherSymptom' : otherSymptom
+        'otherSymptom': otherSymptom,
+        'finalResult': finalResult
       };
 
   static Post fromSnap(DocumentSnapshot snap) {
@@ -40,15 +42,16 @@ class Post {
     var snapshot = snap.data() as Map<String, dynamic>;
 
     return Post(
-        uid: snapshot['uid'],
-        name: snapshot['name'],
-        symptoms: snapshot['symptoms'],
-        postId: snapshot['postId'],
-        datePublished: snapshot['datePublished'],
-        imageUrl: snapshot['postUrl'],
-        profImage: snapshot['following'],
-        audio: snapshot['audio'],
-        otherSymptom: snapshot['otherSymptom']
+      uid: snapshot['uid'],
+      name: snapshot['name'],
+      symptoms: snapshot['symptoms'],
+      postId: snapshot['postId'],
+      datePublished: snapshot['datePublished'],
+      imageUrl: snapshot['postUrl'],
+      profImage: snapshot['following'],
+      audio: snapshot['audio'],
+      otherSymptom: snapshot['otherSymptom'],
+      finalResult: snapshot['finalResult'],
     );
   }
 }

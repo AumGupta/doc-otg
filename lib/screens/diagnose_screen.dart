@@ -176,7 +176,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
       // Input Submission
       String res = await FireStoreMethods().uploadPost(
           symptoms,
-          _imageFile.isEmpty ? _imageFile : Uint8List(0),
+          _imageFile.isNotEmpty ? _imageFile : Uint8List(0),
           uid,
           name,
           profImage,

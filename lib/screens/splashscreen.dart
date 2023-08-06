@@ -1,8 +1,5 @@
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../provider/user_provider.dart';
 import 'login_screen.dart';
 
 class Splash2 extends StatefulWidget {
@@ -14,15 +11,15 @@ class Splash2 extends StatefulWidget {
 
 class _Splash2State extends State<Splash2> {
   
-  addData() async {
-    UserProvider userProvider = Provider.of(context, listen: false);
-    await userProvider.refreshUser();
-  }
+  // addData() async {
+  //   UserProvider userProvider = Provider.of(context, listen: false);
+  //   await userProvider.refreshUser();
+  // }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    addData();
+    // addData();
   }
   @override
   Widget build(BuildContext context) {

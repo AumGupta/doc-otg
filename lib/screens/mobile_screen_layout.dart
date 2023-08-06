@@ -9,9 +9,9 @@ import 'package:provider/provider.dart';
 import '../provider/user_provider.dart';
 
 class MobileScreenLayout extends StatefulWidget {
-  final bool isDoctor = false;
+  final bool isDoctor;
 
-  const MobileScreenLayout(isDoctor, {super.key});
+  MobileScreenLayout({Key? key, required this.isDoctor}) : super(key: key);
 
   @override
   State<MobileScreenLayout> createState() => _MobileScreenLayoutState();
@@ -28,7 +28,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
   }
 
   addData() async {
-    await Provider.of<UserProvider>(context, listen: false).refreshUser();
+    await Provider.of<UserProvider>(context, listen: false).refreshUser(widget.isDoctor);
   }
 
   @override
@@ -89,79 +89,77 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
                   useSafeArea: true,
                   context: context,
                   builder: (BuildContext bc) {
-                    return Expanded(
-                      child: Container(
-                        // height: height * 0.5,
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                            color: screenBgColor,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(30),
-                                topRight: Radius.circular(30))),
-                        child: Wrap(
-                          children: [
-                            // Settings
-                            ListTile(
-                              leading: Icon(
-                                Icons.settings,
+                    return Container(
+                      // height: height * 0.5,
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                          color: screenBgColor,
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30))),
+                      child: Wrap(
+                        children: [
+                          // Settings
+                          ListTile(
+                            leading: Icon(
+                              Icons.settings,
+                              color: darkPurple,
+                            ),
+                            title: Text(
+                              "Settings",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17,
                                 color: darkPurple,
-                              ),
-                              title: Text(
-                                "Settings",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17,
-                                  color: darkPurple,
-                                ),
                               ),
                             ),
-                            // Support
-                            ListTile(
-                              leading: Icon(
-                                Icons.support_agent,
+                          ),
+                          // Support
+                          ListTile(
+                            leading: Icon(
+                              Icons.support_agent,
+                              color: darkPurple,
+                            ),
+                            title: Text(
+                              "Support",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17,
                                 color: darkPurple,
-                              ),
-                              title: Text(
-                                "Support",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17,
-                                  color: darkPurple,
-                                ),
                               ),
                             ),
-                            // About Us
-                            ListTile(
-                              leading: Icon(
-                                Icons.info_outline_rounded,
+                          ),
+                          // About Us
+                          ListTile(
+                            leading: Icon(
+                              Icons.info_outline_rounded,
+                              color: darkPurple,
+                            ),
+                            title: Text(
+                              "About Us",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17,
                                 color: darkPurple,
-                              ),
-                              title: Text(
-                                "About Us",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17,
-                                  color: darkPurple,
-                                ),
                               ),
                             ),
-                            // Share
-                            ListTile(
-                              leading: Icon(
-                                Icons.share,
+                          ),
+                          // Share
+                          ListTile(
+                            leading: Icon(
+                              Icons.share,
+                              color: darkPurple,
+                            ),
+                            title: Text(
+                              "Share",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17,
                                 color: darkPurple,
                               ),
-                              title: Text(
-                                "Share",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17,
-                                  color: darkPurple,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
+                            ),
+                          )
+                        ],
                       ),
                     );
                   },

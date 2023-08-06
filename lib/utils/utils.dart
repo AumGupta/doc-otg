@@ -41,11 +41,15 @@ showSnackBar(String content, BuildContext context) {
 }
 
 List<Color> getReportStatusColors(String status) {
-  return status == 'Positive'
-      ? [redColor, lightRedColor]
-      : [greenColor, lightGreenColor];
+  return status == 'Pending'
+      ? [primaryColor, blueTint]
+      : (status == 'Positive'
+          ? [redColor, lightRedColor]
+          : [greenColor, lightGreenColor]);
 }
 
 IconData getReportStatusIcon(String status) {
-  return status == 'Positive' ? Icons.report_rounded : Icons.verified_rounded;
+  return status == 'Pending'
+      ? Icons.access_time_filled_rounded
+      : (status == 'Positive' ? Icons.report_rounded : Icons.verified_rounded);
 }

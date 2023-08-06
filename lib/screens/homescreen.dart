@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
 
   addData() async {
     await Provider.of<UserProvider>(context, listen: false)
-        .refreshUser()
+        .refreshUser(false)
         .then((value) {
       setState(() {
         isLoading = false;
@@ -339,7 +339,7 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                           // result
                                           Text(
-                                            report['textResult']!,
+                                            report['finalResult']!,
                                             style: const TextStyle(
                                                 fontWeight: FontWeight.normal,
                                                 fontSize: 16,
@@ -352,12 +352,12 @@ class _HomePageState extends State<HomePage> {
                                       CircleAvatar(
                                         radius: 16,
                                         backgroundColor: getReportStatusColors(
-                                            report['textResult']!)[1],
+                                            report['finalResult']!)[1],
                                         child: Icon(
                                           getReportStatusIcon(
-                                              report['textResult']!),
+                                              report['finalResult']!),
                                           color: getReportStatusColors(
-                                              report['textResult']!)[0],
+                                              report['finalResult']!)[0],
                                         ),
                                       ),
                                     ],
