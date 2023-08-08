@@ -7,8 +7,9 @@ import '../utils/utils.dart';
 
 class ReportPage extends StatefulWidget {
   final snap;
+  final doctorName;
 
-  const ReportPage({super.key, this.snap});
+  const ReportPage({super.key, this.snap, this.doctorName});
 
   @override
   State<ReportPage> createState() => _ReportPageState();
@@ -31,6 +32,7 @@ class _ReportPageState extends State<ReportPage> {
       if (_descriptionController.text != prescription &&
           !(_focusNode.hasFocus)) {
         FireStoreMethods().updateReport(
+          doctorName: widget.doctorName,
           reportId: widget.snap['reportId'],
           newPrescription: _descriptionController.text,
         );
@@ -90,6 +92,7 @@ class _ReportPageState extends State<ReportPage> {
                             icon = getReportStatusIcon(validatedResult);
                           });
                           FireStoreMethods().updateReport(
+                            doctorName: widget.doctorName,
                             reportId: widget.snap['reportId'],
                             newResult: 'Negative',
                             // newPrescription: '',
@@ -108,6 +111,7 @@ class _ReportPageState extends State<ReportPage> {
                             icon = getReportStatusIcon(validatedResult);
                           });
                           FireStoreMethods().updateReport(
+                            doctorName: widget.doctorName,
                             reportId: widget.snap['reportId'],
                             newResult: 'Positive',
                             // newPrescription: '',
@@ -126,6 +130,7 @@ class _ReportPageState extends State<ReportPage> {
                             icon = getReportStatusIcon(validatedResult);
                           });
                           FireStoreMethods().updateReport(
+                            doctorName: widget.doctorName,
                             reportId: widget.snap['reportId'],
                             newResult: 'Pending',
                             // newPrescription: '',
@@ -182,7 +187,9 @@ class _ReportPageState extends State<ReportPage> {
                 width: double.infinity,
                 padding: EdgeInsets.all(width * 0.04),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30), color: colors[1]),
+                  borderRadius: BorderRadius.circular(30),
+                  color: colors[1],
+                ),
                 child: Column(
                   children: [
                     Row(
@@ -252,6 +259,7 @@ class _ReportPageState extends State<ReportPage> {
                           // onTapOutside: (PointerDownEvent e) {
                           //   if (_descriptionController.text != prescription) {
                           //     FireStoreMethods().updateReport(
+                          // doctorName: widget.doctorName,
                           //       reportId: report['reportId'],
                           //       newPrescription: _descriptionController.text,
                           //     );

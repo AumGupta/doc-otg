@@ -42,7 +42,7 @@ class _DocHomePageState extends State<DocHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (isLoading){
+    if (isLoading) {
       addData();
       isLoading = false;
     }
@@ -53,8 +53,7 @@ class _DocHomePageState extends State<DocHomePage> {
         Provider.of<UserProvider>(context, listen: false).getUser;
     String profPhotoUrl = user1.profImageUrl;
     var name = user1.fname;
-    List<Color> colors = getReportStatusColors(
-        'Negative');
+    List<Color> colors = getReportStatusColors('Negative');
     return Scaffold(
       backgroundColor: screenBgColor,
       body: SingleChildScrollView(
@@ -99,7 +98,7 @@ class _DocHomePageState extends State<DocHomePage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      "Hi, $name!",
+                      "Hi, Dr. $name!",
                       style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
@@ -174,9 +173,11 @@ class _DocHomePageState extends State<DocHomePage> {
                       itemBuilder: (context, index) => GestureDetector(
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => PatientReportList.PatientReportList(
-                                      snap:
-                                          snapshot.data!.docs[index].data())));
+                                  builder: (context) =>
+                                      PatientReportList.PatientReportList(
+                                        snap: snapshot.data!.docs[index].data(),
+                                        doctorName: "Dr. "+user1.fname+" "+user1.lname,
+                                      )));
                             },
                             child: UserPostCard(
                                 snap: snapshot.data!.docs[index]
@@ -215,81 +216,77 @@ class _DocHomePageState extends State<DocHomePage> {
             SizedBox(
               height: height * 0.03,
             ),
-                Card(
-                  margin: const EdgeInsets.only(bottom: 18),
-                  color: colors[1],
-                  clipBehavior: Clip.hardEdge,
-                  elevation: 0,
-                  shape: const RoundedRectangleBorder(
-                      borderRadius:
-                      BorderRadius.all(Radius.circular(30))),
-                  child: Container(
-                    padding:
-                    const EdgeInsets.fromLTRB(16, 25, 16, 16),
-                    child: Column(
+            Card(
+              margin: const EdgeInsets.only(bottom: 18),
+              color: colors[1],
+              clipBehavior: Clip.hardEdge,
+              elevation: 0,
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(30))),
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(16, 25, 16, 16),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "COVID 19",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: colors[0],
-                              ),
-                            ),
-                            Icon(
-                              Icons.keyboard_tab,
-                              color: colors[0],
-                            ),
-                            Text(
-                              'Negative',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: colors[0],
-                              ),
-                            ),
-                            Icon(
-                              getReportStatusIcon(
-                                  'Negative'),
-                              color: colors[0],
-                              size: 30,
-                            ),
-                          ],
+                        Text(
+                          "COVID 19",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: colors[0],
+                          ),
                         ),
-                        const SizedBox(
-                          height: 16,
+                        Icon(
+                          Icons.keyboard_tab,
+                          color: colors[0],
                         ),
-                        Container(
-                          height: 40,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14),
-                              color: colors[0].withOpacity(0.1)),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.calendar_today_outlined,
-                                  color: colors[0].withOpacity(0.4),
-                                ),
-                                SizedBox(
-                                  width: width * 0.02,
-                                ),
-                                Text(
-                                  "as",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      color: colors[0]),
-                                )
-                              ]),
+                        Text(
+                          'Negative',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: colors[0],
+                          ),
+                        ),
+                        Icon(
+                          getReportStatusIcon('Negative'),
+                          color: colors[0],
+                          size: 30,
                         ),
                       ],
                     ),
-                  ),
-                )
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Container(
+                      height: 40,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(14),
+                          color: colors[0].withOpacity(0.1)),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.calendar_today_outlined,
+                              color: colors[0].withOpacity(0.4),
+                            ),
+                            SizedBox(
+                              width: width * 0.02,
+                            ),
+                            Text(
+                              "as",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: colors[0]),
+                            )
+                          ]),
+                    ),
+                  ],
+                ),
+              ),
+            )
           ]),
         ),
       ),

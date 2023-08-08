@@ -12,6 +12,7 @@ Color primaryColorLight = const Color(0xff8789f1);
 Color whiteColorTransparent = const Color(0x26FFFFFF);
 
 // Color screenBgColor = const Color(0xFFFAFBFF);
+// Color screenBgColor = const Color(0xFFebebfc);
 Color screenBgColor = const Color(0xFFFFFFFF);
 Color greyColor = const Color(0xFFA1A6C0);
 

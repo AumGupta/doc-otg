@@ -11,8 +11,10 @@ import '../utils/texts.dart';
 
 class PatientReportList extends StatefulWidget {
   final snap;
+  final doctorName;
 
-  const PatientReportList.PatientReportList({super.key, this.snap});
+  const PatientReportList.PatientReportList(
+      {super.key, this.snap, this.doctorName});
 
   @override
   State<PatientReportList> createState() => _PatientReportListState();
@@ -164,6 +166,7 @@ class _PatientReportListState extends State<PatientReportList> {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => ReportPage(
                                         snap: snapshot.data!.docs[index].data(),
+                                        doctorName: widget.doctorName,
                                       )));
                             },
                             child: Card(

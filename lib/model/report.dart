@@ -10,6 +10,7 @@ class Report {
   final datePublished;
   String? finalResult;
   String? prescription;
+  String? doctorName;
 
   Report(
       {required this.reportId,
@@ -18,6 +19,7 @@ class Report {
       required this.textResult,
       required this.imageResult,
       required this.datePublished,
+      required this.doctorName,
       required this.finalResult,
       required this.prescription});
 
@@ -28,6 +30,7 @@ class Report {
         'textResult': textResult,
         'imageResult': imageResult,
         'datePublished': datePublished,
+        'doctorName': doctorName,
         'finalResult': finalResult,
         'prescription': prescription,
       };
@@ -41,6 +44,7 @@ class Report {
         textResult: snapshot['textResult'],
         imageResult: snapshot['imageResult'],
         datePublished: snapshot['datePublished'],
+        doctorName: snapshot['doctorName'],
         finalResult: snapshot['finalResult'],
         prescription: snapshot['prescription']);
   }
@@ -56,6 +60,7 @@ class Report {
           textResult: snapshot['textResult'],
           imageResult: snapshot['imageResult'],
           datePublished: snapshot['datePublished'],
+          doctorName: snapshot['doctorName'],
           finalResult: snapshot['finalResult'],
           prescription: snapshot['prescription']);
       reportList.add(report);
@@ -71,6 +76,7 @@ class Report {
       'textResult': textResult,
       'imageResult': imageResult,
       'datePublished': DateFormat.yMMMd().format(datePublished.toDate()),
+      'doctorName': doctorName!,
       'timePublished': DateFormat.jm().format(datePublished.toDate()),
       'finalResult': finalResult!,
       'prescription': prescription!,

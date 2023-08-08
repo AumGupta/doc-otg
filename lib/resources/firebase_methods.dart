@@ -22,6 +22,7 @@ class FireStoreMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   void updateReport({
+    dynamic doctorName,
     dynamic reportId,
     dynamic newResult,
     dynamic newPrescription,
@@ -32,16 +33,24 @@ class FireStoreMethods {
           .collection('reports')
           .doc(reportId)
           .update({'finalResult': newResult})
-          .then((value) => print("finalResult updated successfully"))
-          .catchError((error) => print("Failed to update field: $error"));
+          .then((value) => print("*****************finalResult updated successfully"))
+          .catchError((error) => print("*****************Failed to update field: $error"));
     }
     if (newPrescription != null) {
       _firestore
           .collection('reports')
           .doc(reportId)
           .update({'prescription': newPrescription})
-          .then((value) => print("prescription updated successfully"))
-          .catchError((error) => print("Failed to update field: $error"));
+          .then((value) => print("*****************prescription updated successfully"))
+          .catchError((error) => print("*****************Failed to update field: $error"));
+    }
+    if (doctorName != null) {
+      _firestore
+          .collection('reports')
+          .doc(reportId)
+          .update({'doctorName': doctorName})
+          .then((value) => print("*****************docName updated successfully"))
+          .catchError((error) => print("*****************Failed to update field: $error"));
     }
   }
 
@@ -91,7 +100,7 @@ class FireStoreMethods {
     String res = "Some Error Occurred";
     String textResult = '';
     String imageResult = 'Pending';
-    // print('Start: ' + DateTime.now().toString());
+    print('*****************Start: ' + DateTime.now().toString());
     var url = Uri.parse('https://docotg.onrender.com/text');
     try {
       var response = await http.post(
@@ -103,6 +112,7 @@ class FireStoreMethods {
         var data = json.decode(response.body);
         textResult = '$data';
       } else {
+        print('chud gaya');
         return 'Error: ${response.statusCode}';
         // textResult = 'Error: ${response.statusCode}';
       }
@@ -110,7 +120,7 @@ class FireStoreMethods {
       return 'Error: $e';
       // textResult = 'Error: $e';
     }
-    // print('$textResult:' + DateTime.now().toString());
+    print('*****************$textResult:' + DateTime.now().toString());
     try {
       var latestPost = await _firestore
           .collection("users")
@@ -121,7 +131,7 @@ class FireStoreMethods {
           .get();
       var post = latestPost.docs.first.data();
       String postId = post["postId"];
-      // print("got latest post " + DateTime.now().toString());
+      print("*****************got latest post " + DateTime.now().toString());
       String reportId = const Uuid().v1();
       Report report = Report(
         textResult: textResult,
@@ -130,16 +140,17 @@ class FireStoreMethods {
         uid: uid,
         postId: postId,
         datePublished: DateTime.now(),
+        doctorName: '',
         finalResult: 'Pending',
         prescription: '',
       );
       _firestore.collection("reports").doc(reportId).set(report.toJson());
-      // print("post uploaded " + DateTime.now().toString());
+      print("*****************post uploaded " + DateTime.now().toString());
       res = "success";
     } catch (e) {
       res = e.toString();
     }
-    // print("END " + DateTime.now().toString());
+    print("*****************END " + DateTime.now().toString());
     return res;
   }
 

@@ -201,6 +201,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
               ));
         });
       }
+      print('Post Submitted');
       // Input Analysis
       String res2 = await FireStoreMethods().uploadReport(uid, symptoms);
       if (res2 == "success") {
@@ -231,7 +232,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
         clearImage();
         clearAudio();
       });
-      player?.dispose();
+      // player?.dispose();
       _descriptionController.clear();
     }
   }
@@ -552,9 +553,9 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                           color: whiteColorTransparent,
                           backgroundColor: primaryColor,
                         )
-                      : Row(
+                      : const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             Text(
                               "Diagnose ",
                               style: TextStyle(

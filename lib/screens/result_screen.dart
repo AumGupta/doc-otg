@@ -62,17 +62,17 @@ class _ResultScreenState extends State<ResultScreen> {
                 decoration: BoxDecoration(
                   color: blueTint,
                   border: Border.all(width: 1, color: Colors.transparent),
-                  borderRadius: BorderRadius.circular(35),
+                  borderRadius: BorderRadius.circular(30),
                 ),
-                child: Padding(
-                  padding: EdgeInsets.all(width * 0.07),
-                  child: Wrap(
-                      runSpacing: 8,
-                      spacing: 8,
-                      // crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Report Badge
-                        Center(
+                child: Wrap(
+                    runSpacing: 8,
+                    spacing: 8,
+                    // crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Report Badge
+                      Padding(
+                        padding: EdgeInsets.only(top: width * 0.07),
+                        child: Center(
                           child: CircleAvatar(
                             radius: 60,
                             backgroundColor: getReportStatusColors(
@@ -86,9 +86,13 @@ class _ResultScreenState extends State<ResultScreen> {
                             ),
                           ),
                         ),
+                      ),
 
-                        // Report
-                        Row(
+                      // Report
+                      Padding(
+                        padding: EdgeInsets.only(
+                            right: width * 0.07, left: width * 0.07),
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -201,41 +205,111 @@ class _ResultScreenState extends State<ResultScreen> {
                                         fontSize: 21,
                                         color: darkPurple),
                                   ),
-                                  SizedBox(
-                                    height: height * 0.02,
-                                  ),
                                 ],
                               ),
                             ),
                           ],
                         ),
-                        widget.report['prescription']! == ''
-                            ? const SizedBox()
-                            : Text(
+                      ),
+                      widget.report['doctorName']! != ''
+                          ? const SizedBox()
+                          : Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(width * 0.07),
+                                child: Text(
+                                  "ReportID: ${widget.report['reportId']}",
+                                  overflow: TextOverflow.ellipsis,
+                                  softWrap: false,
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    color: darkPurple,
+                                  ),
+                                ),
+                              ),
+                            ),
+                      widget.report['prescription']! == ''
+                          ? const SizedBox()
+                          : Padding(
+                              padding: EdgeInsets.only(left: width * 0.04),
+                              child: Text(
                                 'Prescription:',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 21,
                                     color: darkPurple),
                               ),
-                        widget.report['prescription']! == ''
-                            ? const SizedBox()
-                            : Text(
+                            ),
+                      widget.report['prescription']! == ''
+                          ? const SizedBox()
+                          : Padding(
+                              padding: EdgeInsets.only(right: width * 0.07),
+                              child: Text(
                                 widget.report['prescription']!,
                                 style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 21,
                                     color: darkPurple),
                               ),
-                        Text(
-                          "ReportID: ${widget.report['reportId']}",
-                          style: TextStyle(
-                            fontSize: 10,
-                            color: darkPurple,
-                          ),
-                        ),
-                      ]),
-                ),
+                            ),
+                      widget.report['doctorName']! == ''
+                          ? const SizedBox()
+                          : Container(
+                              margin: const EdgeInsets.all(4),
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(
+                                    width: 1, color: Colors.transparent),
+                                borderRadius: const BorderRadius.only(
+                                    bottomRight: Radius.circular(25),
+                                    bottomLeft: Radius.circular(25)),
+                              ),
+                              padding: EdgeInsets.all(width * 0.07),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Validated By',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 16,
+                                            color: darkPurple),
+                                      ),
+                                      Text(
+                                        widget.report["doctorName"].toString(),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 21,
+                                            color: darkPurple),
+                                      ),
+                                      const SizedBox(
+                                        height: 16,
+                                      ),
+                                      Text(
+                                        "ReportID: ${widget.report['reportId']}",
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: false,
+                                        style: TextStyle(
+                                          fontSize: 8,
+                                          color: darkPurple,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Icon(
+                                    Icons.verified,
+                                    color: primaryColor,
+                                  ),
+                                ],
+                              ),
+                            ),
+                    ]),
               ),
               SizedBox(
                 height: height * 0.025,
@@ -253,44 +327,12 @@ class _ResultScreenState extends State<ResultScreen> {
                       ],
                     ),
                   ),
-
                   ElevatedButton(
                     onPressed: () {},
                     child: const Row(
                       children: [Text('Share'), Icon(Icons.share)],
                     ),
                   ),
-                  // Container(
-                  //   width: width * 0.4,
-                  //   height: 50,
-                  //   decoration: BoxDecoration(
-                  //       borderRadius: BorderRadius.circular(50),
-                  //       border: Border.all(width: 1, color: greyColor),
-                  //       color: Colors.white),
-                  //   child: Center(
-                  //       child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //     children: const [Text("Download"), Icon(Icons.download)],
-                  //   )),
-                  // ),
-                  // Container(
-                  //   width: width * 0.4,
-                  //   height: 50,
-                  //   decoration: BoxDecoration(
-                  //       borderRadius: BorderRadius.circular(50),
-                  //       color: const Color(0xff585ce5)),
-                  //   child: Center(
-                  //       child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //     children: const [
-                  //       Text("Share",
-                  //           style: TextStyle(
-                  //             color: Colors.white,
-                  //           )),
-                  //       Icon(Icons.share)
-                  //     ],
-                  //   )),
-                  // ),
                 ],
               )
             ],
