@@ -112,7 +112,6 @@ class FireStoreMethods {
         var data = json.decode(response.body);
         textResult = '$data';
       } else {
-        print('chud gaya');
         return 'Error: ${response.statusCode}';
         // textResult = 'Error: ${response.statusCode}';
       }
