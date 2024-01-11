@@ -1,15 +1,14 @@
-import 'package:docotg/utils/colors.dart';
+import 'package:docotg/utils/constants.dart';
 import 'package:docotg/utils/texts.dart';
+import 'package:docotg/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
 import '../model/user.dart';
-import '../provider/user_provider.dart';
 
 class ResultScreen extends StatefulWidget {
   final Map<String, String> report;
+  final user user1;
 
-  const ResultScreen({super.key, required this.report});
+  const ResultScreen({super.key, required this.report, required this.user1});
 
   @override
   State<ResultScreen> createState() => _ResultScreenState();
@@ -18,23 +17,13 @@ class ResultScreen extends StatefulWidget {
 class _ResultScreenState extends State<ResultScreen> {
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery
-        .of(context)
-        .size
-        .height;
-    var width = MediaQuery
-        .of(context)
-        .size
-        .width;
-
-    final user user1 = Provider
-        .of<UserProvider>(context)
-        .getUser;
-    String name = '${user1.fname} ${user1.lname}';
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+        scrolledUnderElevation: 0,
         backgroundColor: screenBgColor,
         automaticallyImplyLeading: false,
         actions: [
@@ -49,7 +38,7 @@ class _ResultScreenState extends State<ResultScreen> {
         ],
       ),
       backgroundColor: screenBgColor,
-      body: SafeArea(
+      body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(width * 0.08),
           child: Column(
@@ -64,95 +53,64 @@ class _ResultScreenState extends State<ResultScreen> {
                 height: height * 0.03,
               ),
               Container(
-                height: height * 0.54,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFecf2ff),
+                  color: blueTint,
                   border: Border.all(width: 1, color: Colors.transparent),
-                  borderRadius: BorderRadius.circular(35),
+                  borderRadius: BorderRadius.circular(30),
                 ),
-                child: Padding(
-                  padding: EdgeInsets.all(width * 0.07),
-                  child: Column(children: [
-                    // Report Badge
-                    widget.report['textResult'] == 'Positive'
-                        ? CircleAvatar(
-                      radius: width * 0.15,
-                      backgroundColor: lightRedColor,
-                      child: Icon(
-                        Icons.report_rounded,
-                        color: redColor,
-                        size: width * 0.25,
+                child: Wrap(
+                    runSpacing: 8,
+                    spacing: 8,
+                    // crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Report Badge
+                      Padding(
+                        padding: EdgeInsets.only(top: width * 0.07),
+                        child: Center(
+                          child: CircleAvatar(
+                            radius: 60,
+                            backgroundColor: getReportStatusColors(
+                                widget.report['finalResult']!)[1],
+                            child: Icon(
+                              getReportStatusIcon(
+                                  widget.report['finalResult']!),
+                              color: getReportStatusColors(
+                                  widget.report['finalResult']!)[0],
+                              size: 86,
+                            ),
+                          ),
+                        ),
                       ),
-                    )
-                        : CircleAvatar(
-                      radius: width * 0.15,
-                      backgroundColor: lightGreenColor,
-                      child: Icon(
-                        Icons.verified_rounded,
-                        color: greenColor,
-                        size: width * 0.25,
-                      ),
-                    ),
 
-                    // Report
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                      // Report
+                      Padding(
+                        padding: EdgeInsets.only(
+                            right: width * 0.07, left: width * 0.07),
+                        child: Table(
+                          children: [
+                            TableRow(children: [
+                              Text(
+                                "Name:",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 21,
+                                    color: darkPurple),
+                              ),
+                              Text(
+                                '${widget.user1.fname} ${widget.user1.lname}',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 21,
+                                    color: darkPurple),
+                              ),
+                            ]),
+                            TableRow(
                               children: [
-                                Text(
-                                  "Name:",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 21,
-                                      color: darkPurple),
-                                ),
                                 Text(
                                   "Disease:",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 21,
-                                      color: darkPurple),
-                                ),
-                                Text(
-                                  "Result:",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 21,
-                                      color: darkPurple),
-                                ),
-                                Text(
-                                  "Date:",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 21,
-                                      color: darkPurple),
-                                ),
-                                Text(
-                                  "Time:",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 21,
-                                      color: darkPurple),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  name,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
                                       fontSize: 21,
                                       color: darkPurple),
                                 ),
@@ -163,10 +121,32 @@ class _ResultScreenState extends State<ResultScreen> {
                                       fontSize: 21,
                                       color: darkPurple),
                                 ),
+                              ],
+                            ),
+                            TableRow(
+                              children: [
                                 Text(
-                                  widget.report['textResult']!,
+                                  "Result:",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 21,
+                                      color: darkPurple),
+                                ),
+                                Text(
+                                  widget.report['finalResult']!,
                                   style: TextStyle(
                                       fontWeight: FontWeight.w500,
+                                      fontSize: 21,
+                                      color: darkPurple),
+                                ),
+                              ],
+                            ),
+                            TableRow(
+                              children: [
+                                Text(
+                                  "Date:",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
                                       fontSize: 21,
                                       color: darkPurple),
                                 ),
@@ -174,6 +154,17 @@ class _ResultScreenState extends State<ResultScreen> {
                                   widget.report['datePublished']!,
                                   style: TextStyle(
                                       fontWeight: FontWeight.w500,
+                                      fontSize: 21,
+                                      color: darkPurple),
+                                ),
+                              ],
+                            ),
+                            TableRow(
+                              children: [
+                                Text(
+                                  "Time:",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
                                       fontSize: 21,
                                       color: darkPurple),
                                 ),
@@ -186,19 +177,129 @@ class _ResultScreenState extends State<ResultScreen> {
                                 ),
                               ],
                             ),
-                          ),
-                        ],
+                            // widget.report['prescription']! == ''
+                            //     ? const TableRow(children:[
+                            //       SizedBox(),
+                            //       SizedBox(),
+                            // ])
+                            //     : TableRow(
+                            //   children: [
+                            //     Text(
+                            //       'Prescription:',
+                            //       style: TextStyle(
+                            //           fontWeight: FontWeight.bold,
+                            //           fontSize: 21,
+                            //           color: darkPurple),
+                            //     ),
+                            //     Text(
+                            //       widget.report['prescription']!,
+                            //       style: TextStyle(
+                            //           fontWeight: FontWeight.w500,
+                            //           fontSize: 21,
+                            //           color: darkPurple),
+                            //     ),
+                            //   ],
+                            // ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Text(
-                      "ReportID: ${widget.report['reportId']}",
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: darkPurple,
-                      ),
-                    ),
-                  ]),
-                ),
+                      widget.report['prescription']! == ''
+                          ? const SizedBox()
+                          : Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: width * 0.05),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Prescription:',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 21,
+                                        color: darkPurple),
+                                  ),
+                                  Text(
+                                    widget.report['prescription']!,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 21,
+                                        color: darkPurple),
+                                  ),
+                                ],
+                              ),
+                            ),
+                      widget.report['doctorName']! == ''
+                          ? Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(width * 0.07),
+                                child: Text(
+                                  "ReportID: ${widget.report['reportId']}",
+                                  overflow: TextOverflow.ellipsis,
+                                  softWrap: false,
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    color: darkPurple,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Container(
+                              margin: const EdgeInsets.all(4),
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(
+                                    width: 1, color: Colors.transparent),
+                                borderRadius: const BorderRadius.only(
+                                    bottomRight: Radius.circular(25),
+                                    bottomLeft: Radius.circular(25)),
+                              ),
+                              padding: EdgeInsets.all(width * 0.07),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Validated By',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 16,
+                                            color: darkPurple),
+                                      ),
+                                      Text(
+                                        widget.report["doctorName"].toString(),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 21,
+                                            color: darkPurple),
+                                      ),
+                                      const SizedBox(
+                                        height: 16,
+                                      ),
+                                      Text(
+                                        "ReportID: ${widget.report['reportId']}",
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: false,
+                                        style: TextStyle(
+                                          fontSize: 8,
+                                          color: darkPurple,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Icon(
+                                    Icons.verified,
+                                    color: primaryColor,
+                                  ),
+                                ],
+                              ),
+                            ),
+                    ]),
               ),
               SizedBox(
                 height: height * 0.025,
@@ -208,55 +309,24 @@ class _ResultScreenState extends State<ResultScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   OutlinedButton(
-                    onPressed: () {},
-                    child: Row(
-                      children: const [
+                    onPressed: () async {
+                      await downloadPdf(widget.report, widget.user1);
+                    },
+                    child: const Row(
+                      children: [
                         Text('Download'),
                         Icon(Icons.file_download_outlined)
                       ],
                     ),
                   ),
-
                   ElevatedButton(
-                      onPressed: () {},
-                      child: Row(
-                        children: const [
-                          Text('Share'),
-                          Icon(Icons.share)
-                        ],
-                      ),
+                    onPressed: () async {
+                      await sharePdf(widget.report, widget.user1);
+                    },
+                    child: const Row(
+                      children: [Text('Share'), Icon(Icons.share)],
+                    ),
                   ),
-                  // Container(
-                  //   width: width * 0.4,
-                  //   height: 50,
-                  //   decoration: BoxDecoration(
-                  //       borderRadius: BorderRadius.circular(50),
-                  //       border: Border.all(width: 1, color: greyColor),
-                  //       color: Colors.white),
-                  //   child: Center(
-                  //       child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //     children: const [Text("Download"), Icon(Icons.download)],
-                  //   )),
-                  // ),
-                  // Container(
-                  //   width: width * 0.4,
-                  //   height: 50,
-                  //   decoration: BoxDecoration(
-                  //       borderRadius: BorderRadius.circular(50),
-                  //       color: const Color(0xff585ce5)),
-                  //   child: Center(
-                  //       child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //     children: const [
-                  //       Text("Share",
-                  //           style: TextStyle(
-                  //             color: Colors.white,
-                  //           )),
-                  //       Icon(Icons.share)
-                  //     ],
-                  //   )),
-                  // ),
                 ],
               )
             ],

@@ -1,7 +1,7 @@
 import 'package:docotg/provider/user_provider.dart';
 import 'package:docotg/screens/login_screen.dart';
 import 'package:docotg/screens/mobile_screen_layout.dart';
-import 'package:docotg/utils/colors.dart';
+import 'package:docotg/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: LoginPage(),
+        home: const LoginPage(),
       ),
     );
   }
@@ -69,7 +69,7 @@ class LogicBuilder extends StatelessWidget {
             // This means that whenever the connection is active and our snapshot has any data we are going to return a responsive layout
             return MobileScreenLayout(
                 isDoctor:
-                    true); // TRUE hai isiliye DOctor Screen AAti hai bar bar
+                true); // TRUE hai isiliye DOctor Screen AAti hai bar bar
           } else if (snapshot.hasError) {
             return Center(
               child: Text(
@@ -90,35 +90,3 @@ class LogicBuilder extends StatelessWidget {
     );
   }
 }
-
-// class MyHomePage extends StatefulWidget {
-//   const MyHomePage({super.key, });
-//   @override
-//   State<MyHomePage> createState() => _MyHomePageState();
-// }
-//
-// class _MyHomePageState extends State<MyHomePage> {
-//   Future<FirebaseApp> _initializeFirebase () async {
-// FirebaseApp firebaseApp = await Firebase.initializeApp();
-// return firebaseApp;
-// }
-//
-//
-//   @override
-//   Widget build(BuildContext context) {
-//
-//     return Scaffold(
-//
-//        body: FutureBuilder(
-// future: _initializeFirebase(),
-// builder: (context, snapshot) {
-// if (snapshot.connectionState == ConnectionState.done) {
-// return const HomePage();
-// }
-// return const Center(
-// child: CircularProgressIndicator (),
-//        );}
-// )
-//     );
-//   }
-// }

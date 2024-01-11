@@ -1,6 +1,4 @@
-import 'package:docotg/screens/login_screen.dart';
-import 'package:docotg/utils/colors.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:docotg/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -17,12 +15,11 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  
   @override
   Widget build(BuildContext context) {
     final user user1 =
         Provider.of<UserProvider>(context, listen: false).getUser;
-     var height = MediaQuery.of(context).size.height;
+    var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     String photourl = user1.profImageUrl;
     return Scaffold(
@@ -30,197 +27,277 @@ class _ProfilePageState extends State<ProfilePage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding:  EdgeInsets.all(width*0.07),
+            padding: EdgeInsets.all(width * 0.07),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Center(
+                  // child: CircleAvatar(
+                  //   foregroundImage: NetworkImage(photourl),
+                  //   backgroundColor: primaryColorLight,
+                  //   radius: width*0.5,
+                  // ),
                   child: Container(
-                    width: width*0.8,
-                    height: height*0.35,
-
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                        image: DecorationImage(
-                          image: NetworkImage(photourl),
-                          fit: BoxFit.cover,
-                        ),
-                        ),
-                        // child: ClipRRect(
-                        //   borderRadius: BorderRadius.circular(10.0),
-                        //   child: Image.network(photourl,width: double.infinity,height: height*0.2,),
-                        // ),
-                  ),
-                )     ,
-                SizedBox(height: height*0.08,),
-                  const Text("Name",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),),
-                  SizedBox(height: height*0.02,),
-                  Row(
-                    children: [
-                      Expanded(child: TextFormField(
-                        readOnly: true,
-                       
-                        
-                        decoration:  InputDecoration(
-                        fillColor: Colors.white,
-                        filled: true,
-                      
-                      border: const OutlineInputBorder(
-                        borderSide: BorderSide(
-              width: 3, color: Colors.greenAccent),
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(vertical:15,horizontal: 20),
-                      hintText: user1.fname.toUpperCase(),
-                      hintStyle: const TextStyle(color: Color(0xFFacb1c8))
-                      ))),
-                     const SizedBox(width: 9,),
-                      Expanded(child: TextFormField(
-                        
-                         
-                        decoration:  InputDecoration(
-                       border: const OutlineInputBorder(
-                        borderSide: BorderSide(
-              width: 3, color: Colors.greenAccent),
-                      ),
-                       fillColor: Colors.white,
-                        filled: true,
-                      contentPadding: const EdgeInsets.symmetric(vertical:15,horizontal: 20),
-                      hintText: user1.lname.toUpperCase(),
-                      hintStyle: const TextStyle(color: Color(0xFFacb1c8))
-                      )))
-                    ],
-                  ),
-                   SizedBox(height: height*0.02,),
-                  const Text("Age",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 18),),
-                  SizedBox(height: height*0.01,),
-                  Row(
-                    children: [
-                      GestureDetector(
-                      
-                        child: CircleAvatar(
-                          radius: width*0.06,
-                          backgroundColor: lightGreenColor,
-                          child: Icon(Icons.remove,color: greenColor,),
-                        ),
-                      ),
-                      const SizedBox(width: 15,),
-                      Container(
-                        width: width*0.29,
-                        height: height*0.06,
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 1, color: Colors.grey),
-                            borderRadius: const BorderRadius.all(Radius.circular(10)),
-                      ),
-                        child: Center(child: Text("${user1.age}")),
-                      ),
-                      const SizedBox(width: 15,),
-                       GestureDetector(
-                       
-                         child: CircleAvatar(
-                          radius: width*0.06,
-                          backgroundColor: lightGreenColor,
-                          child: Icon(Icons.add,color: greenColor,),
-                                             ),
-                       ),
-                    ],
-                  ),
-                   SizedBox(height: height*0.02,),
-                  const Text("Gender",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),),
-                  SizedBox(height: height*0.01,),
-                   Container(
-                    width: double.infinity,
+                    width: width * 0.86,
+                    height: height * 0.4,
                     decoration: BoxDecoration(
-                            border: Border.all(width: 0, color: Colors.grey),
-                            borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      color: blueTint,
+                      borderRadius: BorderRadius.circular(25.0),
+                      image: DecorationImage(
+                        image: NetworkImage(photourl),
+                        fit: BoxFit.cover,
                       ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                Text(
+                  "Name",
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: darkPurple),
+                ),
+
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                Row(
+                  children: [
+                    Expanded(
                       child: TextFormField(
                         readOnly: true,
-                       
-                        
-                        decoration:  InputDecoration(
-                        fillColor: Colors.white,
-                        filled: true,
-                      
-                      border: const OutlineInputBorder(
-                        borderSide: BorderSide(
-              width: 3, color: Colors.greenAccent),
+                        decoration: InputDecoration(
+                          fillColor: blueTint,
+                          filled: true,
+                          border: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 0,
+                              style: BorderStyle.none,
+                            ),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(15),
+                            ),
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 20),
+                          hintText: user1.fname,
+                        ),
                       ),
-                      contentPadding: const EdgeInsets.symmetric(vertical:15,horizontal: 20),
-                      hintText: user1.gender,
-                      hintStyle: const TextStyle(color: Color(0xFFacb1c8))
-                      ))
+                    ),
+                    const SizedBox(
+                      width: 9,
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                        readOnly: true,
+                        decoration: InputDecoration(
+                          border: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 0,
+                              style: BorderStyle.none,
+                            ),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(15),
+                            ),
+                          ),
+                          fillColor: blueTint,
+                          filled: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 20),
+                          hintText: user1.lname,
+                        ),
                       ),
-                        SizedBox(height: height*0.02,),
-                  const Text("Nationality",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),),
-                  SizedBox(height: height*0.01,),
-                  TextFormField(
-                   readOnly: true,
-                        decoration:  InputDecoration(
-                       border: const OutlineInputBorder(
-                        borderSide: BorderSide(
-              width: 3, color: Colors.greenAccent),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                Text(
+                  "Age",
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: darkPurple),
+                ),
+                SizedBox(
+                  height: height * 0.01,
+                ),
+                TextFormField(
+                  readOnly: true,
+                  decoration: InputDecoration(
+                    fillColor: blueTint,
+                    filled: true,
+                    border: const OutlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
                       ),
-                       fillColor: Colors.white,
-                        filled: true,
-                      contentPadding: const EdgeInsets.symmetric(vertical:15,horizontal: 20),
-                      hintText: user1.nationality,
-                      hintStyle: const TextStyle(color: Color(0xFFacb1c8))
-                      )),
-                       SizedBox(height: height*0.02,),
-                  const Text("Phone Number",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 18),),
-                  SizedBox(height: height*0.01,),
-                  TextFormField(
-                   
-                    readOnly: true,
-                        decoration:  InputDecoration(
-                       border: const OutlineInputBorder(
-                        borderSide: BorderSide(
-              width: 3, color: Colors.greenAccent),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(15),
                       ),
-                       fillColor: Colors.white,
-                        filled: true,
-                      contentPadding: const EdgeInsets.symmetric(vertical:15,horizontal: 20),
-                      hintText: user1.number,
-                      hintStyle: const TextStyle(color: Color(0xFFacb1c8))
-                      )),
-                SizedBox(height: height*0.05,),
-                Text('uid: ${user1.uid}'),
-                SizedBox(height: height*0.05,),
-                const Center(child: SignoutButton())
-
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 15, horizontal: 20),
+                    hintText: user1.age.toString(),
+                  ),
+                ),
+                // Row(
+                //   children: [
+                //     GestureDetector(
+                //       child: CircleAvatar(
+                //         radius: width * 0.06,
+                //         backgroundColor: blueTint,
+                //         child: Icon(
+                //           Icons.remove,
+                //           color: primaryColorLight,
+                //         ),
+                //       ),
+                //     ),
+                //     const SizedBox(
+                //       width: 15,
+                //     ),
+                //     Container(
+                //       width: width * 0.29,
+                //       height: height * 0.06,
+                //       decoration: BoxDecoration(
+                //         color: blueTint,
+                //         borderRadius:
+                //             const BorderRadius.all(Radius.circular(15)),
+                //       ),
+                //       child: Center(
+                //           child: Text(
+                //         "${user1.age}",
+                //         style: TextStyle(
+                //             fontSize: 18, color: Colors.grey.shade700),
+                //       )),
+                //     ),
+                //     const SizedBox(
+                //       width: 15,
+                //     ),
+                //     GestureDetector(
+                //       child: CircleAvatar(
+                //         radius: width * 0.06,
+                //         backgroundColor: blueTint,
+                //         child: Icon(
+                //           Icons.add,
+                //           color: primaryColorLight,
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                Text(
+                  "Gender",
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: darkPurple),
+                ),
+                SizedBox(
+                  height: height * 0.01,
+                ),
+                TextFormField(
+                  readOnly: true,
+                  decoration: InputDecoration(
+                    fillColor: blueTint,
+                    filled: true,
+                    border: const OutlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(15),
+                      ),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 15, horizontal: 20),
+                    hintText: user1.gender,
+                  ),
+                ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                Text(
+                  "Country",
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: darkPurple),
+                ),
+                SizedBox(
+                  height: height * 0.01,
+                ),
+                TextFormField(
+                  readOnly: true,
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(15),
+                      ),
+                    ),
+                    fillColor: blueTint,
+                    filled: true,
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 15, horizontal: 20),
+                    hintText: user1.nationality,
+                  ),
+                ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                Text(
+                  "Phone Number",
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: darkPurple),
+                ),
+                SizedBox(
+                  height: height * 0.01,
+                ),
+                TextFormField(
+                  readOnly: true,
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(15),
+                      ),
+                    ),
+                    fillColor: blueTint,
+                    filled: true,
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 15, horizontal: 20),
+                    hintText: user1.number,
+                  ),
+                ),
+                SizedBox(
+                  height: height * 0.05,
+                ),
+                // Text('uid: ${user1.uid}'),
+                SizedBox(
+                  height: height * 0.05,
+                ),
               ],
             ),
           ),
-        ),)
+        ),
+      ),
     );
-  }
-}
-
-class SignoutButton extends StatelessWidget {
-  const SignoutButton({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                minimumSize: const Size(200, 40), backgroundColor: lightGreenColor,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12)),
-                              ),
-                              onPressed: () async {
-                                Future<void> logout(
-                                    BuildContext context) async {
-                                  await FirebaseAuth.instance.signOut();
-
-                                  Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const LoginPage()));
-                                }
-                                logout(context);
-                              },
-                              child:  Text("Sign out",style: TextStyle(color: greenColor,fontSize: 18,fontWeight: FontWeight.w500)));
   }
 }

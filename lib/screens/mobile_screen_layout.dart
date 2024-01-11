@@ -1,12 +1,15 @@
+import 'package:docotg/model/user.dart';
 import 'package:docotg/screens/diagnose_screen.dart';
 import 'package:docotg/screens/doctor_homescreen.dart';
 import 'package:docotg/screens/homescreen.dart';
 import 'package:docotg/screens/profile.dart';
-import 'package:docotg/utils/colors.dart';
+import 'package:docotg/utils/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../provider/user_provider.dart';
+import 'login_screen.dart';
 
 class MobileScreenLayout extends StatefulWidget {
   final bool isDoctor;
@@ -68,6 +71,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         children: homeScreenItems,
       ),
       appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text(
             headers[_page].toString(),
             style: TextStyle(
@@ -87,82 +91,127 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
                 showModalBottomSheet(
                   backgroundColor: Colors.transparent,
                   isScrollControlled: true,
-                  // useSafeArea: true,
+                  useSafeArea: true,
                   context: context,
                   builder: (BuildContext bc) {
-                    return Expanded(
-                      child: Container(
-                        // height: height * 0.5,
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                            color: screenBgColor,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(30),
-                                topRight: Radius.circular(30))),
-                        child: Wrap(
-                          children: [
-                            // Settings
-                            ListTile(
-                              leading: Icon(
-                                Icons.settings,
+                    return Container(
+                      // height: height * 0.5,
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                          color: screenBgColor,
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30))),
+                      child: Wrap(
+                        children: [
+                          // Settings
+                          ListTile(
+                            leading: Icon(
+                              Icons.settings,
+                              color: darkPurple,
+                            ),
+                            title: Text(
+                              "Settings",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17,
                                 color: darkPurple,
-                              ),
-                              title: Text(
-                                "Settings",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17,
-                                  color: darkPurple,
-                                ),
                               ),
                             ),
-                            // Support
-                            ListTile(
-                              leading: Icon(
-                                Icons.support_agent,
+                          ),
+                          // Support
+                          ListTile(
+                            leading: Icon(
+                              Icons.support_agent,
+                              color: darkPurple,
+                            ),
+                            title: Text(
+                              "Support",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17,
                                 color: darkPurple,
-                              ),
-                              title: Text(
-                                "Support",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17,
-                                  color: darkPurple,
-                                ),
                               ),
                             ),
-                            // About Us
-                            ListTile(
-                              leading: Icon(
-                                Icons.info_outline_rounded,
+                          ),
+                          // About Us
+                          ListTile(
+                            leading: Icon(
+                              Icons.info_outline_rounded,
+                              color: darkPurple,
+                            ),
+                            title: Text(
+                              "About Us",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17,
                                 color: darkPurple,
-                              ),
-                              title: Text(
-                                "About Us",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17,
-                                  color: darkPurple,
-                                ),
                               ),
                             ),
-                            // Share
-                            ListTile(
-                              leading: Icon(
-                                Icons.share,
+                          ),
+                          // Share
+                          ListTile(
+                            leading: Icon(
+                              Icons.share,
+                              color: darkPurple,
+                            ),
+                            title: Text(
+                              "Share",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17,
                                 color: darkPurple,
                               ),
-                              title: Text(
-                                "Share",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17,
-                                  color: darkPurple,
-                                ),
+                            ),
+                          ),
+                          // Share
+                          ListTile(
+                            leading: Icon(
+                              Icons.logout,
+                              color: darkPurple,
+                            ),
+                            title: Text(
+                              "Logout",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17,
+                                color: darkPurple,
                               ),
-                            )
-                          ],
-                        ),
+                            ),
+                            onTap: () async {
+                              Future<void> logout(BuildContext context) async {
+                                await FirebaseAuth.instance.signOut();
+                                // Navigator.of(context).pushReplacement(
+                                //     MaterialPageRoute(
+                                //         builder: (context) =>
+                                //         const LoginPage()));
+                              }
+
+                              await logout(context);
+                              if (context.mounted) {
+                                Provider.of<UserProvider>(context,
+                                        listen: false)
+                                    .setUser(
+                                  user(
+                                      uid: '',
+                                      fname: '',
+                                      lname: '',
+                                      email: '',
+                                      gender: '',
+                                      nationality: '',
+                                      age: 0,
+                                      number: '',
+                                      profImageUrl: ''),
+                                );
+                                Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const LoginPage()),
+                                    (Route<dynamic> route) => false);
+                              }
+                            },
+                          )
+                        ],
                       ),
                     );
                   },

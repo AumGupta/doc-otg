@@ -1,5 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+
+// import 'dart:js_interop';
+// import 'dart:js_interop';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 
@@ -17,6 +20,55 @@ import '../provider/user_provider.dart';
 
 class FireStoreMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  void updateReport({
+    dynamic doctorName,
+    dynamic reportId,
+    dynamic newResult,
+    dynamic newPrescription,
+  }) {
+    // Updating Result
+    if (newResult != null) {
+      _firestore
+          .collection('reports')
+          .doc(reportId)
+          .update({'finalResult': newResult})
+          .then((value) =>
+              print("*****************finalResult updated successfully"))
+          .catchError((error) =>
+              print("*****************Failed to update field: $error"));
+    }
+    if (newPrescription != null) {
+      _firestore
+          .collection('reports')
+          .doc(reportId)
+          .update({'prescription': newPrescription})
+          .then((value) =>
+              print("*****************prescription updated successfully"))
+          .catchError((error) =>
+              print("*****************Failed to update field: $error"));
+    }
+    if (doctorName != null) {
+      _firestore
+          .collection('reports')
+          .doc(reportId)
+          .update({'doctorName': doctorName})
+          .then(
+              (value) => print("*****************docName updated successfully"))
+          .catchError((error) =>
+              print("*****************Failed to update field: $error"));
+    }
+  }
+
+  Future<Map<String, dynamic>> getPost(
+    String postId,
+  ) async {
+    QuerySnapshot snap = await _firestore
+        .collection("posts")
+        .where('postId', isEqualTo: postId)
+        .get();
+    return Map<String, dynamic>.from(snap.docs[0].data() as Map);
+  }
 
   Future<Map<String, String>> getLatestReport(
     String uid,
@@ -50,10 +102,20 @@ class FireStoreMethods {
   }
 
   // Upload a Report (Analysed Post)
-  Future<String> uploadReport(String uid, Map<String, String> symptoms) async {
-    String res = "Some Error Occoured";
+  Future<String> uploadReport({
+    required String uid,
+    required Map<String, String> symptoms,
+    dynamic image,
+  }) async {
+    String res = "Some Error Occurred";
     String textResult = '';
-    var url = Uri.parse('https://docotg.onrender.com/text');
+    String imageResult = 'No Image';
+    print('*****************Start: ' + DateTime.now().toString());
+
+    // Text Analysis
+    // var url = Uri.parse('https://docotg-api.onrender.com/text');
+    // var url = Uri.parse('https://docotg.onrender.com/text');
+    var url = Uri.parse('http://140.238.244.83:5000/text');
     try {
       var response = await http.post(
         url,
@@ -64,12 +126,38 @@ class FireStoreMethods {
         var data = json.decode(response.body);
         textResult = '$data';
       } else {
-        textResult = 'Error: ${response.statusCode}';
+        print('Gaya');
+        return 'Error: ${response.statusCode}';
       }
     } catch (e) {
-      textResult = 'Error: $e';
+      return 'Error: $e';
     }
 
+    // Image Analysis
+    if (image != '') {
+      var url2 = Uri.parse('http://140.238.244.83:5000/image');
+      try {
+        var response2 = await http.post(
+          url2,
+          headers: {
+            "Accept": "application/json",
+            "content-type": "application/json"
+          },
+          body: jsonEncode(<String, String>{
+            'image': image,
+          }),
+        );
+        if (response2.statusCode == 200) {
+          var data = json.decode(json.encode(response2.body));
+          imageResult = '$data';
+        } else {
+          return 'Error: ${response2.statusCode}';
+        }
+      } catch (e) {
+        return 'Error: $e';
+      }
+    }
+    // print('*****************$textResult:' + DateTime.now().toString());
     try {
       var latestPost = await _firestore
           .collection("users")
@@ -80,20 +168,26 @@ class FireStoreMethods {
           .get();
       var post = latestPost.docs.first.data();
       String postId = post["postId"];
-
+      // print("*****************got latest post " + DateTime.now().toString());
       String reportId = const Uuid().v1();
       Report report = Report(
         textResult: textResult,
+        imageResult: imageResult,
         reportId: reportId,
         uid: uid,
         postId: postId,
         datePublished: DateTime.now(),
+        doctorName: '',
+        finalResult: 'Pending',
+        prescription: '',
       );
       _firestore.collection("reports").doc(reportId).set(report.toJson());
+      print("*****************post uploaded " + DateTime.now().toString());
       res = "success";
     } catch (e) {
       res = e.toString();
     }
+    print("*****************END " + DateTime.now().toString());
     return res;
   }
 
@@ -105,6 +199,7 @@ class FireStoreMethods {
     String name,
     String profImage,
     String audioPath,
+    String videoPath,
     BuildContext context,
     // String textAnalysisResult,
     String otherSymptom,
@@ -122,7 +217,8 @@ class FireStoreMethods {
           true,
         );
       }
-      String audioURL = audioPath.isNotEmpty?await uploadAudioFile(audioPath):'';
+      String audioURL = audioPath.isNotEmpty ? await uploadAudioFile(audioPath) : '';
+      String videoURL = videoPath.isNotEmpty ? await uploadAudioFile(videoPath) : '';
       String postId = const Uuid().v1();
       Post post = Post(
           symptoms: symptoms,
@@ -133,7 +229,9 @@ class FireStoreMethods {
           imageUrl: imageUrl,
           profImage: profImage,
           audio: audioURL,
-          otherSymptom: otherSymptom);
+          video: videoURL,
+          otherSymptom: otherSymptom,
+          finalResult: 'Pending');
       _firestore.collection("posts").doc(postId).set(post.toJson());
       await _firestore
           .collection("users")
@@ -152,6 +250,16 @@ class FireStoreMethods {
     final FirebaseStorage storage = FirebaseStorage.instance;
     final String fileName = filePath.split('/').last;
     final Reference ref = storage.ref().child('audios/$fileName');
+    final UploadTask uploadTask = ref.putFile(File(filePath));
+    final TaskSnapshot snapshot = await uploadTask;
+    final String downloadUrl = await snapshot.ref.getDownloadURL();
+    return downloadUrl;
+  }
+
+  Future<String> uploadVideoFile(String filePath) async {
+    final FirebaseStorage storage = FirebaseStorage.instance;
+    final String fileName = filePath.split('/').last;
+    final Reference ref = storage.ref().child('videos/$fileName');
     final UploadTask uploadTask = ref.putFile(File(filePath));
     final TaskSnapshot snapshot = await uploadTask;
     final String downloadUrl = await snapshot.ref.getDownloadURL();

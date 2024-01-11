@@ -14,7 +14,7 @@ class UserProvider extends ChangeNotifier {
       age: 18,
       number: "number",
       profImageUrl:
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
 
   user get getUser => _user!;
 
@@ -23,8 +23,6 @@ class UserProvider extends ChangeNotifier {
     // user user1 = await _authMethods.getUserDetails();
     // _user = user1;
     _user = await _authMethods.getUserDetails(_isDoctor);
-    print({_user});
-    print("user:$_user");
     notifyListeners();
   }
 

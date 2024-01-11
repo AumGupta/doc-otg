@@ -1,8 +1,5 @@
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../provider/user_provider.dart';
 import 'login_screen.dart';
 
 class Splash2 extends StatefulWidget {
@@ -15,8 +12,8 @@ class Splash2 extends StatefulWidget {
 class _Splash2State extends State<Splash2> {
   
   // addData() async {
-  //   UserProvider _userProvider = Provider.of(context, listen: false);
-  //   await _userProvider.refreshUser();
+  //   UserProvider userProvider = Provider.of(context, listen: false);
+  //   await userProvider.refreshUser();
   // }
   @override
   void initState() {
@@ -27,7 +24,7 @@ class _Splash2State extends State<Splash2> {
   @override
   Widget build(BuildContext context) {
      var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
+    // var height = MediaQuery.of(context).size.height;
     return EasySplashScreen(
       logo: Image.asset("assets/images/icon-1024x1024.png"),
       showLoader: false,

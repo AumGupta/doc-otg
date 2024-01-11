@@ -4,11 +4,12 @@ import 'package:docotg/resources/firebase_methods.dart';
 import 'package:docotg/screens/reports_list_screen.dart';
 import 'package:docotg/screens/result_screen.dart';
 import 'package:docotg/screens/detailed_User_list.dart';
-import 'package:docotg/utils/colors.dart';
+import 'package:docotg/utils/constants.dart';
 import 'package:docotg/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
+import '../model/user.dart';
 import '../provider/user_provider.dart';
 import '../widgets/user_card.dart';
 
@@ -20,6 +21,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool isLoading = true;
+
   @override
   void initState() {
     super.initState();
@@ -27,14 +30,24 @@ class _HomePageState extends State<HomePage> {
   }
 
   addData() async {
-    await Provider.of<UserProvider>(context, listen: false).refreshUser(false);
+    await Provider.of<UserProvider>(context, listen: false)
+        .refreshUser(false)
+        .then((value) {
+      setState(() {
+        isLoading = false;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final user1 = Provider.of<UserProvider>(context, listen: false).getUser;
+    if (isLoading){
+      addData();
+      isLoading = false;
+    }
+    final user user1 = Provider.of<UserProvider>(context, listen: false).getUser;
     final Future<Map<String, String>> getReport =
-    FireStoreMethods().getLatestReport(user1.uid);
+        FireStoreMethods().getLatestReport(user1.uid);
     Map<String, String> report = {};
 
     var height = MediaQuery.of(context).size.height;
@@ -147,7 +160,7 @@ class _HomePageState extends State<HomePage> {
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) =>
-                              ReportsListScreen(uid: user1.uid),
+                              ReportsListScreen(user1: user1),
                         ));
                       },
                       child: const Text('See all'),
@@ -265,7 +278,7 @@ class _HomePageState extends State<HomePage> {
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) =>
-                                  ResultScreen(report: report),
+                                  ResultScreen(report: report, user1: user1),
                             ));
                           },
                           child: Container(
@@ -327,7 +340,7 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                           // result
                                           Text(
-                                            report['textResult']!,
+                                            report['finalResult']!,
                                             style: const TextStyle(
                                                 fontWeight: FontWeight.normal,
                                                 fontSize: 16,
@@ -340,12 +353,12 @@ class _HomePageState extends State<HomePage> {
                                       CircleAvatar(
                                         radius: 16,
                                         backgroundColor: getReportStatusColors(
-                                            report['textResult']!)[1],
+                                            report['finalResult']!)[1],
                                         child: Icon(
                                           getReportStatusIcon(
-                                              report['textResult']!),
+                                              report['finalResult']!),
                                           color: getReportStatusColors(
-                                              report['textResult']!)[0],
+                                              report['finalResult']!)[0],
                                         ),
                                       ),
                                     ],

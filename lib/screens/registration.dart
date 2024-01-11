@@ -1,9 +1,8 @@
 import 'package:docotg/screens/form.dart';
 import 'package:docotg/screens/login_screen.dart';
-import 'package:docotg/utils/colors.dart';
+import 'package:docotg/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:email_validator/email_validator.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -14,11 +13,20 @@ class RegistrationPage extends StatefulWidget {
 
 class _RegistrationPageState extends State<RegistrationPage> {
   final formKey = GlobalKey<FormState>();
-  final passwordController = TextEditingController();
-  final emailController = TextEditingController();
-  final reEnteredPasswordController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _passwordController2 = TextEditingController();
+  final _emailController = TextEditingController();
+  AutovalidateMode _autoValidate = AutovalidateMode.disabled;
   bool _isVisible = false;
   bool _isDoctor = false;
+
+  void resetAllTextFields() {
+    formKey.currentState?.reset();
+    _autoValidate = AutovalidateMode.disabled;
+    _emailController.clear();
+    _passwordController.clear();
+    _passwordController2.clear();
+  }
 
   void navigateToLogin() {
     Navigator.of(context)
@@ -29,286 +37,326 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    return Scaffold(
-        backgroundColor: screenBgColor,
-        body: SafeArea(
-            child: SingleChildScrollView(
-          child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: width * 0.08),
-              child: Form(
-                key: formKey,
-                child: SingleChildScrollView(
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: height * 0.12,
-                        ),
-                        Text(
-                          "New User?",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: height * 0.045),
-                        ),
-                        Text(
-                          "Let's Sign Up!",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: height * 0.045),
-                        ),
-                        SizedBox(
-                          height: height * 0.015,
-                        ),
-                        Text(
-                          "Welcome aboard,Let's get you diagnosed!",
-                          style: TextStyle(color: greyColor, fontSize: 15),
-                        ),
-                        SizedBox(
-                          height: height * 0.045,
-                        ),
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(20)),
-                            color: blueTint,
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      onVerticalDragCancel: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+          backgroundColor: screenBgColor,
+          body: SingleChildScrollView(
+            child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: width * 0.08, vertical: 24.0),
+                child: Form(
+                  key: formKey,
+                  autovalidateMode: _autoValidate,
+                  child: SingleChildScrollView(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: height * 0.045,
                           ),
-                          child: Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    _isDoctor = false;
-                                  });
-                                },
-                                child: Container(
-                                  width: width * 0.42,
-                                  height: 42,
-                                  decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.only(
-                                          bottomLeft: Radius.circular(20),
-                                          topLeft: Radius.circular(20),
-                                          topRight: Radius.circular(20),
-                                          bottomRight: Radius.circular(20)),
-                                      color:
-                                          _isDoctor ? blueTint : primaryColor),
-                                  child: Center(
-                                      child: Text(
-                                    "Patient",
-                                    style: TextStyle(
+                          Text(
+                            "New user?",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: height * 0.042,
+                                color: darkPurple),
+                          ),
+                          Text(
+                            "Let's Sign Up!",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: height * 0.042,
+                                color: darkPurple),
+                          ),
+                          SizedBox(
+                            height: height * 0.015,
+                          ),
+                          Text(
+                            "Welcome aboard, let's get you diagnosed!",
+                            style: TextStyle(color: greyColor, fontSize: 15),
+                          ),
+                          SizedBox(
+                            height: height * 0.045,
+                          ),
+                          Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.all(4.0),
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(50)),
+                              color: blueTint,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      _isDoctor = false;
+                                      resetAllTextFields();
+                                    });
+                                  },
+                                  child: Container(
+                                    width: width * 0.40,
+                                    height: 48,
+                                    decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(50)),
                                         color: _isDoctor
-                                            ? Colors.black
-                                            : Colors.white,
-                                        fontSize: 18),
-                                  )),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () => setState(() {
-                                  _isDoctor = true;
-                                }),
-                                child: Container(
-                                  width: width * 0.42,
-                                  height: 42,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        _isDoctor ? lightGreenColor : blueTint,
-                                    borderRadius: const BorderRadius.only(
-                                        bottomRight: Radius.circular(20),
-                                        topRight: Radius.circular(20),
-                                        topLeft: Radius.circular(20),
-                                        bottomLeft: Radius.circular(20)),
+                                            ? blueTint
+                                            : primaryColor),
+                                    child: Center(
+                                        child: Text(
+                                      "Patient",
+                                      style: TextStyle(
+                                          color: _isDoctor
+                                              ? greyColor
+                                              : Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: _isDoctor
+                                              ? FontWeight.normal
+                                              : FontWeight.bold),
+                                    )),
                                   ),
-                                  child: Center(
-                                      child: Text(
-                                    "Doctor",
-                                    style: TextStyle(
-                                        color: !_isDoctor
-                                            ? Colors.black
-                                            : greenColor,
-                                        fontSize: 18),
-                                  )),
                                 ),
-                              )
-                            ],
+                                GestureDetector(
+                                  onTap: () => setState(() {
+                                    _isDoctor = true;
+                                    resetAllTextFields();
+                                  }),
+                                  child: Container(
+                                    width: width * 0.40,
+                                    height: 48,
+                                    decoration: BoxDecoration(
+                                      color: _isDoctor ? greenColor : blueTint,
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(50)),
+                                    ),
+                                    child: Center(
+                                        child: Text(
+                                      "Doctor",
+                                      style: TextStyle(
+                                          color: !_isDoctor
+                                              ? greyColor
+                                              : Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: !_isDoctor
+                                              ? FontWeight.normal
+                                              : FontWeight.bold),
+                                    )),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: height * 0.02,
-                        ),
-                        Container(
-                          width: double.infinity,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: blueTint,
+                          SizedBox(
+                            height: height * 0.02,
                           ),
-                          child: TextFormField(
-                            controller: emailController,
-                            decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.symmetric(
+                          TextFormField(
+                            controller: _emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            validator: (value) =>
+                                EmailValidator.validate(value!)
+                                    ? null
+                                    : "Please enter a valid email",
+                            decoration: InputDecoration(
+                                border: const OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 0,
+                                    style: BorderStyle.none,
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(50),
+                                  ),
+                                ),
+                                fillColor: blueTint,
+                                filled: true,
+                                contentPadding: const EdgeInsets.symmetric(
                                     vertical: 15, horizontal: 20),
                                 hintText: 'Email',
-                                hintStyle: TextStyle(color: Color(0xFFacb1c8))),
+                                hintStyle: TextStyle(color: greyColor)),
                           ),
-                        ),
-                        SizedBox(
-                          height: height * 0.035,
-                        ),
-                        Container(
-                          width: double.infinity,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: blueTint,
+                          SizedBox(
+                            height: height * 0.020,
                           ),
-                          child: TextFormField(
+                          TextFormField(
                             obscureText: !_isVisible,
-                            controller: passwordController,
+                            keyboardType: TextInputType.visiblePassword,
+                            controller: _passwordController,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Please enter a password';
                               }
-                              if (value.length < 6) {
-                                return 'Password must be at least 8 characters long';
+                              if (value.length < 8) {
+                                return 'Password must be at-least 8 characters long';
                               }
                               return null;
                             },
-                            decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.symmetric(
+                            decoration: InputDecoration(
+                                border: const OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 0,
+                                    style: BorderStyle.none,
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(50),
+                                  ),
+                                ),
+                                fillColor: blueTint,
+                                filled: true,
+                                contentPadding: const EdgeInsets.symmetric(
                                     vertical: 15, horizontal: 20),
                                 hintText: 'Password',
-                                hintStyle: TextStyle(color: Color(0xFFacb1c8))),
+                                hintStyle: TextStyle(color: greyColor)),
                           ),
-                        ),
-                        SizedBox(
-                          height: height * 0.035,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              width: width * 0.68,
+                          SizedBox(
+                            height: height * 0.020,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(
+                                width: width * 0.68,
+                                child: TextFormField(
+                                  obscureText: !_isVisible,
+                                  keyboardType: TextInputType.visiblePassword,
+                                  controller: _passwordController2,
+                                  validator: (value) {
+                                    if (value != _passwordController.text) {
+                                      return 'Passwords do not match';
+                                    }
+                                    return null;
+                                  },
+                                  decoration: InputDecoration(
+                                    border: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 0,
+                                        style: BorderStyle.none,
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(50),
+                                      ),
+                                    ),
+                                    fillColor: blueTint,
+                                    filled: true,
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 15, horizontal: 20),
+                                    hintText: 'Re-enter Password',
+                                    hintStyle: TextStyle(color: greyColor),
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _isVisible = !_isVisible;
+                                  });
+                                },
+                                child: CircleAvatar(
+                                  radius: width * 0.065,
+                                  backgroundColor: greyColor,
+                                  child: CircleAvatar(
+                                    radius: width * 0.09,
+                                    backgroundColor: lightGreenColor,
+                                    child: _isVisible
+                                        ? Icon(
+                                            Icons.visibility,
+                                            color: greenColor,
+                                          )
+                                        : Icon(
+                                            Icons.visibility_off,
+                                            color: greenColor,
+                                          ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: height * 0.1,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              if (formKey.currentState!.validate()) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => FormPage(
+                                            email: _emailController.text,
+                                            password: _passwordController.text,
+                                            isDoctor: _isDoctor,
+                                          )),
+                                );
+                              } else {
+                                setState(() =>
+                                    _autoValidate = AutovalidateMode.always);
+                              }
+                            },
+                            child: Container(
+                              width: double.infinity,
                               height: 50,
                               decoration: BoxDecoration(
+                                boxShadow: const [
+                                  BoxShadow(
+                                      color: Color(0x90585be4), blurRadius: 20),
+                                ],
                                 borderRadius: BorderRadius.circular(50),
-                                color: blueTint,
+                                color: primaryColor,
                               ),
-                              child: TextFormField(
-                                obscureText: !_isVisible,
-                                validator: (value) {
-                                  if (value != passwordController.text) {
-                                    return 'Passwords do not match';
-                                  }
-                                  return null;
-                                },
-                                decoration: const InputDecoration(
-                                    border: InputBorder.none,
-                                    contentPadding: EdgeInsets.symmetric(
-                                        vertical: 15, horizontal: 20),
-                                    hintText: 'Re enter Password',
-                                    hintStyle:
-                                        TextStyle(color: Color(0xFFacb1c8))),
-                              ),
+                              child: const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Sign Up  ",
+                                      style: TextStyle(
+                                          fontSize: 16, color: Colors.white),
+                                    ),
+                                    Icon(
+                                      Icons.arrow_forward_sharp,
+                                      color: Colors.white,
+                                      size: 20.0,
+                                      weight: 100,
+                                    )
+                                  ]),
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _isVisible = !_isVisible;
-                                });
-                              },
-                              child: CircleAvatar(
-                                radius: width * 0.065,
-                                backgroundColor: greyColor,
-                                child: CircleAvatar(
-                                  radius: width * 0.09,
-                                  backgroundColor: lightGreenColor,
-                                  child: _isVisible
-                                      ? Icon(
-                                          Icons.visibility,
-                                          color: greenColor,
-                                        )
-                                      : Icon(
-                                          Icons.visibility_off,
-                                          color: greenColor,
-                                        ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: height * 0.02,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 2),
-                              child: const Text("Already have an account?"),
-                            ),
-                            GestureDetector(
-                              onTap: navigateToLogin,
-                              //print("Signup tapped!");
-                              child: Container(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8),
-                                child: Text(
-                                  " Login.",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: primaryColor,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: height * 0.1,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            if (formKey.currentState!.validate()) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => FormPage(
-                                          email: emailController.text,
-                                          password: passwordController.text,
-                                          isDoctor: _isDoctor,
-                                        )),
-                              );
-                            }
-                          },
-                          child: Container(
-                            width: double.infinity,
-                            height: 50,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                color: const Color(0xff585ce5)),
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Text(
-                                    "Sign Up  ",
-                                    style: TextStyle(
-                                        fontSize: 18, color: Colors.white),
-                                  ),
-                                  const Icon(
-                                    Icons.arrow_forward_sharp,
-                                    color: Colors.white,
-                                  )
-                                ]),
                           ),
-                        ),
-                      ]),
-                ),
-              )),
-        )));
+                          SizedBox(
+                            height: height * 0.03,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 8, horizontal: 2),
+                                child: Text(
+                                  "Already have an account?",
+                                  style: TextStyle(color: greyColor),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: navigateToLogin,
+                                child: Container(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8),
+                                  child: Text(
+                                    " Login.",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: greenColor,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ]),
+                  ),
+                )),
+          )),
+    );
   }
 }

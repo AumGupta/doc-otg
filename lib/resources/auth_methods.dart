@@ -10,7 +10,6 @@ class AuthMethods {
 
   Future<user> getUserDetails(bool _isDoctor) async {
     User currentuser = _auth.currentUser!;
-    print("Current user $currentuser");
     DocumentSnapshot snap = _isDoctor
         ? await _firestore.collection('Doctors').doc(currentuser.uid).get()
         : await _firestore.collection('users').doc(currentuser.uid).get();
@@ -22,21 +21,21 @@ class AuthMethods {
     User currentuser = _auth.currentUser!;
 
     DocumentSnapshot snap =
-        await _firestore.collection('Doctors').doc(currentuser.uid).get();
+    await _firestore.collection('Doctors').doc(currentuser.uid).get();
 
     return user.fromSnap(snap);
   }
 
   Future<String> signUpUser(
       {required String fname,
-      required String lname,
-      required int age,
-      required String email,
-      required String password,
-      required String gender,
-      required String nationality,
-      required String number,
-      required Uint8List file}) async {
+        required String lname,
+        required int age,
+        required String email,
+        required String password,
+        required String gender,
+        required String nationality,
+        required String number,
+        required Uint8List file}) async {
     String result = "Some Error Occured";
     try {
       if (fname.isNotEmpty || email.isNotEmpty && password.isNotEmpty) {
@@ -56,8 +55,8 @@ class AuthMethods {
             age: age,
             gender: gender);
         await _firestore.collection('users').doc(userCredential.user!.uid).set(
-              user1.toJson(),
-            );
+          user1.toJson(),
+        );
         result = "success";
       }
     } on FirebaseAuthException catch (e) {
@@ -67,7 +66,7 @@ class AuthMethods {
         result = "This email is already in use by another account.";
       } else if (e.code == "operation-not-allowed") {
         result =
-            "Your account has been suspended. Kindly contact support for more information";
+        "Your account has been suspended. Kindly contact support for more information";
       } else if (e.code == "weak-password") {
         result = "Your password should be at least 6 characters long.";
       } else {
@@ -81,14 +80,14 @@ class AuthMethods {
 
   Future<String> signUpDoc(
       {required String fname,
-      required String lname,
-      required int age,
-      required String email,
-      required String password,
-      required String gender,
-      required String nationality,
-      required String number,
-      required Uint8List file}) async {
+        required String lname,
+        required int age,
+        required String email,
+        required String password,
+        required String gender,
+        required String nationality,
+        required String number,
+        required Uint8List file}) async {
     String result = "Some Error Occured";
     try {
       if (fname.isNotEmpty || email.isNotEmpty && password.isNotEmpty) {
@@ -111,8 +110,8 @@ class AuthMethods {
             .collection('Doctors')
             .doc(userCredential.user!.uid)
             .set(
-              user1.toJson(),
-            );
+          user1.toJson(),
+        );
         result = "success";
       }
     } on FirebaseAuthException catch (e) {
@@ -122,7 +121,7 @@ class AuthMethods {
         result = "This email is already in use by another account.";
       } else if (e.code == "operation-not-allowed") {
         result =
-            "Your account has been suspended. Kindly contact support for more information";
+        "Your account has been suspended. Kindly contact support for more information";
       } else if (e.code == "weak-password") {
         result = "Your password should be at least 6 characters long.";
       } else {
@@ -157,10 +156,10 @@ class AuthMethods {
         result = "Please enter correct password";
       } else if (e.code == "user-disabled") {
         result =
-            "This account has been disabled. Kindly contact support for more information.";
+        "This account has been disabled. Kindly contact support for more information.";
       } else if (e.code == "user-not-found") {
         result =
-            "This user does not exist. Kindly Sign Up to create an account.";
+        "This user does not exist. Kindly Sign Up to create an account.";
       } else {
         result = "Aw Snap! An unknown error occurred.";
       }

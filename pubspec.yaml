@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: "none" # Remove this line if you wish to publish to pub.dev
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -20,7 +20,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.18.2 <3.0.0"
+  sdk: '>=2.18.2 <3.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -31,7 +31,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -41,23 +40,34 @@ dependencies:
   firebase_storage: ^11.0.10
   uuid: ^3.0.7
   file_picker: ^5.3.1
-  image_picker: ^0.8.6+1
+  image_picker: ^1.0.2
   provider: ^6.0.5
   cached_network_image: ^3.2.3
   easy_splash_screen: ^1.0.4
-  chips_choice_null_safety: ^2.0.6
+#  chips_choice_null_safety: ^2.0.6
+  chips_choice: ^3.0.0
   highlight_text: ^1.6.0
   speech_to_text: ^6.1.1
   avatar_glow: ^2.0.2
   permission_handler: ^10.2.0
-  audioplayers: ^4.1.0
-  # http: ^0.13.6
+  audioplayers: ^5.1.0
+  http: ^1.1.0
   intl: ^0.18.1
   shimmer: ^3.0.0
+  flutter_sound: ^9.2.13
+  assets_audio_player: ^3.1.0
+  record_mp3: ^3.0.0
+  path_provider: ^2.1.0
+  video_player: ^2.7.0
+  url_launcher: ^6.1.12
+  pdf: ^3.10.4
+  printing: ^5.11.0
+  email_validator: ^2.1.17
 #  google_fonts: ^4.0.0
 
+
 dev_dependencies:
-  #  flutter_launcher_icons: "^0.13.1"
+#  flutter_launcher_icons: "^0.13.1"
 
   flutter_test:
     sdk: flutter
@@ -74,6 +84,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -82,6 +93,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - assets/images/icon-1024x1024.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -100,8 +112,13 @@ flutter:
       fonts:
         - asset: assets/fonts/Montserrat-Regular.ttf
           weight: 100
+        - asset: assets/fonts/Montserrat-Medium.ttf
+          weight: 500
         - asset: assets/fonts/Montserrat-SemiBold.ttf
           weight: 600
+        - asset: assets/fonts/Montserrat-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Bastliga-One.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
@@ -112,6 +129,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
 #flutter_launcher_icons:
 #  image_path: "assets/images/icon-1024x1024.png"
 #  image_path_android: "assets/images/icon-710x599-android.png"
