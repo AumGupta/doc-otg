@@ -2,7 +2,10 @@
 
 _A Solution on Effective Ailment Analysis: Case Study on COVID during Pandemic_
 
-## Introduction 🚀
+## Working Demonstration ▶️
+> [![Demo](https://img.youtube.com/vi/_fvvx3U-iVg/0.jpg)](https://youtu.be/_fvvx3U-iVg)
+
+## About 🚀
 > DOC-OTG is a part of the research project of Sri Guru Gobind Singh College of Commerce and is a native mobile application for doctors to diagnose whether a patient is COVID-19 positive or not. The app takes 4 inputs from the patient, including Symptom Text, Image (X-Ray, CT-Scan, etc.), Audio, and Video. Machine learning algorithms at the backend analyze the input and provide a diagnosis report.
 
 ## Technologies Used ⚙️
@@ -18,6 +21,7 @@ _A Solution on Effective Ailment Analysis: Case Study on COVID during Pandemic_
 ### Python Language:
 > DOC-OTG uses Python, a high-level programming language, for developing the machine learning models. The machine learning models are trained on large datasets to predict whether a patient is COVID-19 positive or not.
 
+## Features
 
 ## Patient-Side App Screens 📱
 > The app has four main screens for patients, which are described below.
@@ -25,12 +29,10 @@ _A Solution on Effective Ailment Analysis: Case Study on COVID during Pandemic_
 ### Log-in and Sign-up Page
 > The login and signup page is the first screen of the app. Users can log in using their username and password or can create a new account by registering on this page.
 
-
-Log-In Screen
-Sign-Up Screen
-Filled Sign-Up Screen
-User Details Filled
-
+- Log-In Screen
+- Sign-Up Screen
+- Filled Sign-Up Screen
+- User Details Filled
 
 ### Home Page
 > The home page is the second screen of the app. It displays two main sections. The first section contains the latest diagnosis reports of the patients. The second section contains past reports, which users can access by clicking on the "Past Reports" button. The home page also shows the list of doctors available for consultation.
@@ -85,7 +87,7 @@ User Details Filled
 > 3. Doctors can access past reports of their patients by clicking on the "Past Reports" button on the home page.
 > 4. Doctors can navigate to the diagnosis page by clicking on the "Diagnosis" button on the home page navigation bar.
 > 5. Doctors can upload the four inputs, including Symptoms Text, Image (X-Ray, CT-Scan, etc.), Audio, and Video, on the diagnosis page for themselves.
-> 6, The machine learning algorithms analyze the input and provide a diagnosis report.
+> 6. The machine learning algorithms analyze the input and provide a diagnosis report.
 > 7. Doctors can access the diagnosis report of their patients and themselves on the home page.
 > 8. Doctors can edit their profile information on the Profile Page by clicking on the "Edit Profile" button.
 
