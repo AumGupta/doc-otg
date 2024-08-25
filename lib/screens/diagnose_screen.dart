@@ -20,7 +20,8 @@ import '../provider/user_provider.dart';
 import '../utils/utils.dart';
 
 // import 'package:flutter_sound/flutter_sound.dart';
-import 'package:record_mp3/record_mp3.dart';
+// import 'package:record_mp3/record_mp3.dart';
+import 'package:record/record.dart';
 import 'package:path_provider/path_provider.dart';
 
 class DiagnoseScreen extends StatefulWidget {
@@ -161,6 +162,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
         });
   }
 
+  final record = AudioRecorder();
   _selectVoice(BuildContext context) async {
     return showDialog(
         context: context,
@@ -195,7 +197,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                                 backgroundColor: primaryColor,
                                 child: IconButton(
                                   icon: Icon(
-                                    (RecordMp3.instance.status == RecordStatus.RECORDING)
+                                    (_isRecorderRecording)
                                         ? Icons.stop
                                         : Icons.mic,
                                     color: Colors.white,
@@ -282,22 +284,6 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
     });
   }
 
-  // Future<void> playFunc() async {
-  //   player?.open(
-  //     Audio.file(_audioFilePath),
-  //     autoStart: true,
-  //     showNotification: true,
-  //   );
-  // }
-
-  // Future<void> stopPlayFunc() async {
-  //   player?.stop();
-  //   // setState(() {
-  //   //   _audioFilePath = '';
-  //   // });
-  // }
-
-  // Audio Recorder
 
   String? statusText;
   String recordFilePath = '';
@@ -313,32 +299,45 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
     return true;
   }
 
+  // void startRecord() async {
+  //   bool hasPermission = await checkPermission();
+  //   if (hasPermission) {
+  //     statusText = "Recording...";
+  //     recordFilePath = await getFilePath();
+  //     isComplete = false;
+  //     RecordMp3.instance.start(recordFilePath, (type) {
+  //       statusText = "Record error--->$type";
+  //       setState(() {});
+  //     });
+  //   } else {
+  //     statusText = "No microphone permission";
+  //   }
+  //   setState(() {});
+  // }
+
   void startRecord() async {
-    bool hasPermission = await checkPermission();
-    if (hasPermission) {
+    if (await record.hasPermission()) {
       statusText = "Recording...";
-      recordFilePath = await getFilePath();
+      await record.start(const RecordConfig(), path: 'aFullPath/myFile.m4a');
+      _isRecorderRecording = await record.isRecording();
+      recordFilePath =  (await record.stop())!;
       isComplete = false;
-      RecordMp3.instance.start(recordFilePath, (type) {
-        statusText = "Record error--->$type";
-        setState(() {});
-      });
     } else {
       statusText = "No microphone permission";
     }
     setState(() {});
   }
 
-  void pauseRecord() {
-    if (RecordMp3.instance.status == RecordStatus.PAUSE) {
-      bool s = RecordMp3.instance.resume();
-      if (s) {
+  Future<void> pauseRecord() async {
+    if (await record.isPaused()) {
+      record.resume();
+      {
         statusText = "Recording...";
         setState(() {});
       }
     } else {
-      bool s = RecordMp3.instance.pause();
-      if (s) {
+      record.pause();
+      {
         statusText = "Recording pause...";
         setState(() {});
       }
@@ -346,7 +345,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
   }
 
   void stopRecord() {
-    bool s = RecordMp3.instance.stop();
+    bool s = record.stop() as bool;
     if (s) {
       statusText = "";
       isComplete = true;
@@ -356,7 +355,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
   }
 
   void resumeRecord() {
-    bool s = RecordMp3.instance.resume();
+    bool s = record.resume() as bool;
     if (s) {
       statusText = "Recording...";
       setState(() {});

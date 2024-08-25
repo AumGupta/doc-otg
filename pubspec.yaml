@@ -56,15 +56,14 @@ dependencies:
   shimmer: ^3.0.0
   flutter_sound: ^9.2.13
   assets_audio_player: ^3.1.0
-  record_mp3: ^3.0.0
   path_provider: ^2.1.0
   video_player: ^2.7.0
   url_launcher: ^6.1.12
   pdf: ^3.10.4
   printing: ^5.11.0
   email_validator: ^2.1.17
-#  google_fonts: ^4.0.0
-
+  record: ^5.1.2
+#  record_mp3: ^3.0.0
 
 dev_dependencies:
 #  flutter_launcher_icons: "^0.13.1"
